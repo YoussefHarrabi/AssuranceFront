@@ -1,0 +1,10 @@
+app-backoffice-navbar {
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    top: 0;
+}
+
+.page-wrapper {
+    margin-top: 75px;
+}
