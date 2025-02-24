@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <!-- ============================================================== -->
+  <!-- Bread crumb and right sidebar toggle -->
+  <!-- ============================================================== -->
+
+  <div class="container">
+    <h1>Ajouter une offre d'emploi</h1>
+    <form (ngSubmit)="onSubmit()" #jobOfferForm="ngForm">
+      <div class="form-group">
+        <label for="titre">Titre</label>
+        <input type="text" id="titre" class="form-control" [(ngModel)]="jobOffer.titre" name="titre" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" class="form-control" [(ngModel)]="jobOffer.description" name="description" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="datePublication">Date de publication</label>
+        <input type="date" id="datePublication" class="form-control" [(ngModel)]="jobOffer.datePublication" name="datePublication" required>
+      </div>
+      <div class="form-group">
+        <label for="dateExpiration">Date d'expiration</label>
+        <input type="date" id="dateExpiration" class="form-control" [(ngModel)]="jobOffer.dateExpiration" name="dateExpiration" required>
+      </div>
+      <div class="form-group">
+        <label for="lieu">Lieu</label>
+        <input type="text" id="lieu" class="form-control" [(ngModel)]="jobOffer.lieu" name="lieu" required>
+      </div>
+      <div class="form-group">
+        <label for="typeContrat">Type de contrat</label>
+        <input type="text" id="typeContrat" class="form-control" [(ngModel)]="jobOffer.typeContrat" name="typeContrat" required>
+      </div>
+      <div class="form-group">
+        <label for="salaire">Salaire</label>
+        <input type="text" id="salaire" class="form-control" [(ngModel)]="jobOffer.salaire" name="salaire" required>
+      </div>
+      <div class="form-group">
+        <label for="competencesRequises">Compétences requises</label>
+        <input type="text" id="competencesRequises" class="form-control" [(ngModel)]="jobOffer.competencesRequises" name="competencesRequises">
+      </div>
+      <div class="form-group">
+        <label for="experienceMinimale">Expérience minimale</label>
+        <input type="number" id="experienceMinimale" class="form-control" [(ngModel)]="jobOffer.experienceMinimale" name="experienceMinimale" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
+  </div>
+
+</div>

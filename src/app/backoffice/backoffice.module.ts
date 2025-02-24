@@ -8,6 +8,9 @@ import { BackofficeNavbarComponent } from './backoffice-navbar/backoffice-navbar
 import { BackofficeSidebarComponent } from './backoffice-sidebar/backoffice-sidebar.component';
 import { BackofficeFooterComponent } from './backoffice-footer/backoffice-footer.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AddJobOfferComponent } from './add-job-offer/add-job-offer.component';
+import { FormsModule } from '@angular/forms'; // Importer FormsModule
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -17,11 +20,14 @@ import { ProfileComponent } from './profile/profile.component';
     BackofficeNavbarComponent,
     BackofficeSidebarComponent,
     BackofficeFooterComponent,
-    ProfileComponent
+    ProfileComponent,
+    AddJobOfferComponent
   ],
   imports: [
     CommonModule,
-    BackofficeRoutingModule
+    FormsModule, 
+    BackofficeRoutingModule,
+    HttpClientModule
   ]
 })
 export class BackofficeModule { }
