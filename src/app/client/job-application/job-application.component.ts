@@ -52,26 +52,26 @@ export class JobApplicationComponent implements OnInit {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('userId', '1'); // Remplacez par l'ID utilisateur réel
-    formData.append('jobOfferId', this.jobOffer.id.toString());
-    formData.append('cv', this.jobApplicationForm.get('cv')?.value);
-    formData.append('lettreMotivation', this.jobApplicationForm.get('lettreMotivation')?.value);
+   // const formData = new FormData();
+   // formData.append('userId', '1'); // Remplacez par l'ID utilisateur réel
+   // formData.append('jobOfferId', this.jobOffer.id.toString());
+    //formData.append('cv', this.jobApplicationForm.get('cv')?.value);
+    //formData.append('lettreMotivation', this.jobApplicationForm.get('lettreMotivation')?.value);
 
-    this.jobApplicationService.addJobApplication(formData).subscribe(
-      () => {
-        alert('Candidature envoyée avec succès');
-        this.dialogRef.close();
-      },
-      (error) => {
-        alert('Erreur lors de l\'envoi de la candidature');
-      }
-    );
-  }
+    //this.jobApplicationService.addJobApplication(formData).subscribe(
+      //() => {
+      //  alert('Candidature envoyée avec succès');
+      //  this.dialogRef.close();
+     // },
+      //(error) => {
+       // alert('Erreur lor
+  //}
 
-  onCancel(): void {
-    this.dialogRef.close();
-  }
+  
 
  
+//}s de l\'envoi de la candidature');
+      //}
+    //)
+  }
 }

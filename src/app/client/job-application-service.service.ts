@@ -11,8 +11,8 @@ export class JobApplicationServiceService {
 
   constructor(private http: HttpClient) {}
 
-  addJobApplication(formData: FormData): Observable<JobApplication> {
-    return this.http.post<JobApplication>(`${this.apiUrl}`, formData);
+  addJobApplication(jobApplication:JobApplication): Observable<JobApplication> {
+    return this.http.post<JobApplication>(`${this.apiUrl}`, jobApplication);
   }
 
   getJobApplications(): Observable<JobApplication[]> {

@@ -6,7 +6,7 @@ export class JobApplication {
   //user: User; // Relation avec l'entité utilisateur
   jobOffer!: JobOffer; // NULL = candidature spontanée
   statut!: string;
-  dateCandidature!: string;
+  dateCandidature!: Date;
   cvPath!: string;
   lettreMotivationPath!: string;
   email!: string;

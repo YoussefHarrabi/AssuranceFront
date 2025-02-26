@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { JobApplicationServiceService } from '../job-application-service.service';
+import { JobApplication } from 'src/app/backoffice/ModelsCarrieres/job-application.model';
 
 
 @Component({
@@ -10,55 +11,43 @@ import { JobApplicationServiceService } from '../job-application-service.service
   styleUrls: ['./upload-cv.component.css']
 })
 export class UploadCvComponent {
-  uploadCvForm: FormGroup;
-  cvFile: string | ArrayBuffer | null = null;
+  jobOffer: any = null; // Remplissez avec l'offre d'emploi réelle
+  cv: string = ''; // Le chemin du CV
+  lettreMotivationPath: string | null = null; // Le chemin de la lettre de motivation
+  email: string = ''; // L'email de l'utilisateur
 
   constructor(
-    private fb: FormBuilder,
-    public dialogRef: MatDialogRef<UploadCvComponent>,
-    private jobApplicationService: JobApplicationServiceService
-  ) {
-    this.uploadCvForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      cv: [null, Validators.required]
-    });
-  }
+    private jobApplicationService: JobApplicationServiceService,
+    public dialogRef: MatDialogRef<UploadCvComponent>
+  ) {}
 
-  onFileChange(event: any): void {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.cvFile = reader.result;
-        this.uploadCvForm.patchValue({
-          cv: this.cvFile
-        });
-      };
-      reader.readAsDataURL(file);
-    }
-  }
+  onSubmit() {
+    // Crée un objet de candidature
+    const jobApplication: JobApplication = {
+      id:0,
+      jobOffer: this.jobOffer || null,
+      statut: 'NOUVELLE',
+      dateCandidature: new Date(), // Date actuelle
+      cvPath: this.cv, // Le chemin du fichier CV
+      lettreMotivationPath: '',
+      email: this.email, // L'email de la personne qui postule
+    };
 
-  onSubmit(): void {
-    if (this.uploadCvForm.invalid) {
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('email', this.uploadCvForm.get('email')?.value);
-    formData.append('cv', this.cvFile as string);
-
-    this.jobApplicationService.addJobApplication(formData).subscribe(
-      () => {
-        alert('Candidature envoyée avec succès');
-        this.dialogRef.close();
+    // Envoie la candidature via le service
+    this.jobApplicationService.addJobApplication(jobApplication).subscribe(
+      (response) => {
+        console.log('Candidature envoyée avec succès', response);
+        alert('Votre candidature a été envoyée avec succès !');
       },
       (error) => {
-        alert('Erreur lors de l\'envoi de la candidature');
+        console.error('Erreur lors de l\'envoi de la candidature', error);
+        alert('Une erreur est survenue lors de l\'envoi de votre candidature.');
       }
     );
   }
 
-  onCancel(): void {
+  onNoClick(): void {
     this.dialogRef.close();
   }
-}
+  
+  }
