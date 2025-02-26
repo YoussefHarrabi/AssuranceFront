@@ -1,0 +1,23 @@
+<h1>Déposez votre CV</h1>
+<form [formGroup]="uploadCvForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" id="email" formControlName="email" class="form-control" />
+    <div *ngIf="uploadCvForm.get('email')?.invalid && uploadCvForm.get('email')?.touched" class="text-danger">
+      Veuillez entrer une adresse email valide.
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="cv">Télécharger CV</label>
+    <input type="file" id="cv" (change)="onFileChange($event)" class="form-control" />
+    <div *ngIf="uploadCvForm.get('cv')?.invalid && uploadCvForm.get('cv')?.touched" class="text-danger">
+      Veuillez télécharger votre CV.
+    </div>
+  </div>
+  
+  <div class="d-flex justify-content-end">
+    <button type="button" class="btn btn-secondary mr-2" (click)="onCancel()">Annuler</button>
+    <button type="submit" class="btn btn-primary" [disabled]="uploadCvForm.invalid">Envoyer</button>
+  </div>
+</form>

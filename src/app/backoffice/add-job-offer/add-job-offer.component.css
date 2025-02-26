@@ -1,0 +1,9 @@
+.button-spacing {
+    margin-right: 10px; /* Ajustez cette valeur selon vos besoins */
+  }
+  input.ng-invalid.ng-touched, 
+textarea.ng-invalid.ng-touched, 
+select.ng-invalid.ng-touched {
+  border: 2px solid red;
+  background-color: #ffe6e6;
+}

@@ -1,0 +1,59 @@
+<div class="container">
+    <h2>Modifier l'offre d'emploi</h2>
+    <form (ngSubmit)="updateJobOffer()">
+      <div class="mb-3">
+        <label class="form-label">Titre</label>
+        <input type="text" class="form-control" [(ngModel)]="jobOffer.titre" name="titre" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" [(ngModel)]="jobOffer.description" name="description" required></textarea>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Date de publication</label>
+        <input type="date" class="form-control" [(ngModel)]="jobOffer.datePublication" name="datePublication" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Date d'expiration</label>
+        <input type="date" class="form-control" [(ngModel)]="jobOffer.dateExpiration" name="dateExpiration" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Lieu</label>
+        <input type="text" class="form-control" [(ngModel)]="jobOffer.lieu" name="lieu" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Type de contrat</label>
+        <input type="text" class="form-control" [(ngModel)]="jobOffer.typeContrat" name="typeContrat" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Salaire</label>
+        <input type="number" class="form-control" [(ngModel)]="jobOffer.salaire" name="salaire" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Compétences requises</label>
+        <input type="text" class="form-control" [(ngModel)]="jobOffer.competencesRequises" name="competencesRequises" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Expérience minimale (années)</label>
+        <input type="number" class="form-control" [(ngModel)]="jobOffer.experienceMinimale" name="experienceMinimale" required>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Statut</label>
+        <select class="form-control" [(ngModel)]="jobOffer.statut" name="statut" required>
+          <option value="ACTIVE">Ouvert</option>
+          <option value="EXPIRE">Fermé</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-success" (click)="updateJobOffer()" [routerLink]="['/backoffice/job-offer-list']" >Mettre à jour</button>
+    </form>
+  </div>
+  

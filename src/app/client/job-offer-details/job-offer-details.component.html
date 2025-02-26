@@ -1,0 +1,26 @@
+<div class="container job-offer-detail">
+  <br>
+  <h1 class="job-title"><strong>{{ jobOffer.titre }}</strong></h1>
+  <div class="job-meta">
+    <p><strong>Publié le:</strong> {{ jobOffer.datePublication }}</p>
+    <p><strong>Expiré le:</strong> {{ jobOffer.dateExpiration }}</p>
+    <p><strong>Lieu:</strong> {{ jobOffer.lieu }}</p>
+  </div>
+  <div class="job-description">
+    <h3><strong>Compétences requises</strong></h3>
+    <p>{{ jobOffer.competencesRequises }}</p>
+    <h3><strong> Activités principales</strong></h3>
+    <p>{{ jobOffer.description }}</p>
+  </div>
+  <div class="job-details">
+    <p><strong>Type de contrat:</strong> {{ jobOffer.typeContrat }}</p>
+    <p><strong>Expérience:</strong> {{ jobOffer.experienceMinimale }} ans d'expérience</p>
+    <p><strong>Postes vacants:</strong> {{ jobOffer.nbrVacant }}</p>
+    <p><strong>Salaire estimé:</strong> {{ jobOffer.salaire }}TND</p>
+  </div>
+  <div class="job-application">
+    <p>Intéressé(e) et répondant aux conditions citées ci-dessus, veuillez nous faire parvenir votre CV et une lettre de motivation à l'adresse suivante : recrutement@maghrebia.com.tn</p>
+    <p>Notre site : <a href="http://www.maghrebia.com.tn" target="_blank">www.maghrebia.com.tn</a> / Rejoignez-nous / offre d'emploi</p>
+  </div>
+</div>
+<br>

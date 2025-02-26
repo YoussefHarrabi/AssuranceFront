@@ -10,4 +10,5 @@ export class JobOffer {
     competencesRequises!: string;
     experienceMinimale!: number;
     statut!: string;
+    nbrVacant!: number;
   }

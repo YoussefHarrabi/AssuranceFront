@@ -1,0 +1,44 @@
+.container.job-offer-detail {
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  .job-title {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+    color: #000000;
+  }
+  
+  .job-meta p {
+    margin: 0.2em 0;
+  }
+  
+  .job-description h3 {
+    margin-top: 1em;
+    color: #000000;
+  }
+  
+  .job-details {
+    margin-top: 1em;
+  }
+  
+  .job-details p {
+    margin: 0.5em 0;
+  }
+  
+  .job-application {
+    margin-top: 2em;
+    background-color: #f8f9fa;
+    padding: 1em;
+    border-radius: 5px;
+  }
+  
+  .job-application a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .job-application a:hover {
+    text-decoration: underline;
+  }

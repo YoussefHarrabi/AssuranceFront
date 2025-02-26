@@ -7,4 +7,7 @@ export class JobApplication {
   jobOffer!: JobOffer; // NULL = candidature spontanée
   statut!: string;
   dateCandidature!: string;
+  cvPath!: string;
+  lettreMotivationPath!: string;
+  email!: string;
 }

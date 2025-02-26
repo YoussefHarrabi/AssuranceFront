@@ -11,6 +11,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { AddJobOfferComponent } from './add-job-offer/add-job-offer.component';
 import { FormsModule } from '@angular/forms'; // Importer FormsModule
 import { HttpClientModule } from '@angular/common/http';
+import { JobOfferListComponent } from './job-offer-list/job-offer-list.component';
+import { JobOfferUpdateComponent } from './job-offer-update/job-offer-update.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { HttpClientModule } from '@angular/common/http';
     BackofficeSidebarComponent,
     BackofficeFooterComponent,
     ProfileComponent,
-    AddJobOfferComponent
+    AddJobOfferComponent,
+    JobOfferListComponent,
+    JobOfferUpdateComponent
   ],
   imports: [
     CommonModule,

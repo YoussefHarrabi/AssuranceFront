@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { JobOfferService } from '../backoffice-Services/carrieres/job-offer.service';
 import { JobOffer } from '../ModelsCarrieres/job-offer.model';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-job-offer',
@@ -9,6 +9,7 @@ import { JobOffer } from '../ModelsCarrieres/job-offer.model';
   styleUrls: ['./add-job-offer.component.css']
 })
 export class AddJobOfferComponent {
+  @ViewChild('jobOfferForm') jobOfferForm: any;
   jobOffer: JobOffer = {
     id: 0,
     titre: '',
@@ -20,22 +21,30 @@ export class AddJobOfferComponent {
     salaire: '',
     competencesRequises: '',
     experienceMinimale: 0,
-    statut: 'ACTIVE'
+    statut: 'ACTIVE',
+    nbrVacant:0
   };
 
-  constructor(private jobOfferService: JobOfferService) { }
+  statutOptions = ['ACTIVE', 'EXPIRE']; // Correspond au backend
+
+  constructor(private jobOfferService: JobOfferService, private router: Router) { }
+
   onSubmit() {
-    const jobOfferToSend = { ...this.jobOffer } as any; // Override strict typing
-    delete jobOfferToSend.id; // Now this works
-  
+    if (this.jobOfferForm.invalid) {
+      console.error("Veuillez remplir tous les champs obligatoires !");
+      return;
+    }
+    const jobOfferToSend = { ...this.jobOffer } as any;
+    delete jobOfferToSend.id; // Supprime l'ID pour éviter les conflits
+
     console.log('Job Offer Sent:', jobOfferToSend);
-  
+
     this.jobOfferService.addJobOffer(jobOfferToSend).subscribe(
       response => {
         console.log('Offre d\'emploi créée:', response);
-        // Réinitialiser le formulaire
+        // Réinitialisation du formulaire
         this.jobOffer = {
-          id: 0, // Keep in Angular but don't send it
+          id: 0,
           titre: '',
           description: '',
           datePublication: '',
@@ -45,7 +54,8 @@ export class AddJobOfferComponent {
           salaire: '',
           competencesRequises: '',
           experienceMinimale: 0,
-          statut: 'ACTIVE'
+          statut: 'ACTIVE',
+          nbrVacant: 0
         };
       },
       error => {
@@ -53,5 +63,8 @@ export class AddJobOfferComponent {
       }
     );
   }
-  
-}  
+
+  viewJobOffers() {
+    this.router.navigate(['backoffice/job-offer-list']);
+  }
+}
