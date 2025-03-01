@@ -1,0 +1,27 @@
+.status-pending {
+    color: blue;
+    font-weight: bold;
+  }
+  
+  .status-in-progress {
+    color: orange;
+    font-weight: bold;
+  }
+  
+  .status-resolved {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .table td, .table th {
+    vertical-align: middle;
+  }
+  
+  .btn {
+    display: flex;
+    align-items: center;
+  }
+  
+  .btn i {
+    margin-right: 5px;
+  }

@@ -1,0 +1,120 @@
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-3px); }
+}
+
+.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+/* 🌟 Styles Généraux */
+.card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  padding: 15px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.text-primary {
+  color: #003366 !important;
+}
+
+/* 🔹 Style pour la View Card (Réclamations) */
+.complaint-card {
+  border: none; /* Supprime la bordure bleue */
+  border-radius: 15px; /* Coins arrondis */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Ombre subtile */
+  background: #ffffff; /* Fond blanc */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.complaint-card:hover {
+  transform: scale(1.03); /* Agrandissement au survol */
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.3); /* Ombre plus prononcée */
+}
+
+/* 🔹 Bouton "Ajouter une Réponse" */
+.btn-add-response {
+  border: 2px solid #003366; /* Bleu foncé */
+  color: #003366;
+  background: transparent;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-add-response:hover {
+  background: #003366;
+  color: white;
+  transform: scale(1.05);
+}
+
+
+
+
+/* 🔹 Bouton "Voir Réponse" */
+.btn-response {
+  border: 2px solid #28a745;
+  color: #28a745;
+  background: transparent;
+}
+
+.btn-response:hover {
+  background: #28a745;
+  color: white;
+}
+
+.btn-no-response {
+  border: 2px solid #dc3545;
+  color: #dc3545;
+  background: transparent;
+}
+
+.btn-no-response:hover {
+  background: #dc3545;
+  color: white;
+}
+
+/* 🔹 Personnalisation de la boîte modale */
+.modal-content {
+  border-radius: 12px;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+/* Appliquer le même bleu que "Ajouter une Réclamation" */
+.modal-header-custom {
+  background-color: #003366 !important; /* Même bleu que "Ajouter une Réclamation" */
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* Appliquer le bleu #003366 pour le type */
+.custom-badge {
+  background-color: #003366 !important; 
+  color: white !important;
+}
+
+
+ /* Bouton Supprimer avec un cadre discret mais visible */
+.btn-delete {
+  border: 2px solid #6c757d; /* Gris foncé, comme Modifier */
+  color: #6c757d;
+  background: transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-delete:hover {
+  background: #6c757d;
+  color: white;
+}

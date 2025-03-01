@@ -1,0 +1,46 @@
+<form (ngSubmit)="onSubmit(reclamationForm)" #reclamationForm="ngForm" class="needs-validation" novalidate>
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" class="form-control" id="title" required minlength="5" [(ngModel)]="complaint.title" name="title" #title="ngModel" [ngClass]="{'is-invalid': title.invalid && (title.dirty || title.touched)}">
+      <div *ngIf="title.invalid && (title.dirty || title.touched)" class="invalid-feedback">
+        <div *ngIf="title.errors?.['required']">Title is required.</div>
+        <div *ngIf="title.errors?.['minlength']">Title must be at least 5 characters long.</div>
+        <div *ngIf="title.errors?.['invalidTitle']">Title must contain only letters and spaces.</div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea class="form-control" id="description" required minlength="10" [(ngModel)]="complaint.description" name="description" #description="ngModel" [ngClass]="{'is-invalid': description.invalid && (description.dirty || description.touched)}"></textarea>
+      <div *ngIf="description.invalid && (description.dirty || description.touched)" class="invalid-feedback">
+        <div *ngIf="description.errors?.['required']">Description is required.</div>
+        <div *ngIf="description.errors?.['minlength']">Description must be at least 10 characters long.</div>
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="type">Type:</label>
+      <select class="form-control" id="type" required [(ngModel)]="complaint.type" name="type" #type="ngModel" [ngClass]="{'is-invalid': type.invalid && (type.dirty || type.touched)}">
+        <option *ngFor="let type of complaintTypes | keyvalue" [value]="type.key">{{ type.value }}</option>
+      </select>
+      <div *ngIf="type.invalid && (type.dirty || type.touched)" class="invalid-feedback">
+        <div *ngIf="type.errors?.['required']">Type is required.</div>
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="status">Status:</label>
+      <select class="form-control" id="status" required [(ngModel)]="complaint.status" name="status" #status="ngModel" [ngClass]="{'is-invalid': status.invalid && (status.dirty || status.touched)}">
+        <option *ngFor="let status of complaintStatuses | keyvalue" [value]="status.key">{{ status.value }}</option>
+      </select>
+      <div *ngIf="status.invalid && (status.dirty || status.touched)" class="invalid-feedback">
+        <div *ngIf="status.errors?.['required']">Status is required.</div>
+      </div>
+    </div>
+ 
+    
+    <button type="submit" class="btn btn-primary" [disabled]="reclamationForm.invalid">Submit</button>
+    <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    <button type="button" class="btn btn-secondary" routerLink="/backoffice/complaintList">Afficher</button>
+
+  </form>

@@ -1,0 +1,62 @@
+<div class="form-container">
+  <div class="card p-4 shadow-sm">
+    <h3 class="text-center text-primary mb-4">
+      <i class="fas fa-edit"></i> Ajouter une Réclamation
+    </h3>
+
+    <form (ngSubmit)="onSubmit(reclamationForm)" #reclamationForm="ngForm" class="needs-validation" novalidate>
+
+      <!-- Title -->
+      <div class="form-group">
+        <label for="title"><i class="fas fa-heading"></i> Titre :</label>
+        <input type="text" class="form-control" id="title" required minlength="5" 
+               [(ngModel)]="complaint.title" name="title" #title="ngModel"
+               pattern=".*[A-Za-z].*" 
+               [ngClass]="{'is-invalid': title.invalid && (title.dirty || title.touched)}">
+        <div *ngIf="title.invalid && (title.dirty || title.touched)" class="invalid-feedback">
+          <div *ngIf="title.errors?.['required']">Le titre est requis.</div>
+          <div *ngIf="title.errors?.['minlength']">Le titre doit comporter au moins 5 caractères.</div>
+          <div *ngIf="title.errors?.['pattern']">Le titre doit contenir au moins une lettre.</div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group mt-3">
+        <label for="description"><i class="fas fa-align-left"></i> Description :</label>
+        <textarea class="form-control" id="description" required minlength="10" 
+                  [(ngModel)]="complaint.description" name="description" #description="ngModel"
+                  pattern=".*[A-Za-z].*"
+                  [ngClass]="{'is-invalid': description.invalid && (description.dirty || description.touched)}">
+        </textarea>
+        <div *ngIf="description.invalid && (description.dirty || description.touched)" class="invalid-feedback">
+          <div *ngIf="description.errors?.['required']">La description est requise.</div>
+          <div *ngIf="description.errors?.['minlength']">La description doit comporter au moins 10 caractères.</div>
+          <div *ngIf="description.errors?.['pattern']">La description doit contenir au moins une lettre.</div>
+        </div>
+      </div>
+
+      <!-- Type -->
+      <div class="form-group mt-3">
+        <label for="type"><i class="fas fa-list"></i> Type :</label>
+        <select class="form-control" id="type" required [(ngModel)]="complaint.type" name="type" #type="ngModel"
+                [ngClass]="{'is-invalid': type.invalid && (type.dirty || type.touched)}">
+          <option *ngFor="let type of complaintTypes | keyvalue" [value]="type.key">{{ type.value }}</option>
+        </select>
+        <div *ngIf="type.invalid && (type.dirty || type.touched)" class="invalid-feedback">
+          <div *ngIf="type.errors?.['required']">Le type est requis.</div>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-blue me-2" [disabled]="reclamationForm.invalid">
+          <i class="fas fa-paper-plane"></i> Envoyer
+        </button>
+        <button type="button" class="btn btn-secondary" routerLink="/client/complaintList">
+          <i class="fas fa-list"></i> Afficher
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

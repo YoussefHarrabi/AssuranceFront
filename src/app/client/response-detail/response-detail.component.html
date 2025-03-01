@@ -1,0 +1,17 @@
+<div class="container mt-4">
+  <h2 class="text-center text-primary">Détails de la Réponse</h2>
+  <div *ngIf="response; else noResponse">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <p class="card-text"><strong>Réponse:</strong> {{ response.content }}</p>
+        <p class="card-text"><strong>Conseiller:</strong> {{ response.advisor.firstName }} {{ response.advisor.lastName }}</p>
+        <p class="card-text"><strong>Date de Réponse:</strong> {{ response.date | date: 'short' }}</p>
+      </div>
+    </div>
+  </div>
+  <ng-template #noResponse>
+    <div class="alert alert-warning text-center">
+      {{ noResponseMessage }}
+    </div>
+  </ng-template>
+</div>

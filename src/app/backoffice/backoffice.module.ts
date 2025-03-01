@@ -8,6 +8,14 @@ import { BackofficeNavbarComponent } from './backoffice-navbar/backoffice-navbar
 import { BackofficeSidebarComponent } from './backoffice-sidebar/backoffice-sidebar.component';
 import { BackofficeFooterComponent } from './backoffice-footer/backoffice-footer.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ReclamationComponent } from './reclamation/reclamation.component';
+import { ReclamationListComponent } from './reclamation-list/reclamation-list.component';
+import { AddReclamationComponent } from './add-reclamation/add-reclamation.component';
+
+import { EditReclamationComponent } from './edit-reclamation/edit-reclamation.component';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { ComplaintResponseComponent } from './complaint-response/complaint-response.component';
 
 
 @NgModule({
@@ -17,11 +25,19 @@ import { ProfileComponent } from './profile/profile.component';
     BackofficeNavbarComponent,
     BackofficeSidebarComponent,
     BackofficeFooterComponent,
-    ProfileComponent
+    ProfileComponent,
+    ReclamationComponent,
+    ReclamationListComponent,
+    AddReclamationComponent,
+    EditReclamationComponent,
+    ComplaintResponseComponent,
   ],
   imports: [
     CommonModule,
-    BackofficeRoutingModule
+    BackofficeRoutingModule,
+    RouterModule,
+    FormsModule
+
   ]
 })
 export class BackofficeModule { }

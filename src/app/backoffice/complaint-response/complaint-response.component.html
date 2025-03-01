@@ -1,0 +1,24 @@
+<div class="container mt-4">
+    <h2 class="text-center text-primary">Répondre à la Réclamation</h2>
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">{{ complaint.title }}</h5>
+        <p class="card-text">{{ complaint.description }}</p>
+        <p class="card-text"><strong>Date de Création:</strong> {{ complaint.creationDate | date:'short' }}</p>
+        <p class="card-text"><strong>Type:</strong> {{ complaint.type }}</p>
+        <p class="card-text"><strong>Status:</strong> {{ complaint.status }}</p>
+        <div class="form-group">
+          <label for="responseContent">Réponse:</label>
+          <textarea class="form-control" id="responseContent" [(ngModel)]="response.content" rows="5"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="advisor">Advisor:</label>
+          <select class="form-control" id="advisor" [(ngModel)]="response.advisor">
+            <option *ngFor="let user of users" [ngValue]="user">{{ user.firstName }}</option>
+          </select>
+        </div>
+        <button class="btn btn-primary mt-3" (click)="submitResponse()">Soumettre la Réponse</button>
+        <a routerLink="/backoffice/complaintList" class="btn btn-secondary mt-3 ms-2">Retour à la liste</a>
+              </div>
+    </div>
+  </div>

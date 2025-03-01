@@ -1,0 +1,59 @@
+<div class="container mt-4">
+  <div class="card shadow-lg p-4">
+    <h3 class="text-center mb-4 text-primary">Modifier la Réclamation</h3>
+    <form (ngSubmit)="onSubmit(reclamationForm)" #reclamationForm="ngForm" class="needs-validation" novalidate>
+      
+      <!-- Title -->
+      <div class="mb-3">
+        <label for="title" class="form-label fw-bold">Titre :</label>
+        <input type="text" class="form-control" id="title" required minlength="5" 
+               [(ngModel)]="complaint.title" name="title" #title="ngModel"
+               pattern=".*[A-Za-z].*" 
+               [ngClass]="{'is-invalid': title.invalid && (title.dirty || title.touched)}">
+        <div *ngIf="title.invalid && (title.dirty || title.touched)" class="invalid-feedback">
+          <div *ngIf="title.errors?.['required']">Le titre est requis.</div>
+          <div *ngIf="title.errors?.['minlength']">Le titre doit contenir au moins 5 caractères.</div>
+          <div *ngIf="title.errors?.['pattern']">Le titre doit contenir au moins une lettre.</div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="mb-3">
+        <label for="description" class="form-label fw-bold">Description :</label>
+        <textarea class="form-control" id="description" required minlength="10" 
+                  [(ngModel)]="complaint.description" name="description" #description="ngModel"
+                  pattern=".*[A-Za-z].*"
+                  rows="4"
+                  [ngClass]="{'is-invalid': description.invalid && (description.dirty || description.touched)}">
+        </textarea>
+        <div *ngIf="description.invalid && (description.dirty || description.touched)" class="invalid-feedback">
+          <div *ngIf="description.errors?.['required']">La description est requise.</div>
+          <div *ngIf="description.errors?.['minlength']">La description doit contenir au moins 10 caractères.</div>
+          <div *ngIf="description.errors?.['pattern']">La description doit contenir au moins une lettre.</div>
+        </div>
+      </div>
+
+      <!-- Type -->
+      <div class="mb-3">
+        <label for="type" class="form-label fw-bold">Type :</label>
+        <select class="form-select" id="type" required [(ngModel)]="complaint.type" name="type" #type="ngModel"
+                [ngClass]="{'is-invalid': type.invalid && (type.dirty || type.touched)}">
+          <option *ngFor="let type of complaintTypes | keyvalue" [value]="type.key">{{ type.value }}</option>
+        </select>
+        <div *ngIf="type.invalid && (type.dirty || type.touched)" class="invalid-feedback">
+          <div *ngIf="type.errors?.['required']">Le type est requis.</div>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="d-flex justify-content-center gap-3 mt-4">
+        <button type="submit" class="btn btn-primary px-4" [disabled]="reclamationForm.invalid">
+          💾 Mettre à jour
+        </button>
+        <button type="button" class="btn btn-secondary px-4" routerLink="/client/complaintList">
+          ❌ Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
