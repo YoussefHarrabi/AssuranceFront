@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import * as bootstrap from 'bootstrap';
 import { Complaint } from '../models/complaint.model';
 import { ComplaintStatus } from '../models/complaint-status.enum';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-add-reclamation',
@@ -24,8 +25,22 @@ export class AddReclamationComponent implements Validator {
   complaintTypes = ComplaintType;
   selectedComplaint: Complaint | null = null;
 
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    toolbarHiddenButtons: [
+      ['bold'],
+      ['italic']
+    ]
+  };
 
-  constructor(private complaintService: ComplaintService,  private router: Router) {}
+  constructor(private complaintService: ComplaintService, private router: Router) {}
 
   onSubmit(form: NgForm) {
     if (form.valid) {
@@ -71,5 +86,4 @@ export class AddReclamationComponent implements Validator {
   editComplaint(id: number): void {
     this.router.navigate(['/client/editComplaint', id]);
   }
- 
 }

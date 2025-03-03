@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { ReclamationListComponent } from './reclamation-list/reclamation-list.component';
 import { EditReclamationComponent } from './edit-reclamation/edit-reclamation.component';
 import { ResponseDetailComponent } from './response-detail/response-detail.component';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 @NgModule({
@@ -30,8 +30,9 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     CommonModule,
     ClientRoutingModule,
     FormsModule,
-    CKEditorModule,
     HttpClientModule,
+    AngularEditorModule, // Intégration d'Angular Editor
+
 
     
   ]

@@ -23,15 +23,9 @@
       <!-- Description -->
       <div class="form-group mt-3">
         <label for="description"><i class="fas fa-align-left"></i> Description :</label>
-        <textarea class="form-control" id="description" required minlength="10" 
-                  [(ngModel)]="complaint.description" name="description" #description="ngModel"
-                  pattern=".*[A-Za-z].*"
-                  [ngClass]="{'is-invalid': description.invalid && (description.dirty || description.touched)}">
-        </textarea>
-        <div *ngIf="description.invalid && (description.dirty || description.touched)" class="invalid-feedback">
-          <div *ngIf="description.errors?.['required']">La description est requise.</div>
-          <div *ngIf="description.errors?.['minlength']">La description doit comporter au moins 10 caractères.</div>
-          <div *ngIf="description.errors?.['pattern']">La description doit contenir au moins une lettre.</div>
+        <angular-editor [(ngModel)]="complaint.description" [config]="editorConfig" name="description" required></angular-editor>
+        <div *ngIf="reclamationForm.controls['description']?.invalid && (reclamationForm.controls['description']?.dirty || reclamationForm.controls['description']?.touched)" class="invalid-feedback">
+          <div *ngIf="reclamationForm.controls['description']?.errors?.['required']">La description est requise.</div>
         </div>
       </div>
 

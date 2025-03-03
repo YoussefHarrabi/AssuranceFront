@@ -4,7 +4,6 @@ import * as bootstrap from 'bootstrap';
 import { Router } from '@angular/router';
 import { Complaint } from '../models/complaint.model';
 import { ComplaintStatus } from '../models/complaint-status.enum';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-reclamation-list',
@@ -12,7 +11,6 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   styleUrls: ['./reclamation-list.component.css']
 })
 export class ReclamationListComponent implements OnInit {
-  public Editor = ClassicEditor;
   complaints: Complaint[] = [];
   selectedComplaint: Complaint | null = null;
   modalInstance: any; // Pour gérer la boîte de dialogue

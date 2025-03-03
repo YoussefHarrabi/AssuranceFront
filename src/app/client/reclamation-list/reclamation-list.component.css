@@ -1,4 +1,4 @@
-
+/* Vos autres styles CSS existants */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-5px); }
@@ -56,9 +56,6 @@
   transform: scale(1.05);
 }
 
-
-
-
 /* 🔹 Bouton "Voir Réponse" */
 .btn-response {
   border: 2px solid #28a745;
@@ -105,8 +102,7 @@
   color: white !important;
 }
 
-
- /* Bouton Supprimer avec un cadre discret mais visible */
+/* Bouton Supprimer avec un cadre discret mais visible */
 .btn-delete {
   border: 2px solid #6c757d; /* Gris foncé, comme Modifier */
   color: #6c757d;
@@ -117,4 +113,64 @@
 .btn-delete:hover {
   background: #6c757d;
   color: white;
+}
+
+/* Centrer le formulaire et limiter la largeur */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.card {
+  width: 100%;
+  max-width: 500px; /* Largeur réduite */
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+/* Espacement et style des labels */
+.form-group label {
+  font-weight: bold;
+  color: #003366;
+}
+
+/* Style des champs de formulaire */
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #003366;
+  box-shadow: 0 0 5px rgba(0, 51, 102, 0.5);
+}
+
+/* Boutons stylisés */
+.btn-blue {
+  background-color: #003366;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-blue:hover {
+  background-color: #002855;
+}
+
+/* Messages d'erreur */
+.invalid-feedback {
+  font-size: 0.9rem;
+  color: #D32F2F;
+}
+
+/* Icônes */
+i {
+  margin-right: 5px;
 }
