@@ -1,0 +1,183 @@
+<div class="container">
+    <div class="row my-4">
+      <div class="col-12 col-lg-10 offset-lg-1">
+        <div class="card">
+          <div class="card-header fables-second-background-color white-color">
+            <h4 class="mb-0">Two-Factor Authentication</h4>
+          </div>
+          <div class="card-body">
+            
+            <!-- Loading State -->
+            <div *ngIf="mfaStatus.loading" class="text-center py-5">
+              <div class="spinner-border fables-second-text-color" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <p class="mt-3 font-16">Checking MFA status...</p>
+            </div>
+            
+            <!-- Error State -->
+            <div *ngIf="errorMessage" class="alert alert-danger">
+              {{ errorMessage }}
+            </div>
+            
+            <!-- Success Message -->
+            <div *ngIf="successMessage" class="alert alert-success">
+              {{ successMessage }}
+            </div>
+  
+            <!-- MFA Status: Not Enabled - Start -->
+            <div *ngIf="!mfaStatus.loading && setupStep === 'start'">
+              <div class="row">
+                <div class="col-12 col-md-7">
+                  <h5 class="fables-second-text-color">Enhance Your Account Security</h5>
+                  <p>Two-factor authentication adds an extra layer of security to your account by requiring not only a password but also a verification code from your mobile device.</p>
+                  <p>When you enable two-factor authentication, you'll be asked to enter a verification code during login after entering your password.</p>
+                  <button (click)="startSetup()" 
+                          [disabled]="isSubmitting"
+                          class="btn fables-second-background-color white-color mt-3">
+                    <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm mr-2"></span>
+                    Set Up Two-Factor Authentication
+                  </button>
+                </div>
+                <div class="col-12 col-md-5 text-center mt-4 mt-md-0">
+                  <img src="assets/client/images/security.svg" alt="Security" class="img-fluid" style="max-height: 200px;">
+                </div>
+              </div>
+            </div>
+            
+            <!-- MFA Setup Step -->
+            <div *ngIf="!mfaStatus.loading && setupStep === 'setup'">
+              <h5 class="fables-second-text-color mb-4">Set Up Two-Factor Authentication</h5>
+              
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <ol class="mb-4">
+                    <li class="mb-3">Download Google Authenticator app:
+                      <div class="mt-2">
+                        <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank" class="btn btn-sm btn-outline-secondary mr-2">
+                          Android
+                        </a>
+                        <a href="https://apps.apple.com/app/google-authenticator/id388497605" target="_blank" class="btn btn-sm btn-outline-secondary">
+                          iOS
+                        </a>
+                      </div>
+                    </li>
+                    <li class="mb-3">Scan the QR code with the app</li>
+                    <li>Enter the 6-digit code from the app to verify</li>
+                  </ol>
+  
+                  <form [formGroup]="mfaForm" (ngSubmit)="enableMfa()">
+                    <div class="form-group">
+                      <label for="code">6-digit verification code</label>
+                      <input type="text" 
+                             id="code"
+                             formControlName="code" 
+                             class="form-control" 
+                             [ngClass]="{'is-invalid': mfaForm.get('code')?.touched && mfaForm.get('code')?.errors}"
+                             placeholder="Enter code" 
+                             maxlength="6"
+                             autocomplete="off">
+                      <div *ngIf="mfaForm.get('code')?.touched && mfaForm.get('code')?.errors" class="invalid-feedback">
+                        <div *ngIf="mfaForm.get('code')?.errors?.['required']">Verification code is required</div>
+                        <div *ngIf="mfaForm.get('code')?.errors?.['pattern']">Must be 6 digits</div>
+                      </div>
+                    </div>
+                    <button type="submit" 
+                            [disabled]="mfaForm.invalid || isSubmitting"
+                            class="btn fables-second-background-color white-color">
+                      <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm mr-2"></span>
+                      Verify and Enable
+                    </button>
+                    <button type="button" 
+                            (click)="setupStep = 'start'"
+                            class="btn btn-outline-secondary ml-2">
+                      Cancel
+                    </button>
+                  </form>
+                </div>
+  
+                <div class="col-12 col-md-6 text-center mt-4 mt-md-0">
+                  <div class="mb-3">
+                    <img [src]="qrCodeImage" alt="QR Code" class="img-thumbnail" style="max-width: 200px;">
+                  </div>
+                  <p class="mb-1"><strong>Can't scan the QR code?</strong></p>
+                  <p class="mb-2">Manually enter this key in your app:</p>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" [value]="secret" readonly>
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button" 
+                              (click)="copyToClipboard(secret)"
+                              title="Copy to clipboard">
+                        Copy
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- MFA Enabled -->
+            <div *ngIf="!mfaStatus.loading && setupStep === 'enabled'">
+              <div class="row">
+                <div class="col-12 col-md-8">
+                  <h5 class="fables-second-text-color">Two-Factor Authentication is Enabled</h5>
+                  <div class="alert alert-success mb-4">
+                    <i class="fas fa-shield-alt mr-2"></i> Your account is protected with two-factor authentication
+                  </div>
+                  <p>You will now need to enter a verification code when you sign in to your account.</p>
+                  <p>Make sure you keep your authenticator app safe. If you lose access to your app, you may be locked out of your account.</p>
+                  <p class="mt-3">Current date and time: {{ getCurrentDateTime() }}</p>
+                  <button (click)="showDisableForm()" class="btn btn-outline-danger mt-3">
+                    Disable Two-Factor Authentication
+                  </button>
+                </div>
+                <div class="col-12 col-md-4 text-center mt-4 mt-md-0">
+                  <div class="security-icon">
+                    <i class="fas fa-shield-check fa-5x fables-second-text-color"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Disable MFA Form -->
+            <div *ngIf="!mfaStatus.loading && setupStep === 'disable'">
+              <h5 class="fables-second-text-color mb-4">Disable Two-Factor Authentication</h5>
+              <div class="alert alert-warning mb-4">
+                <i class="fas fa-exclamation-triangle mr-2"></i> Warning: This will reduce the security of your account
+              </div>
+              
+              <form [formGroup]="mfaForm" (ngSubmit)="disableMfa()">
+                <div class="form-group">
+                  <label for="disableCode">Enter the 6-digit code from your authenticator app to confirm</label>
+                  <input type="text" 
+                         id="disableCode"
+                         formControlName="code" 
+                         class="form-control" 
+                         [ngClass]="{'is-invalid': mfaForm.get('code')?.touched && mfaForm.get('code')?.errors}"
+                         placeholder="Enter code" 
+                         maxlength="6"
+                         autocomplete="off">
+                  <div *ngIf="mfaForm.get('code')?.touched && mfaForm.get('code')?.errors" class="invalid-feedback">
+                    <div *ngIf="mfaForm.get('code')?.errors?.['required']">Verification code is required</div>
+                    <div *ngIf="mfaForm.get('code')?.errors?.['pattern']">Must be 6 digits</div>
+                  </div>
+                </div>
+                <button type="submit" 
+                        [disabled]="mfaForm.invalid || isSubmitting"
+                        class="btn btn-danger">
+                  <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm mr-2"></span>
+                  Disable Two-Factor Authentication
+                </button>
+                <button type="button" 
+                        (click)="setupStep = 'enabled'"
+                        class="btn btn-outline-secondary ml-2">
+                  Cancel
+                </button>
+              </form>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

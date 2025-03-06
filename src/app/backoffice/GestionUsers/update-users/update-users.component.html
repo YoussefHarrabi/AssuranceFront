@@ -1,0 +1,164 @@
+<div class="container-fluid">
+    <!-- User info header -->
+    <div class="row mb-3">
+      <div class="col-12 text-right">
+        <p class="mb-0">Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): {{ currentTime }}</p>
+        <p class="mb-0">Current User's Login: {{ currentUserLogin }}</p>
+      </div>
+    </div>
+    
+    <div class="row page-titles">
+      <div class="col-md-5 col-8 align-self-center">
+        <h3 class="text-themecolor m-b-0 m-t-0">Edit User</h3>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+          <li class="breadcrumb-item"><a routerLink="/users">Users</a></li>
+          <li class="breadcrumb-item active">Edit User</li>
+        </ol>
+      </div>
+    </div>
+  
+    <div class="row">
+      <!-- Left sidebar with info -->
+      <div class="col-lg-4 col-xlg-3 col-md-5">
+        <div class="card">
+          <div class="card-block">
+            <h4 class="card-title">Edit User Information</h4>
+            <p class="card-text">Update the user's personal information and credentials using this form.</p>
+            <div *ngIf="loading" class="d-flex justify-content-center">
+              <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Main content - edit form -->
+      <div class="col-lg-8 col-xlg-9 col-md-7">
+        <div class="card">
+          <div class="card-block p-3">
+            <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+            
+            <form class="form-horizontal form-material" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+              <!-- First Name -->
+              <div class="form-group">
+                <label class="col-md-12">First Name</label>
+                <div class="col-md-12">
+                  <input type="text" formControlName="firstName"
+                    class="form-control form-control-line" 
+                    [ngClass]="{'is-invalid': submitted && f['firstName'].errors}">
+                  <div *ngIf="submitted && f['firstName'].errors" class="text-danger small">
+                    <div *ngIf="f['firstName'].errors['required']">First Name is required</div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Last Name -->
+              <div class="form-group">
+                <label class="col-md-12">Last Name</label>
+                <div class="col-md-12">
+                  <input type="text" formControlName="lastName"
+                    class="form-control form-control-line"
+                    [ngClass]="{'is-invalid': submitted && f['lastName'].errors}">
+                  <div *ngIf="submitted && f['lastName'].errors" class="text-danger small">
+                    <div *ngIf="f['lastName'].errors['required']">Last Name is required</div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Email -->
+              <div class="form-group">
+                <label for="example-email" class="col-md-12">Email</label>
+                <div class="col-md-12">
+                  <input type="email" formControlName="email"
+                    class="form-control form-control-line" id="example-email"
+                    [ngClass]="{'is-invalid': submitted && f['email'].errors}">
+                  <div *ngIf="submitted && f['email'].errors" class="text-danger small">
+                    <div *ngIf="f['email'].errors['required']">Email is required</div>
+                    <div *ngIf="f['email'].errors['email']">Email must be a valid email address</div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Birthday -->
+              <div class="form-group">
+                <label class="col-md-12">Date of Birth</label>
+                <div class="col-md-12">
+                  <input type="date" formControlName="birthday"
+                    class="form-control form-control-line"
+                    [ngClass]="{'is-invalid': submitted && f['birthday'].errors}">
+                  <div *ngIf="submitted && f['birthday'].errors" class="text-danger small">
+                    <div *ngIf="f['birthday'].errors['required']">Date of Birth is required</div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Identity Type -->
+              <div class="form-group">
+                <label class="col-sm-12">Identity Type</label>
+                <div class="col-sm-12">
+                  <select class="form-control form-control-line" formControlName="identityType">
+                    <option *ngFor="let type of identityTypes" [value]="type">
+                      {{ type }}
+                    </option>
+                  </select>
+                  <div *ngIf="submitted && f['identityType'].errors" class="text-danger small">
+                    <div *ngIf="f['identityType'].errors['required']">Identity Type is required</div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Identity Number -->
+              <div class="form-group">
+                <label class="col-md-12">Identity Number</label>
+                <div class="col-md-12">
+                  <input type="text" formControlName="numberOfIdentity"
+                    class="form-control form-control-line"
+                    [ngClass]="{'is-invalid': submitted && f['numberOfIdentity'].errors}">
+                  <div *ngIf="submitted && f['numberOfIdentity'].errors" class="text-danger small">
+                    <div *ngIf="f['numberOfIdentity'].errors['required']">Identity Number is required</div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Phone Number -->
+              <div class="form-group">
+                <label class="col-md-12">Phone Number</label>
+                <div class="col-md-12">
+                  <input type="text" formControlName="phoneNumber"
+                    class="form-control form-control-line"
+                    [ngClass]="{'is-invalid': submitted && f['phoneNumber'].errors}">
+                  <div *ngIf="submitted && f['phoneNumber'].errors" class="text-danger small">
+                    <div *ngIf="f['phoneNumber'].errors['required']">Phone Number is required</div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Address -->
+              <div class="form-group">
+                <label class="col-md-12">Address</label>
+                <div class="col-md-12">
+                  <textarea rows="3" formControlName="address"
+                    class="form-control form-control-line"></textarea>
+                </div>
+              </div>
+  
+              <!-- Submit Button -->
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <button type="submit" class="btn btn-success" [disabled]="loading">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Update User
+                  </button>
+                  <button type="button" class="btn btn-light ml-2" (click)="goBack()">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

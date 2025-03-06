@@ -1,0 +1,55 @@
+
+<!-- Bootstrap Core CSS -->
+<link href="/assets/backoffice/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- chartist CSS -->
+<link href="/assets/backoffice/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
+<link href="/assets/backoffice/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
+<link
+    href="/assets/backoffice/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css"
+    rel="stylesheet">
+<!--This page css - Morris CSS -->
+<link href="/assets/backoffice/plugins/c3-master/c3.min.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="/assets/backoffice/css/style.css" rel="stylesheet">
+<!-- You can change the theme colors from here -->
+<link href="/assets/backoffice/css/colors/blue.css" id="theme" rel="stylesheet">
+
+
+    
+
+<div class="container">
+    <div class="row mb-3">
+      <div class="col-12 text-right">
+        <p class="mb-0">Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): {{ currentTime }}</p>
+        <p class="mb-0">Current User's Login: User</p>
+      </div>
+    </div>
+  
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header bg-danger text-white">
+            <h4><i class="fa fa-exclamation-triangle"></i> Backoffice Access Denied</h4>
+          </div>
+          <div class="card-body">
+            <div class="text-center mb-4">
+              <i class="fa fa-lock fa-5x text-danger"></i>
+            </div>
+            <h5 class="card-title text-center">Administrative Access Required</h5>
+            <p class="card-text text-center">
+              You do not have administrative privileges to access the backoffice area.
+              This area is restricted to users with ADMIN role only.
+            </p>
+            <div class="text-center mt-4">
+              <button class="btn btn-primary" (click)="goToLogin()">
+                <i class="fa fa-sign-in"></i> Login with Administrative Account
+              </button>
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <p class="mb-0">If you believe this is an error, please contact system support.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

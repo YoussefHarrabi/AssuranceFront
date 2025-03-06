@@ -1,0 +1,12 @@
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+  }
+  
+  .card-header {
+    font-weight: bold;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+  }

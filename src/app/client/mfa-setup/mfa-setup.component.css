@@ -1,0 +1,26 @@
+.card {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .card-header {
+    border-radius: 8px 8px 0 0;
+  }
+  
+  ol {
+    padding-left: 20px;
+  }
+  
+  ol li {
+    margin-bottom: 10px;
+  }
+  
+  .img-thumbnail {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border: 1px solid #dee2e6;
+  }
+  
+  .security-icon {
+    margin-top: 20px;
+  }

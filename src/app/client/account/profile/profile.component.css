@@ -1,0 +1,59 @@
+.nav-tabs .nav-link {
+    color: #555;
+    border-radius: 0;
+    cursor: pointer;
+  }
+  
+  .nav-tabs .nav-link.active {
+    color: #ff5e15;
+    border-bottom: 2px solid #ff5e15;
+    font-weight: 500;
+  }
+  
+  .tab-pane {
+    display: none;
+  }
+  
+  .tab-pane.active {
+    display: block;
+  }
+  
+  .card {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+  }
+  
+  .card-header {
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .list-group-item {
+    border-left: none;
+    border-right: none;
+    padding: 15px;
+  }
+  
+  .list-group-item:first-child {
+    border-top: none;
+  }
+  
+  .list-group-item:last-child {
+    border-bottom: none;
+  }
+  
+  .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #ff5e15;
+    border-color: #ff5e15;
+  }
+  
+  /* Make tabs scrollable on mobile */
+  @media (max-width: 576px) {
+    .nav-tabs {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+  }

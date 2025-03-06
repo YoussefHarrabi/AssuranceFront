@@ -1,0 +1,65 @@
+<div class="time-user-display">
+    <p>Current Date and Time : {{ currentTime }}</p>
+  </div>
+  
+  <!-- [ auth-signin ] start -->
+  <div class="auth-wrapper">
+    <div class="auth-content text-center">
+      <img src="assets/BackOffice/images/logo.png" alt="" class="img-fluid mb-4">
+      <div class="card borderless">
+        <div class="row align-items-center">
+          <div class="col-md-12">
+            <div class="card-body">
+              <h4 class="mb-3 f-w-400">Backoffice Signin</h4>
+              <hr>
+              
+              <!-- Alert for errors -->
+              <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ error }}
+                <button type="button" class="btn-close" (click)="error = ''"></button>
+              </div>
+              
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="form-group mb-3">
+                  <input 
+                    type="text" 
+                    formControlName="email" 
+                    class="form-control" 
+                    placeholder="Email address"
+                    [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+                  >
+                  <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                    <div *ngIf="f['email'].errors['required']">Email is required</div>
+                    <div *ngIf="f['email'].errors['email']">Email must be a valid email address</div>
+                  </div>
+                </div>
+                
+                <div class="form-group mb-4">
+                  <input 
+                    type="password" 
+                    formControlName="password" 
+                    class="form-control" 
+                    placeholder="Password"
+                    [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+                  >
+                  <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                    <div *ngIf="f['password'].errors['required']">Password is required</div>
+                  </div>
+                </div>
+                
+                <button type="submit" class="btn btn-block btn-primary mb-4" [disabled]="loading">
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                  Signin
+                </button>
+              </form>
+              
+              <hr>
+              <p class="mb-2 text-muted">Forgot password? <a routerLink="/backoffice/reset-password" class="f-w-400">Reset</a></p>
+              <p class="mb-0 text-muted">Don't have an account? <a routerLink="/backoffice/register" class="f-w-400">Signup</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- [ auth-signin ] end -->

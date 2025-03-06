@@ -81,7 +81,7 @@
                 <nav class="navbar navbar-expand-md btco-hover-menu py-lg-2">
 
                     <a class="navbar-brand pl-0" href="index.html"><img
-                            src="/assets/client/images/fables-logo.png"
+                            src="/assets/client/images/assurance.jpeg"
                             alt="Fables Template" class="fables-logo"></a>
                     <button class="navbar-toggler" type="button"
                         data-toggle="collapse" data-target="#fablesNavDropdown"
@@ -112,6 +112,7 @@
                                             href="home4.html">Home 4</a></li>
                                 </ul>
                             </li>
+
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#"
@@ -437,7 +438,6 @@
                 </nav>
             </div>
             <div class="col-12 col-md-2 col-lg-3 pr-md-0 icons-header-mobile">
-
                 <div class="fables-header-icons">
                     <div class="dropdown">
                         <a href="#_"
@@ -448,7 +448,7 @@
                             <span
                                 class="fables-cart-number fables-second-background-color text-center">3</span>
                         </a>
-
+            
                         <div class="dropdown-menu"
                             aria-labelledby="dropdownMenuButton">
                             <div class="p-3 cart-block">
@@ -504,19 +504,38 @@
                             </div>
                         </div>
                     </div>
-
+            
                     <a href="#"
                         class="open-search fables-third-text-color right  top-header-link px-3 px-md-2 px-lg-4 fables-second-hover-color border-0 max-line-height">
                         <span class="fables-iconsearch-icon"></span>
                     </a>
-
+            
+                    <!-- User icon/login link -->
                     <a href="signin.html"
-                        class="fables-third-text-color fables-second-hover-color font-13 top-header-link px-3 px-md-2 px-lg-4 max-line-height"><span
-                            class="fables-iconuser"></span></a>
-
+                        class="fables-third-text-color fables-second-hover-color font-13 top-header-link px-3 px-md-2 px-lg-4 max-line-height"
+                        *ngIf="!isLoggedIn">
+                        <span class="fables-iconuser"></span>
+                    </a>
+            
+                    
+                    <!-- Added Logout button - only shown when user is logged in -->
+                                               <!-- Add this to your navigation menu -->
+<li class="nav-item dropdown" >
+    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-user-circle mr-1"></i> 
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+      <a class="dropdown-item" routerLink="/client/account">
+        <i class="fas fa-user mr-2"></i> My Profile
+      </a>
+      <a class="dropdown-item" routerLink="/client/account/security">
+        <i class="fas fa-shield-alt mr-2"></i> Security Settings
+      </a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" (click)="logout()">
+        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+      </a>
+    </div>
+  </li>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<!-- /End Fables Navigation -->

@@ -8,6 +8,15 @@ import { BackofficeNavbarComponent } from './backoffice-navbar/backoffice-navbar
 import { BackofficeSidebarComponent } from './backoffice-sidebar/backoffice-sidebar.component';
 import { BackofficeFooterComponent } from './backoffice-footer/backoffice-footer.component';
 import { ProfileComponent } from './profile/profile.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { ShowComponent } from './GestionUsers/show/show.component';
+import { AddUsersComponent } from './GestionUsers/add-users/add-users.component';
+import { UpdateUsersComponent } from './GestionUsers/update-users/update-users.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { BackofficeUnauthorizedComponent } from './backoffice-unauthorized/backoffice-unauthorized.component';
+import { BackofficeAuthGuard } from './guards/backoffice-auth.guard';
 
 
 @NgModule({
@@ -17,11 +26,23 @@ import { ProfileComponent } from './profile/profile.component';
     BackofficeNavbarComponent,
     BackofficeSidebarComponent,
     BackofficeFooterComponent,
-    ProfileComponent
+    ProfileComponent,
+    LoginComponent,
+    RegisterComponent,
+    ShowComponent,
+    AddUsersComponent,
+    UpdateUsersComponent,
+    NotFoundComponent,
+    BackofficeUnauthorizedComponent
   ],
   imports: [
     CommonModule,
-    BackofficeRoutingModule
+    BackofficeRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
+  ],
+  providers: [
+    BackofficeAuthGuard
   ]
 })
 export class BackofficeModule { }

@@ -1,0 +1,97 @@
+<!-- Start page content -->   
+<div class="container">
+    <div class="row my-4 my-lg-5">
+         <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 text-center">
+              <img src="assets/client/images/signin-logo.png" alt="signin" class="img-fluid">
+              
+              <!-- Standard Login Form -->
+              <div *ngIf="!requiresMfa">
+                <p class="font-20 semi-font fables-main-text-color mt-4 mb-4 mb-lg-5">Sign In Fables</p>
+                
+                <div *ngIf="errorMessage" class="alert alert-danger">
+                  {{ errorMessage }}
+                </div>
+                
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                   <div class="form-group"> 
+                       <div class="input-icon">
+                           <span class="fables-iconemail fables-input-icon mt-2 font-13"></span>
+                           <input type="email" 
+                                  formControlName="email"
+                                  class="form-control rounded-0 py-3 pl-5 font-13 sign-register-input" 
+                                  [ngClass]="{'is-invalid': loginForm.get('email')?.touched && loginForm.get('email')?.errors}"
+                                  placeholder="Email"> 
+                           <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors" class="invalid-feedback text-left">
+                              <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</div>
+                              <div *ngIf="loginForm.get('email')?.errors?.['email'] || loginForm.get('email')?.errors?.['pattern']">Please enter a valid email address</div>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="form-group"> 
+                       <div class="input-icon">
+                          <span class="fables-iconpassword fables-input-icon font-19 mt-1"></span>
+                          <input type="password" 
+                                 formControlName="password"
+                                 class="form-control rounded-0 py-3 pl-5 font-13 sign-register-input" 
+                                 [ngClass]="{'is-invalid': loginForm.get('password')?.touched && loginForm.get('password')?.errors}"
+                                 placeholder="Password">
+                          <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors" class="invalid-feedback text-left">
+                             <div *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</div>
+                             <div *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</div>
+                          </div>
+                       </div>
+                   </div> 
+                   <button type="submit" 
+                           [disabled]="loginForm.invalid || isSubmitting"
+                           class="btn btn-block rounded-0 white-color fables-main-hover-background-color fables-second-background-color font-16 semi-font py-3">
+                       <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
+                       Sign in
+                   </button>
+                   <a routerLink="/client/forgot-password" class="fables-forth-text-color font-16 fables-second-hover-color underline mt-3 mb-4 m-lg-5 d-block">Forgot Password ?</a>
+                   <p class="fables-forth-text-color">Dont have an account ?  <a href="/client/register" class="font-16 semi-font fables-second-text-color underline fables-main-hover-color ml-2">Register</a></p>
+                </form>
+              </div>
+              
+              <!-- MFA Verification Form -->
+              <div *ngIf="requiresMfa">
+                <p class="font-20 semi-font fables-main-text-color mt-4 mb-2">Two-Factor Authentication</p>
+                <p class="fables-forth-text-color mb-4">Enter the 6-digit code from your authenticator app</p>
+                
+                <div *ngIf="errorMessage" class="alert alert-danger">
+                  {{ errorMessage }}
+                </div>
+                
+                <form [formGroup]="mfaForm" (ngSubmit)="onVerifyMfa()">
+                   <div class="form-group"> 
+                       <div class="input-icon">
+                          <span class="fables-iconlock fables-input-icon font-19 mt-1"></span>
+                          <input type="text" 
+                                 formControlName="code"
+                                 class="form-control rounded-0 py-3 pl-5 font-13 sign-register-input text-center" 
+                                 [ngClass]="{'is-invalid': mfaForm.get('code')?.touched && mfaForm.get('code')?.errors}"
+                                 placeholder="6-digit code"
+                                 maxlength="6"
+                                 autocomplete="off">
+                          <div *ngIf="mfaForm.get('code')?.touched && mfaForm.get('code')?.errors" class="invalid-feedback text-left">
+                             <div *ngIf="mfaForm.get('code')?.errors?.['required']">Verification code is required</div>
+                             <div *ngIf="mfaForm.get('code')?.errors?.['pattern']">Must be 6 digits</div>
+                          </div>
+                       </div>
+                   </div>
+                   <button type="submit" 
+                           [disabled]="mfaForm.invalid || isSubmitting"
+                           class="btn btn-block rounded-0 white-color fables-main-hover-background-color fables-second-background-color font-16 semi-font py-3">
+                       <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
+                       Verify
+                   </button>
+                   <p class="fables-forth-text-color mt-4">
+                     <a (click)="backToLogin()" class="font-16 semi-font fables-second-text-color underline fables-main-hover-color cursor-pointer">
+                        Back to login
+                     </a>
+                   </p>
+                </form>
+              </div>
+         </div>
+    </div>
+</div>
+<!-- /End page content -->

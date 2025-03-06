@@ -1,0 +1,136 @@
+<!-- Start page content -->   
+<div class="container">
+    <div class="row my-4 my-lg-5">
+         <div class="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-3 text-center">
+              <img src="assets/client/images/signin-logo.png" alt="signin" class="img-fluid">
+              <p class="font-20 semi-font fables-main-text-color mt-4 mb-5">Create a new account</p>
+              
+              <!-- Display any errors -->
+              <div *ngIf="error" class="alert alert-danger mb-4">{{ error }}</div>
+              
+              <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                 <!-- Name fields -->
+                 <div class="form-row form-group">
+                   <div class="col-12 col-md-6 mb-4 mb-md-0">
+                       <div class="input-icon">
+                             <span class="fables-iconuser-register fables-input-icon mt-2 font-13"></span>
+                             <input type="text" formControlName="firstName" class="form-control rounded-0 py-3 pl-5 font-13 sign-register-input" placeholder="First name">
+                       </div>
+                       <div *ngIf="submitted && f['firstName'].errors" class="text-danger text-left mt-1">
+                            <small *ngIf="f['firstName'].errors['required']">First name is required</small>
+                            <small *ngIf="f['firstName'].errors['minlength']">First name must be at least 2 characters</small>
+                       </div>
+                   </div>
+                   <div class="col-12 col-md-6">
+                       <div class="input-icon">
+                             <span class="fables-iconuser-register fables-input-icon mt-2 font-13"></span>
+                             <input type="text" formControlName="lastName" class="form-control rounded-0 py-3 pl-5 font-13 sign-register-input" placeholder="Last name">
+                       </div>
+                       <div *ngIf="submitted && f['lastName'].errors" class="text-danger text-left mt-1">
+                            <small *ngIf="f['lastName'].errors['required']">Last name is required</small>
+                            <small *ngIf="f['lastName'].errors['minlength']">Last name must be at least 2 characters</small>
+                       </div>
+                   </div>
+                 </div>
+                 
+                 <!-- Email field -->
+                 <div class="form-group"> 
+                     <div class="input-icon">
+                         <span class="fables-iconemail fables-input-icon mt-2 font-13"></span>
+                         <input type="email" formControlName="email" class="form-control rounded-0 py-3 pl-5 font-13 sign-register-input" placeholder="Email"> 
+                     </div>
+                     <div *ngIf="submitted && f['email'].errors" class="text-danger text-left mt-1">
+                          <small *ngIf="f['email'].errors['required']">Email is required</small>
+                          <small *ngIf="f['email'].errors['email']">Please enter a valid email</small>
+                     </div>
+                 </div>
+                 
+                 <!-- Birthday field -->
+                 <div class="form-group">
+                     <div class="input-icon">
+                         <span class="fables-iconcalendar fables-input-icon mt-2 font-13"></span>
+                         <input type="date" formControlName="birthday" class="form-control rounded-0 py-3 pl-5 font-13 sign-register-input" placeholder="Birthday">
+                     </div>
+                     <div *ngIf="submitted && f['birthday'].errors" class="text-danger text-left mt-1">
+                          <small *ngIf="f['birthday'].errors['required']">Birthday is required</small>
+                     </div>
+                 </div>
+                 
+                 <!-- Identity type field -->
+                 <div class="form-group">
+                     <select formControlName="identityType" class="form-control rounded-0 py-3 pl-3 font-13 sign-register-input">
+                         <option *ngFor="let type of identityTypes" [value]="type">{{ type }}</option>
+                     </select>
+                     <div *ngIf="submitted && f['identityType'].errors" class="text-danger text-left mt-1">
+                          <small *ngIf="f['identityType'].errors['required']">Identity type is required</small>
+                     </div>
+                 </div>
+                 
+                 <!-- Number of identity field -->
+                 <div class="form-group">
+                     <div class="input-icon">
+                         <span class="fables-iconid-card fables-input-icon mt-2 font-13"></span>
+                         <input type="text" formControlName="numberOfIdentity" class="form-control rounded-0 py-3 pl-5 font-13 sign-register-input" placeholder="Identity Number">
+                     </div>
+                     <div *ngIf="submitted && f['numberOfIdentity'].errors" class="text-danger text-left mt-1">
+                          <small *ngIf="f['numberOfIdentity'].errors['required']">Identity number is required</small>
+                          <small *ngIf="f['numberOfIdentity'].errors['minlength']">Identity number must be at least 6 characters</small>
+                     </div>
+                 </div>
+                 
+                 <!-- Phone number field -->
+                 <div class="form-group">
+                     <div class="input-icon">
+                         <span class="fables-iconphone fables-input-icon mt-2 font-13"></span>
+                         <input type="tel" formControlName="phoneNumber" class="form-control rounded-0 py-3 pl-5 font-13 sign-register-input" placeholder="Phone Number">
+                     </div>
+                     <div *ngIf="submitted && f['phoneNumber'].errors" class="text-danger text-left mt-1">
+                          <small *ngIf="f['phoneNumber'].errors['required']">Phone number is required</small>
+                          <small *ngIf="f['phoneNumber'].errors['pattern']">Please enter a valid phone number (at least 8 digits)</small>
+                     </div>
+                 </div>
+                 
+                 <!-- Address field -->
+                 <div class="form-group">
+                     <div class="input-icon">
+                         <span class="fables-iconmap-marker fables-input-icon mt-2 font-13"></span>
+                         <input type="text" formControlName="address" class="form-control rounded-0 py-3 pl-5 font-13 sign-register-input" placeholder="Address">
+                     </div>
+                 </div>
+                 
+                 <!-- Password fields -->
+                 <div class="form-group"> 
+                     <div class="input-icon">
+                        <span class="fables-iconpassword fables-input-icon font-19 mt-1"></span>
+                        <input type="password" formControlName="password" class="form-control rounded-0 py-3 pl-5 font-13 sign-register-input" placeholder="Password">
+                     </div>
+                     <div *ngIf="submitted && f['password'].errors" class="text-danger text-left mt-1">
+                          <small *ngIf="f['password'].errors['required']">Password is required</small>
+                          <small *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</small>
+                     </div>
+                 </div>
+                 
+                 <div class="form-group"> 
+                     <div class="input-icon">
+                        <span class="fables-iconpassword fables-input-icon font-19 mt-1"></span>
+                        <input type="password" formControlName="confirmPassword" class="form-control rounded-0 py-3 pl-5 font-13 sign-register-input" placeholder="Repeat Password">
+                     </div>
+                     <div *ngIf="submitted && f['confirmPassword'].errors" class="text-danger text-left mt-1">
+                          <small *ngIf="f['confirmPassword'].errors['required']">Password confirmation is required</small>
+                          <small *ngIf="f['confirmPassword'].errors['mismatch']">Passwords do not match</small>
+                     </div>
+                 </div>
+                 
+                 <!-- Submit button --> 
+                 <button type="submit" [disabled]="loading" class="btn btn-block rounded-0 white-color fables-main-hover-background-color fables-second-background-color font-16 semi-font py-3">
+                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                     Register Now
+                 </button>
+                 
+                 <a routerLink="/forgot-password" class="fables-forth-text-color font-16 fables-second-hover-color underline mt-3 mb-4 mb-lg-5 d-block">Forgot Password?</a>
+                 <p class="fables-forth-text-color">Already have an account? <a routerLink="/client/login" class="font-16 semi-font fables-second-text-color underline fables-main-hover-color ml-2">Login</a></p>
+               </form>
+         </div>
+    </div>
+</div>
+<!-- /End page content -->      
