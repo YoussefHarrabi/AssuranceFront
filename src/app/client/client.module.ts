@@ -14,6 +14,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { MfaSetupComponent } from './mfa-setup/mfa-setup.component';
 import { ProfileComponent } from './account/profile/profile.component';
+import { OauthCallbackComponent } from './oauth-callback/oauth-callback.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ProfileComponent } from './account/profile/profile.component';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     MfaSetupComponent,
-    ProfileComponent
+    ProfileComponent,
+    OauthCallbackComponent
   ],
   imports: [
     CommonModule,

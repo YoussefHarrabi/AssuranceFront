@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../Services/UserServices/Authentication/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
+import { GoogleAuthService } from '../Services/UserServices/Authentication/google-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,12 +17,37 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   requiresMfa = false;
   returnUrl: string = '/client';
+  // Add these properties to your component
+attemptCount: number = 0;
+maxAttempts: number = 5;
+lockoutTime: number | null = null;
+
+// Add this method to your component
+handleFailedLogin(): void {
+  this.attemptCount++;
+  
+  if (this.attemptCount >= this.maxAttempts) {
+    // Lock the login form for 5 minutes
+    this.lockoutTime = Date.now() + 5 * 60 * 1000; // 5 minutes in milliseconds
+    
+    // Set error message
+    this.errorMessage = `Too many failed login attempts. Please try again in 5 minutes.`;
+    
+    // Start a timer to unlock the form after the lockout period
+    setTimeout(() => {
+      this.lockoutTime = null;
+      this.attemptCount = 0;
+    }, 5 * 60 * 1000);
+  }
+}
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private googleAuthService: GoogleAuthService,  // Add this
+
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
@@ -50,9 +76,36 @@ export class LoginComponent implements OnInit {
       // Pre-fill the email field
       this.loginForm.patchValue({ email: pendingEmail });
     }
+    
+    // Handle query parameters for errors and MFA
+    this.route.queryParams.subscribe(params => {
+      // Check for MFA required from query params (for Google OAuth)
+      if (params['mfaRequired'] === 'true') {
+        this.requiresMfa = true;
+        // Store the provider and email for verification
+        const providerEmail = params['email'];
+        if (providerEmail) {
+          this.authService.setPendingMfaEmail(providerEmail);
+        }
+      }
+      
+      // Add error handling for OAuth errors
+      if (params['error'] === 'google_auth_failed') {
+        this.errorMessage = params['message'] || 'Google authentication failed. Please try again.';
+      }
+    });
   }
 
+  signInWithGoogle(): void {
+    this.googleAuthService.signIn();
+  }
   onSubmit(): void {
+     // Check if the login form is locked
+  if (this.lockoutTime && Date.now() < this.lockoutTime) {
+    const remainingTime = Math.ceil((this.lockoutTime - Date.now()) / 60000); // in minutes
+    this.errorMessage = `Too many failed login attempts. Please try again in ${remainingTime} minute(s).`;
+    return;
+  }
     // Mark all fields as touched to trigger validation
     if (this.loginForm.invalid) {
       Object.keys(this.loginForm.controls).forEach(key => {
@@ -61,10 +114,10 @@ export class LoginComponent implements OnInit {
       });
       return;
     }
-
+  
     this.isSubmitting = true;
     this.errorMessage = '';
-
+  
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
     
@@ -82,11 +135,31 @@ export class LoginComponent implements OnInit {
               this.requiresMfa = true;
             } else {
               // Standard login successful
-              this.router.navigate([this.returnUrl]);
+              this.router.navigate(['/client']);
             }
           },
           error: (error) => {
-            this.errorMessage = error.message || 'Login failed. Please check your credentials.';
+              // Track failed login attempts
+            if (error.status === 401) {
+              this.handleFailedLogin();
+            }
+            // Enhanced error handling
+            if (error.status === 401) {
+              this.errorMessage = 'Invalid email or password. Please try again.';
+            } else if (error.status === 403) {
+              this.errorMessage = 'Your account is locked. Please contact support.';
+            } else if (error.status === 404) {
+              this.errorMessage = 'User not found. Please check your email address.';
+            } else if (error.message) {
+              // Use the error message from the response if available
+              this.errorMessage = error.message;
+            } else {
+              // Default error message
+              this.errorMessage = 'Login failed. Please try again later.';
+            }
+            
+            // Log the error for debugging (optional)
+            console.error('Login error:', error);
           }
         });
     }
@@ -100,12 +173,12 @@ export class LoginComponent implements OnInit {
       });
       return;
     }
-
+  
     this.isSubmitting = true;
     this.errorMessage = '';
-
+  
     const code = this.mfaForm.get('code')?.value;
-
+  
     this.authService.verifyMfa(code)
       .pipe(
         finalize(() => {
@@ -117,7 +190,21 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         error: (error) => {
-          this.errorMessage = error.message || 'Invalid verification code. Please try again.';
+          // Enhanced MFA error handling
+          if (error.status === 401) {
+            this.errorMessage = 'Invalid verification code. Please try again.';
+          } else if (error.status === 410) {
+            this.errorMessage = 'Verification code has expired. Please request a new code.';
+          } else if (error.status === 429) {
+            this.errorMessage = 'Too many failed attempts. Please try again later.';
+          } else if (error.message) {
+            this.errorMessage = error.message;
+          } else {
+            this.errorMessage = 'Verification failed. Please try again.';
+          }
+          
+          // Log the error for debugging (optional)
+          console.error('MFA verification error:', error);
         }
       });
   }

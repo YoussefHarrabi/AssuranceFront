@@ -47,6 +47,15 @@
                        <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
                        Sign in
                    </button>
+                   <div class="text-center mb-4">
+                     <p class="my-3 fables-forth-text-color">- OR -</p>
+                     <button type="button" 
+                             (click)="signInWithGoogle()"
+                             class="btn btn-block rounded-0 white-color font-16 semi-font py-3"
+                             style="background-color: #4285F4;">
+                       <i class="fab fa-google mr-2"></i> Sign in with Google
+                     </button>
+                   </div>
                    <a routerLink="/client/forgot-password" class="fables-forth-text-color font-16 fables-second-hover-color underline mt-3 mb-4 m-lg-5 d-block">Forgot Password ?</a>
                    <p class="fables-forth-text-color">Dont have an account ?  <a href="/client/register" class="font-16 semi-font fables-second-text-color underline fables-main-hover-color ml-2">Register</a></p>
                 </form>

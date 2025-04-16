@@ -1,0 +1,50 @@
+/* Add these to your client-navbar.component.css file */
+
+/* Smooth transitions for dropdown */
+.dropdown-menu {
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    display: block;
+    transform: translateY(10px);
+  }
+  
+  .dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  /* Highlight current user */
+  .user-name-display {
+    font-weight: 500;
+  }
+  
+  /* Improved dropdown styling */
+  .dropdown-menu {
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .dropdown-item {
+    padding: 8px 16px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .dropdown-item:hover {
+    background-color: rgba(255, 94, 21, 0.1);
+  }
+  
+  /* Style for login/logout links */
+  .dropdown-item.text-danger {
+    color: #dc3545 !important;
+  }
+  
+  .dropdown-item.text-danger:hover {
+    background-color: rgba(220, 53, 69, 0.1);
+  }
+  
+  /* Current time styling */
+  .text-muted.small {
+    font-size: 0.8rem;
+  }

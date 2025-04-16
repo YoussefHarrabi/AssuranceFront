@@ -24,7 +24,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           // Auto logout if 401 response returned from api
           this.authService.logout();
-          this.router.navigate(['/login']);
+          this.router.navigate(['client/login']);
         }
         
         const errorMessage = error.error?.message || error.statusText || 'Unknown error occurred';

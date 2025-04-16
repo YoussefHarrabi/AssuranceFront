@@ -8,6 +8,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { MfaSetupComponent } from './mfa-setup/mfa-setup.component';
 import { ProfileComponent } from './account/profile/profile.component';
+import { OauthCallbackComponent } from './oauth-callback/oauth-callback.component';
+
 
 const routes: Routes = [
   {
@@ -18,6 +20,7 @@ const routes: Routes = [
       { path: 'register', component: RegisterComponent},
       { path: 'forgot-password', component: ForgotPasswordComponent },
       { path: 'reset-password', component: ResetPasswordComponent },
+
  
       {
         path: 'account',

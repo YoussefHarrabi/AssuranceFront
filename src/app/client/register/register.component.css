@@ -1,0 +1,62 @@
+/* Animation for form shake */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+  }
+  
+  .shake {
+    animation: shake 0.5s;
+  }
+  
+  /* Animation for alerts */
+  .alert {
+    animation: fadeIn 0.5s;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Improve form styling */
+  .form-control:focus {
+    border-color: #ff5e15;
+    box-shadow: 0 0 0 0.2rem rgba(255, 94, 21, 0.25);
+  }
+  
+  /* Password strength indicator */
+  .password-strength {
+    height: 5px;
+    margin-top: 5px;
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .strength-weak {
+    background-color: #dc3545;
+    width: 30%;
+  }
+  
+  .strength-medium {
+    background-color: #ffc107;
+    width: 60%;
+  }
+  
+  .strength-strong {
+    background-color: #28a745;
+    width: 100%;
+  }
+  
+  /* Fix for date input across browsers */
+  input[type="date"] {
+    padding-right: 10px;
+  }
+  
+  /* Improve responsiveness of form elements */
+  @media (max-width: 576px) {
+    .form-row .col-md-6 {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
