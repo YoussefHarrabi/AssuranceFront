@@ -1,0 +1,68 @@
+<div class="add-review-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Ajouter un avis</mat-card-title>
+      </mat-card-header>
+  
+      <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+        <mat-card-content>
+          <!-- Rating -->
+          <div class="rating-field">
+            <label>Note :</label>
+            <mat-button-toggle-group formControlName="rating">
+              <mat-button-toggle *ngFor="let star of [1,2,3,4,5]" [value]="star">
+                {{star}} <mat-icon>star</mat-icon>
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+            <mat-error *ngIf="f['rating'].touched && f['rating'].invalid">
+              Veuillez donner une note
+            </mat-error>
+          </div>
+  
+          <!-- Comment -->
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Votre commentaire</mat-label>
+            <textarea matInput formControlName="comment" rows="4"></textarea>
+            <mat-error *ngIf="f['comment'].hasError('required')">
+              Le commentaire est requis
+            </mat-error>
+            <mat-error *ngIf="f['comment'].hasError('minlength')">
+              Le commentaire doit faire au moins 10 caractères
+            </mat-error>
+          </mat-form-field>
+  
+          <!-- Categories -->
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Catégories</mat-label>
+            <mat-select formControlName="categories" multiple>
+              <mat-option *ngFor="let category of categories" [value]="category">
+                {{category}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="f['categories'].hasError('required')">
+              Sélectionnez au moins une catégorie
+            </mat-error>
+          </mat-form-field>
+  
+          <!-- Public/Private toggle -->
+          <mat-slide-toggle formControlName="isPublic" class="public-toggle">
+            Rendre cet avis public
+          </mat-slide-toggle>
+        </mat-card-content>
+  
+        <mat-card-actions align="end">
+          <button mat-button type="button" [routerLink]="['/client/reviews']">
+            Annuler
+          </button>
+          <button 
+            mat-raised-button 
+            color="primary" 
+            type="submit" 
+            [disabled]="reviewForm.invalid || isSubmitting">
+            <mat-icon>publish</mat-icon>
+            {{ isSubmitting ? 'Publication en cours...' : 'Publier' }}
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>

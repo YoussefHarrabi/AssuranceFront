@@ -1,0 +1,76 @@
+<div class="chat-container">
+  <div #scrollMe class="messages-container">
+    <div *ngFor="let message of messages; let i = index" 
+         [ngClass]="getMessageClass(message)">
+      <div class="message-content">
+        <p>{{ message.text }}</p>
+        
+        <!-- Affichage de la localisation -->
+        <div *ngIf="isLocationResponse(message.type) && message?.data?.location"
+             class="location-info"
+             (click)="openMap(message?.data?.location)">
+          <p><strong>Adresse :</strong> {{ message?.data?.location?.address }}</p>
+          <p>{{ message?.data?.location?.postalCode }} {{ message?.data?.location?.city }}</p>
+          <p>{{ message?.data?.location?.country }}</p>
+          <p *ngIf="message?.data?.location?.directions">
+            <strong>Accès :</strong> {{ message?.data?.location?.directions }}
+          </p>
+        </div>
+
+        <!-- Affichage des informations de contact -->
+        <div *ngIf="isContactResponse(message.type) && message?.data?.contact" 
+             class="contact-info">
+          <p><strong>Téléphone :</strong> {{ message?.data?.contact?.phone }}</p>
+          <p><strong>Email :</strong> {{ message?.data?.contact?.email }}</p>
+          <p *ngIf="message?.data?.contact?.fax">
+            <strong>Fax :</strong> {{ message?.data?.contact?.fax }}
+          </p>
+          <div *ngIf="message?.data?.contact?.socialMedia" class="social-media">
+            <a *ngIf="message?.data?.contact?.socialMedia?.facebook"
+               [href]="getSafeUrl(message?.data?.contact?.socialMedia?.facebook)"
+               target="_blank">Facebook</a>
+            <a *ngIf="message?.data?.contact?.socialMedia?.twitter"
+               [href]="getSafeUrl(message?.data?.contact?.socialMedia?.twitter)"
+               target="_blank">Twitter</a>
+            <a *ngIf="message?.data?.contact?.socialMedia?.linkedin"
+               [href]="getSafeUrl(message?.data?.contact?.socialMedia?.linkedin)"
+               target="_blank">LinkedIn</a>
+          </div>
+        </div>
+
+        <!-- Affichage des horaires -->
+        <div *ngIf="isScheduleResponse(message.type) && message?.data?.schedule" 
+             class="schedule-info">
+          <div class="weekdays">
+            <p><strong>Horaires en semaine :</strong></p>
+            <p>{{ formatTime(message?.data?.schedule?.weekdays?.open) }} - 
+               {{ formatTime(message?.data?.schedule?.weekdays?.close) }}</p>
+          </div>
+          <div *ngIf="message?.data?.schedule?.weekend" class="weekend">
+            <p><strong>Horaires weekend :</strong></p>
+            <p>{{ formatTime(message?.data?.schedule?.weekend?.open) }} - 
+               {{ formatTime(message?.data?.schedule?.weekend?.close) }}</p>
+          </div>
+          <div *ngIf="message?.data?.schedule?.holidays?.length" class="holidays">
+            <p><strong>Jours fériés :</strong></p>
+            <p>{{ message?.data?.schedule?.holidays?.join(', ') }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="message-timestamp">
+        {{ formatDate(message.timestamp) }}
+      </div>
+    </div>
+  </div>
+
+  <div class="input-container">
+    <textarea
+      [(ngModel)]="currentMessage"
+      (keypress)="onKeyPress($event)"
+      (focus)="onInputFocus()"
+      placeholder="Tapez votre message..."
+      rows="1"></textarea>
+    <button (click)="sendMessage()">Envoyer</button>
+    <button (click)="clearChat()" class="clear-button">Effacer</button>
+  </div>
+</div>

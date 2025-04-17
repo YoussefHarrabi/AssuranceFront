@@ -1,24 +1,91 @@
 <div class="container mt-4">
-    <h2 class="text-center text-primary">Répondre à la Réclamation</h2>
-    <div class="card mb-4 shadow-sm">
+  <h2 class="text-center text-primary">Répondre à la Réclamation</h2>
+  <div class="card mb-4 shadow-sm">
       <div class="card-body">
-        <h5 class="card-title">{{ complaint.title }}</h5>
-        <p class="card-text">{{ complaint.description }}</p>
-        <p class="card-text"><strong>Date de Création:</strong> {{ complaint.creationDate | date:'short' }}</p>
-        <p class="card-text"><strong>Type:</strong> {{ complaint.type }}</p>
-        <p class="card-text"><strong>Status:</strong> {{ complaint.status }}</p>
-        <div class="form-group">
-          <label for="responseContent">Réponse:</label>
-          <textarea class="form-control" id="responseContent" [(ngModel)]="response.content" rows="5"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="advisor">Advisor:</label>
-          <select class="form-control" id="advisor" [(ngModel)]="response.advisor">
-            <option *ngFor="let user of users" [ngValue]="user">{{ user.firstName }}</option>
-          </select>
-        </div>
-        <button class="btn btn-primary mt-3" (click)="submitResponse()">Soumettre la Réponse</button>
-        <a routerLink="/backoffice/complaintList" class="btn btn-secondary mt-3 ms-2">Retour à la liste</a>
+          <form (ngSubmit)="submitResponse(responseForm)" #responseForm="ngForm" class="needs-validation" novalidate>
+              <h5 class="card-title">{{ complaint.title }}</h5>
+              <p class="card-text">{{ complaint.description }}</p>
+              <p class="card-text"><strong>Date de Création:</strong> {{ complaint.creationDate | date:'short' }}</p>
+              <p class="card-text"><strong>Type:</strong> {{ complaint.type }}</p>
+              <p class="card-text"><strong>Status:</strong> {{ complaint.status }}</p>
+              
+              <div class="form-group">
+                  <label for="responseContent">Réponse:</label>
+                  <textarea 
+                      class="form-control" 
+                      id="responseContent" 
+                      [(ngModel)]="response.content" 
+                      name="content"
+                      #content="ngModel"
+                      required 
+                      minlength="10"
+                      [ngClass]="{'is-invalid': content.invalid && (content.dirty || content.touched)}"
+                      rows="5">
+                  </textarea>
+                  <div *ngIf="content.invalid && (content.dirty || content.touched)" class="invalid-feedback">
+                      <div *ngIf="content.errors?.['required']">La réponse est requise.</div>
+                      <div *ngIf="content.errors?.['minlength']">La réponse doit contenir au moins 10 caractères.</div>
+                  </div>
               </div>
-    </div>
+
+              <div class="form-group">
+                  <label for="advisor">Conseiller:</label>
+                  <select 
+                      class="form-control" 
+                      id="advisor" 
+                      [(ngModel)]="response.advisor"
+                      name="advisor"
+                      #advisor="ngModel"
+                      required
+                      [ngClass]="{'is-invalid': advisor.invalid && (advisor.dirty || advisor.touched)}">
+                      <option value="">Sélectionnez un conseiller</option>
+                      <option *ngFor="let user of users" [ngValue]="user">{{ user.firstName }} {{ user.lastName }}</option>
+                  </select>
+                  <div *ngIf="advisor.invalid && (advisor.dirty || advisor.touched)" class="invalid-feedback">
+                      <div *ngIf="advisor.errors?.['required']">Le conseiller est requis.</div>
+                  </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary mt-3" [disabled]="responseForm.invalid">
+                  <i class="fas fa-paper-plane"></i> Envoyer la réponse
+              </button>
+              <a routerLink="/backoffice/complaintList" class="btn btn-secondary mt-3 ms-2">
+                  <i class="fas fa-arrow-left"></i> Retour à la liste
+              </a>
+          </form>
+      </div>
   </div>
+
+  <!-- Modal de confirmation -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content shadow-lg border-0 rounded-lg">
+              <div class="modal-header bg-success text-white">
+                  <h5 class="modal-title" id="successModalLabel">
+                      <i class="fas fa-check-circle"></i> Succès
+                  </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <!-- Dans le modal -->
+<div class="modal-body text-center">
+  <p>La réponse a été envoyée avec succès.</p>
+  <div class="mt-3">
+      <p><strong>Réclamation:</strong> {{ complaint.title }}</p>
+      <p><strong>Conseiller:</strong> 
+          {{ response.advisor?.firstName }} {{ response.advisor?.lastName }}
+      </p>
+      <p><strong>Date de réponse:</strong> {{ response.date | date:'dd/MM/yyyy HH:mm' }}</p>
+      <p class="text-success">
+          <i class="fas fa-envelope"></i> Un email de confirmation a été envoyé au client
+      </p>
+  </div>
+</div>
+              <div class="modal-footer d-flex justify-content-center">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="navigateToList()">
+                      <i class="fas fa-list"></i> Voir la liste des réclamations
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

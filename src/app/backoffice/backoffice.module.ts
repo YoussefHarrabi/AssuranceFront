@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgChartsModule } from 'ng2-charts';
 
 import { BackofficeRoutingModule } from './backoffice-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -11,12 +15,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { ReclamationComponent } from './reclamation/reclamation.component';
 import { ReclamationListComponent } from './reclamation-list/reclamation-list.component';
 import { AddReclamationComponent } from './add-reclamation/add-reclamation.component';
-
 import { EditReclamationComponent } from './edit-reclamation/edit-reclamation.component';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { ComplaintResponseComponent } from './complaint-response/complaint-response.component';
-
+import { AdminStatisticsComponent } from './admin-statistics/admin-statistics.component';
 
 @NgModule({
   declarations: [
@@ -31,13 +32,18 @@ import { ComplaintResponseComponent } from './complaint-response/complaint-respo
     AddReclamationComponent,
     EditReclamationComponent,
     ComplaintResponseComponent,
-  ],
+    AdminStatisticsComponent
+    ],
   imports: [
     CommonModule,
     BackofficeRoutingModule,
     RouterModule,
-    FormsModule
-
-  ]
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule,
+    NgChartsModule
+  ],
+  providers: [],
+  bootstrap: [MainBackofficeComponent]
 })
 export class BackofficeModule { }

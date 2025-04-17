@@ -1,0 +1,56 @@
+<div class="chat-container">
+    <div #scrollMe class="messages-container">
+      <div *ngFor="let message of messages" 
+           class="message-wrapper"
+           [ngClass]="getMessageClass(message)">
+        
+        <div class="message-content">
+          {{ message.content }}
+          
+          <!-- Suggestions de questions -->
+          <div *ngIf="message.suggestedQuestions?.length" class="suggested-questions">
+            <button *ngFor="let question of message.suggestedQuestions"
+                    (click)="useSuggestedQuestion(question)"
+                    class="suggestion-btn">
+              {{ question }}
+            </button>
+          </div>
+  
+          <!-- Feedback buttons -->
+          <div *ngIf="message.sender === 'bot' && !message.feedback" class="feedback-section">
+            <span class="feedback-text">Cette réponse était-elle utile ?</span>
+            <div class="feedback-buttons">
+              <button (click)="provideFeedback(message, true)" class="feedback-btn positive">
+                👍 Oui
+              </button>
+              <button (click)="provideFeedback(message, false)" class="feedback-btn negative">
+                👎 Non
+              </button>
+            </div>
+          </div>
+        </div>
+  
+        <div class="message-timestamp">
+          {{ formatDate(message.timestamp) }}
+        </div>
+      </div>
+  
+      <!-- Indicateur de frappe -->
+      <div *ngIf="isTyping" class="typing-indicator">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    </div>
+  
+    <div class="input-container">
+      <textarea
+        [(ngModel)]="currentMessage"
+        (keypress)="onKeyPress($event)"
+        (focus)="onInputFocus()"
+        placeholder="Tapez votre message..."
+        rows="1"></textarea>
+      <button (click)="sendMessage()">Envoyer</button>
+      <button (click)="clearChat()" class="clear-button">Effacer</button>
+    </div>
+  </div>

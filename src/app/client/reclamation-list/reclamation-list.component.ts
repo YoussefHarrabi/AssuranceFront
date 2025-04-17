@@ -14,6 +14,8 @@ export class ReclamationListComponent implements OnInit {
   complaints: Complaint[] = [];
   selectedComplaint: Complaint | null = null;
   modalInstance: any; // Pour gérer la boîte de dialogue
+  deleteModal: any; // Pour la modal de confirmation de suppression
+  deleteSuccessModal: any; // Pour la modal de succès de suppression
 
   public ComplaintStatus = ComplaintStatus;
 
@@ -55,7 +57,48 @@ export class ReclamationListComponent implements OnInit {
     this.router.navigate(['/client/editComplaint', id]);
   }
 
+  // Nouvelle méthode pour ouvrir la modal de confirmation de suppression
+  openDeleteConfirmModal(complaint: Complaint): void {
+    this.selectedComplaint = complaint;
+    const modalElement = document.getElementById('deleteConfirmModal');
+    if (modalElement) {
+      this.deleteModal = new bootstrap.Modal(modalElement);
+      this.deleteModal.show();
+    }
+  }
+
+  // Méthode pour confirmer la suppression
+  confirmDelete(): void {
+    if (this.selectedComplaint) {
+      this.complaintService.deleteComplaint(this.selectedComplaint.id).subscribe(
+        () => {
+          // Fermer la modal de confirmation
+          if (this.deleteModal) {
+            this.deleteModal.hide();
+          }
+          
+          // Mise à jour de la liste des réclamations
+          this.complaints = this.complaints.filter(complaint => complaint.id !== this.selectedComplaint?.id);
+          
+          // Afficher la modal de succès
+          const successModalElement = document.getElementById('deleteSuccessModal');
+          if (successModalElement) {
+            this.deleteSuccessModal = new bootstrap.Modal(successModalElement);
+            this.deleteSuccessModal.show();
+          }
+        },
+        error => {
+          console.error('Error deleting complaint', error);
+          alert('Une erreur s\'est produite lors de la suppression de la réclamation.');
+        }
+      );
+    }
+  }
+
+  // Méthode de suppression d'origine (remplacée par openDeleteConfirmModal)
   deleteComplaint(id: number): void {
+    // Cette méthode est maintenant remplacée par openDeleteConfirmModal et confirmDelete
+    // Gardée pour référence
     if (confirm('Are you sure you want to delete this complaint?')) {
       this.complaintService.deleteComplaint(id).subscribe(() => {
         this.complaints = this.complaints.filter(complaint => complaint.id !== id);

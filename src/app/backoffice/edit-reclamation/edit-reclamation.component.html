@@ -41,3 +41,34 @@
   <button type="submit" class="btn btn-primary" [disabled]="reclamationForm.invalid">Submit</button>
   <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
 </form>
+
+<!-- Modal de confirmation de mise à jour -->
+<div class="modal fade" id="updateSuccessModal" tabindex="-1" aria-labelledby="updateSuccessModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-lg border-0 rounded-lg">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="updateSuccessModalLabel">
+          <i class="fas fa-check-circle"></i> Mise à jour réussie
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>La réclamation a été mise à jour avec succès.</p>
+        <div class="mt-3">
+          <p><strong>Titre:</strong> {{ complaint?.title }}</p>
+          <p><strong>Type:</strong> {{ getComplaintTypeLabel(complaint?.type) }}</p>
+          <p><strong>Statut:</strong> {{ getComplaintStatusLabel(complaint?.status) }}</p>
+          <p><strong>Date de dernière modification:</strong> {{ getCurrentDate() | date:'dd/MM/yyyy HH:mm' }}</p>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="navigateToList()">
+          <i class="fas fa-list"></i> Voir la liste des réclamations
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <i class="fas fa-times"></i> Fermer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,17 +1,123 @@
-<div class="container mt-4">
-  <h2 class="text-center text-primary">Détails de la Réponse</h2>
-  <div *ngIf="response; else noResponse">
-    <div class="card mb-4 shadow-sm">
-      <div class="card-body">
-        <p class="card-text"><strong>Réponse:</strong> {{ response.content }}</p>
-        <p class="card-text"><strong>Conseiller:</strong> {{ response.advisor.firstName }} {{ response.advisor.lastName }}</p>
-        <p class="card-text"><strong>Date de Réponse:</strong> {{ response.date | date: 'short' }}</p>
+<div class="container-fluid d-flex flex-column justify-content-center align-items-center min-vh-100">
+  <h2 class="text-center text-primary mb-4 mt-5">
+    <i class="bi bi-envelope-check"></i> Détails de la Réponse
+  </h2>
+  
+  <div *ngIf="response; else noResponse" class="w-100">
+    <div class="card shadow-lg border-light rounded mx-auto" style="max-width: 600px;">
+      <!-- Section à imprimer -->
+      <div id="print-section">
+        <div class="card-header bg-primary text-white p-3">
+          <div class="d-flex justify-content-between align-items-center">
+          </div>
+        </div>
+
+        <div class="card-body">
+          <!-- Contenu de la réponse -->
+          <div class="response-content border-start border-primary ps-3 mb-4">
+            <h6 class="text-primary mb-3">
+              <i class="bi bi-chat-dots"></i> Réponse
+            </h6>
+            <p class="card-text">{{response.content}}</p>
+          </div>
+
+          <!-- Information du conseiller -->
+          <div class="advisor-info bg-light p-3 rounded mb-4">
+            <h6 class="text-primary">
+              <i class="bi bi-person"></i> Conseiller
+            </h6>
+            <span class="badge bg-info text-dark">
+              {{response.advisor.firstName}} {{response.advisor.lastName}}
+            </span>
+          </div>
+
+          <!-- Date de réponse -->
+          <div class="text-end text-muted mb-4">
+            <small>
+              <i class="bi bi-calendar"></i> 
+              Répondu le: {{response.date | date: 'dd/MM/yyyy à HH:mm'}}
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenu non imprimable -->
+      <div class="no-print">
+        <!-- Section QR Code -->
+        <div class="text-center mt-4 p-3 bg-light rounded">
+          <h6 class="text-primary mb-3">
+            <i class="bi bi-qr-code"></i> Code QR de la Réponse
+          </h6>
+          
+          <!-- État de chargement -->
+          <div *ngIf="isQrCodeLoading" class="qr-code-loading">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Chargement...</span>
+            </div>
+            <p class="text-muted mt-2">Génération du code QR...</p>
+          </div>
+
+          <!-- Affichage du QR Code -->
+          <div *ngIf="!isQrCodeLoading" class="qr-code-container">
+            <img [src]="qrCodeUrl" 
+                 alt="QR Code" 
+                 class="qr-code"
+                 (error)="onQRCodeError($event)"
+                 (load)="onQRCodeLoaded()">
+          </div>
+          
+          <!-- Actions pour le QR Code -->
+          <div *ngIf="!isQrCodeLoading" class="mt-3 d-flex justify-content-center gap-2">
+            <button (click)="downloadQRCode()" 
+                    class="btn btn-outline-primary btn-sm"
+                    [disabled]="!qrCodeUrl">
+              <i class="bi bi-download"></i> Télécharger
+            </button>
+            <button (click)="shareResponse()" 
+                    class="btn btn-outline-success btn-sm"
+                    [disabled]="!qrCodeUrl">
+              <i class="bi bi-share"></i> Partager
+            </button>
+          </div>
+
+          <!-- Instructions QR Code -->
+          <div class="qr-code-instructions mt-3">
+            <p class="text-muted small mb-2">
+              <i class="bi bi-info-circle"></i> Comment utiliser ce code QR :
+            </p>
+            <ol class="text-start small text-muted">
+              <li>Ouvrez l'appareil photo de votre téléphone</li>
+              <li>Pointez la caméra vers le code QR</li>
+              <li>Cliquez sur le lien qui apparaît</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pied de la carte -->
+      <div class="card-footer bg-light">
+        <div class="d-flex justify-content-between align-items-center">
+          <button (click)="printToPDF()" class="btn btn-outline-danger btn-sm">
+            <i class="bi bi-file-pdf"></i> Imprimer en PDF
+          </button>
+          <button (click)="copyLinkToClipboard()" class="btn btn-link btn-sm text-muted">
+            <i class="bi bi-link-45deg"></i> Copier le lien
+          </button>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- Message si aucune réponse -->
   <ng-template #noResponse>
-    <div class="alert alert-warning text-center">
-      {{ noResponseMessage }}
+    <div class="alert alert-warning text-center p-4 mt-4 shadow-sm rounded">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>
+      {{noResponseMessage}}
+      <div class="mt-3">
+        <button routerLink="/complaints" class="btn btn-outline-warning btn-sm">
+          <i class="bi bi-arrow-left"></i> Retour aux réclamations
+        </button>
+      </div>
     </div>
   </ng-template>
 </div>

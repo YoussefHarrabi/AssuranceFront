@@ -40,7 +40,7 @@
               <i class="fas fa-edit"></i> Modifier
             </button>
           
-            <button class="btn btn-delete action-button" (click)="deleteComplaint(complaint.id)">
+            <button class="btn btn-delete action-button" (click)="openDeleteConfirmModal(complaint)">
               <i class="fas fa-trash-alt"></i> Supprimer
             </button>
           </div>
@@ -136,6 +136,55 @@
 
         <div class="modal-footer d-flex justify-content-center">
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+            <i class="fas fa-times"></i> Fermer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal - Confirmation de suppression -->
+  <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-lg border-0 rounded-lg">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">
+            <i class="fas fa-exclamation-triangle"></i> Confirmation de suppression
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <p>Êtes-vous sûr de vouloir supprimer cette réclamation ?</p>
+          <p class="mt-2"><strong>Titre :</strong> {{ selectedComplaint?.title }}</p>
+          <p class="fw-bold text-danger">Cette action est irréversible !</p>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="button" class="btn btn-danger" (click)="confirmDelete()">
+            <i class="fas fa-trash-alt"></i> Supprimer
+          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <i class="fas fa-times"></i> Annuler
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal - Succès de suppression -->
+  <div class="modal fade" id="deleteSuccessModal" tabindex="-1" aria-labelledby="deleteSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow-lg border-0 rounded-lg">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title">
+            <i class="fas fa-check-circle"></i> Suppression réussie
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <p>La réclamation a été supprimée avec succès.</p>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">
             <i class="fas fa-times"></i> Fermer
           </button>
         </div>

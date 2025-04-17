@@ -4,6 +4,7 @@ import { ComplaintService } from '../complaint.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Complaint } from '../models/complaint.model';
 import { ComplaintType } from '../models/complaint-type.enum';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-edit-reclamation',
@@ -39,8 +40,16 @@ export class EditReclamationComponent implements OnInit, Validator {
       this.complaintService.updateComplaint(this.complaint).subscribe(
         (response) => {
           console.log('Complaint updated successfully', response);
-          alert('Votre réclamation a été mise à jour avec succès.');
-          this.router.navigate(['/client/complaintList']);
+          
+          // Afficher la modal de succès au lieu de l'alerte
+          const modalElement = document.getElementById('updateSuccessModal');
+          if (modalElement) {
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+          }
+          
+          // Ne pas naviguer immédiatement, la navigation se fera via le bouton de la modal
+          // this.router.navigate(['/client/complaintList']);
         },
         (error) => {
           console.error('Error updating complaint', error);
@@ -48,6 +57,10 @@ export class EditReclamationComponent implements OnInit, Validator {
         }
       );
     }
+  }
+
+  navigateToList(): void {
+    this.router.navigate(['/client/complaintList']);
   }
 
   validate(control: AbstractControl): ValidationErrors | null {

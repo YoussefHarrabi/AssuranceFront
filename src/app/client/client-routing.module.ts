@@ -6,6 +6,10 @@ import { AddReclamationComponent } from './add-reclamation/add-reclamation.compo
 import { ReclamationListComponent } from './reclamation-list/reclamation-list.component';
 import { EditReclamationComponent } from './edit-reclamation/edit-reclamation.component';
 import { ResponseDetailComponent } from './response-detail/response-detail.component';
+import { ChatComponent } from './chat/chat.component';
+import { GeminiChatbotComponent } from './gemini-chatbot/gemini-chatbot.component';
+import { ReviewListComponent } from './review-list/review-list.component';
+import { AddReviewComponent } from './add-review/add-review.component';
 
 const routes: Routes = [
   {
@@ -16,10 +20,13 @@ const routes: Routes = [
       { path: 'complaintList', component: ReclamationListComponent },
       { path: 'editComplaint/:id', component: EditReclamationComponent },
       { path: 'responseDetail/:id', component: ResponseDetailComponent },
+      { path: 'chat', component: ChatComponent },
+      { path: 'reviews', component: ReviewListComponent }, // Nouvelle route pour les avis
+      { path: 'reviews/new', component: AddReviewComponent },
+
+      { path: 'gemini', component: GeminiChatbotComponent }, // Déplacé avant les routes wildcard
       { path: '', redirectTo: '/client/reclamationList', pathMatch: 'full' },
       { path: '**', redirectTo: '/client/reclamationList' }
-
-
     ]
   }
 ];

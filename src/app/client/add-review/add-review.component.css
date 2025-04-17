@@ -1,0 +1,64 @@
+.add-review-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 20px;
+  }
+  
+  .full-width {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .rating-container {
+    margin: 20px 0;
+  }
+  
+  .star-rating {
+    display: inline-flex;
+    margin-left: 10px;
+  }
+  
+  .star-rating mat-icon {
+    cursor: pointer;
+    color: #bdbdbd;
+    font-size: 24px;
+    transition: color 0.2s ease;
+  }
+  
+  .star-rating mat-icon.filled {
+    color: #ffd700;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  mat-slide-toggle {
+    display: block;
+    margin: 20px 0;
+  }
+  
+  textarea {
+    min-height: 100px;
+  }
+  
+  .mat-mdc-form-field {
+    display: block;
+    margin-bottom: 20px;
+  }
+  
+  /* Ajout de styles pour le slide toggle */
+  ::ng-deep .mat-slide-toggle {
+    margin: 16px 0;
+  }
+  
+  ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: #3f51b5;
+  }
+  
+  ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: rgba(63, 81, 181, 0.5);
+  }

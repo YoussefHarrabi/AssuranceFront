@@ -1,0 +1,27 @@
+/* Add this CSS to your stylesheet to make the navbar less horizontal */
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    gap: 10px; /* Adds spacing between nav items */
+}
+
+.navbar-nav .nav-item {
+    margin-right: 0;
+    white-space: nowrap;
+}
+
+/* Adjust padding to make menu items closer together */
+.fables-nav .nav-link {
+    padding: 0.5rem 0.75rem;
+}
+
+/* Add this to ensure proper mobile responsiveness */
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column;
+    }
+    
+    .navbar-nav .nav-item {
+        margin-bottom: 5px;
+    }
+}

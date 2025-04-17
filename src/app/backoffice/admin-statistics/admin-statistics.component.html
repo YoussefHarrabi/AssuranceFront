@@ -1,0 +1,119 @@
+<div class="container mt-5">
+    <!-- Section des statistiques par TYPE -->
+    <div id="type">
+        <h2 class="text-center text-primary mb-5">Statistiques des Réclamations par TYPE</h2>
+
+        <div class="row">
+            <!-- Bar Chart -->
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg p-3">
+                    <h4 class="text-center text-secondary">Graphique en Barres</h4>
+                    <div class="chart-container" style="height: 350px;">
+                        <canvas baseChart
+                            [datasets]="barChartData"
+                            [labels]="barChartLabels"
+                            [options]="barChartOptions"
+                            [legend]="barChartLegend"
+                            [type]="barChartType">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pie Chart -->
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg p-3">
+                    <h4 class="text-center text-secondary">Graphique Circulaire</h4>
+                    <div class="chart-container d-flex justify-content-center" style="height: 350px;">
+                        <canvas baseChart
+                            [datasets]="pieChartData"
+                            [labels]="pieChartLabels"
+                            [options]="pieChartOptions"
+                            [legend]="barChartLegend"
+                            [type]="pieChartType">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Line Chart -->
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card shadow-lg p-3">
+                    <h4 class="text-center text-secondary">Graphique Linéaire</h4>
+                    <div class="chart-container" style="height: 350px;">
+                        <canvas baseChart
+                            [datasets]="lineChartData"
+                            [labels]="lineChartLabels"
+                            [options]="lineChartOptions"
+                            [legend]="barChartLegend"
+                            [type]="lineChartType">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section des statistiques par STATUS -->
+    <div id="status" class="mt-5">
+        <h2 class="text-center text-primary mb-5">Statistiques des Réclamations par STATUS</h2>
+
+        <div class="row">
+            <!-- Doughnut Chart -->
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg p-3">
+                    <h4 class="text-center text-secondary">Graphique en Anneau</h4>
+                    <div class="chart-container d-flex justify-content-center" style="height: 350px;">
+                        <canvas baseChart
+                            [datasets]="doughnutChartData"
+                            [labels]="doughnutChartLabels"
+                            [options]="doughnutChartOptions"
+                            [legend]="barChartLegend"
+                            [type]="doughnutChartType">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bar Chart for Status -->
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg p-3">
+                    <h4 class="text-center text-secondary">Graphique en Barres par Status</h4>
+                    <div class="chart-container" style="height: 350px;">
+                        <canvas baseChart
+                            [datasets]="statusBarChartData"
+                            [labels]="statusBarChartLabels"
+                            [options]="statusBarChartOptions"
+                            [legend]="statusBarChartLegend"
+                            [type]="statusBarChartType">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section de l'histogramme -->
+    <div id="histogram" class="mt-5">
+        <h2 class="text-center text-primary mb-5">Histogramme (Stacked Bar Chart)</h2>
+        <h4 class="text-center mb-4">Comparer le nombre de réclamations par statut et par type</h4>
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card shadow-lg p-3">
+                    <h4 class="text-center text-secondary">Graphique en Barres Empilées</h4>
+                    <div class="chart-container" style="height: 350px;">
+                        <canvas baseChart
+                            [datasets]="stackedBarChartData"
+                            [labels]="stackedBarChartLabels"
+                            [options]="stackedBarChartOptions"
+                            [legend]="stackedBarChartLegend"
+                            [type]="stackedBarChartType">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

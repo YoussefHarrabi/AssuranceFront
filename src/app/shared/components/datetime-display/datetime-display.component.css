@@ -1,0 +1,28 @@
+.datetime-display {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .datetime-content, .user-login {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: #495057;
+  }
+  
+  i {
+    color: #007bff;
+    width: 16px;
+    text-align: center;
+  }
+  
+  .datetime-text {
+    font-family: 'Courier New', monospace;
+    font-weight: 500;
+  }

@@ -3,25 +3,25 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MainBackofficeComponent } from './main-backoffice/main-backoffice.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ReclamationListComponent } from '../backoffice/reclamation-list/reclamation-list.component';
-
+import { ReclamationListComponent } from './reclamation-list/reclamation-list.component';
 import { EditReclamationComponent } from './edit-reclamation/edit-reclamation.component';
 import { AddReclamationComponent } from './add-reclamation/add-reclamation.component';
 import { ComplaintResponseComponent } from './complaint-response/complaint-response.component';
+import { AdminStatisticsComponent } from './admin-statistics/admin-statistics.component';
 
 const routes: Routes = [
   {
     path: '', component: MainBackofficeComponent,
     children: [
       { path: '', component: DashboardComponent },
-      {path:'profile',component:ProfileComponent},
+      { path: 'profile', component: ProfileComponent },
       { path: 'complaintList', component: ReclamationListComponent },
       { path: 'addComplaint', component: AddReclamationComponent },
-      { path: 'editComplaint/:id', component: EditReclamationComponent },  
+      { path: 'editComplaint/:id', component: EditReclamationComponent },
       { path: 'reclamations/response/:id', component: ComplaintResponseComponent },
-
+      { path: 'admin/statistics', component: AdminStatisticsComponent }
+      
     ]
-    
   }
 ];
 

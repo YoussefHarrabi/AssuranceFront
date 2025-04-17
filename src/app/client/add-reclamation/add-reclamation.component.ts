@@ -41,15 +41,39 @@ export class AddReclamationComponent implements Validator {
   };
 
   constructor(private complaintService: ComplaintService, private router: Router) {}
-
+  
   onSubmit(form: NgForm) {
     if (form.valid) {
       this.complaint.status = ComplaintStatus.PENDING;
+      this.complaint.client = {
+        id: 2,
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john.doe@example.com',
+        birthday: new Date('1990-01-01'),
+        numberOfIdentity: '123456789',
+        phoneNumber: '123-456-7890',
+        address: '123 Main St',
+        password: 'password123',
+        roles: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        complaints: [],
+        responses: [],
+        reviews: []
+      }; // Static client with id 2
       this.complaint.creationDate = new Date();
 
       this.complaintService.addComplaint(this.complaint).subscribe(response => {
         console.log('Complaint added successfully', response);
-        alert('Votre réclamation a été ajoutée avec succès.');
+        
+        // Afficher la modal de succès au lieu de l'alerte
+        const modalElement = document.getElementById('successModal');
+        if (modalElement) {
+          const modal = new bootstrap.Modal(modalElement);
+          modal.show();
+        }
+        
         form.reset();
       }, error => {
         console.error('Error adding complaint', error);
@@ -81,6 +105,10 @@ export class AddReclamationComponent implements Validator {
       const modal = new bootstrap.Modal(modalElement);
       modal.show();
     }
+  }
+
+  navigateToList(): void {
+    this.router.navigate(['/client/complaintList']);
   }
 
   editComplaint(id: number): void {
