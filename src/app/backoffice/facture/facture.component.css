@@ -1,0 +1,319 @@
+/* Style pour la barre de recherche */
+.search-box {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.search-box .position-relative {
+  position: relative;
+}
+
+.search-box input {
+  padding: 10px 15px;
+  padding-right: 40px;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.search-box input:focus {
+  border-color: #1976d2;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(25, 118, 210, 0.25);
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #95a5a6;
+}
+
+/* Styles pour la carte */
+.card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.card-block {
+  padding: 1.25rem;
+}
+
+.card-title {
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.card-subtitle {
+  color: #95a5a6;
+  margin-bottom: 1.5rem;
+}
+
+/* Styles pour les boutons */
+.btn {
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-success {
+  background-color: #2ecc71;
+  border-color: #27ae60;
+}
+
+.btn-success:hover {
+  background-color: #27ae60;
+  border-color: #219a52;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  border-color: #2980b9;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+  border-color: #2472a4;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  border-color: #c0392b;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+  border-color: #a93226;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 0.875rem;
+}
+
+/* Styles pour la table */
+.table-responsive {
+  margin-top: 20px;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+
+.table th {
+  padding: 12px;
+  border-top: 1px solid #e9ecef;
+  background-color: #f8f9fa;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.table td {
+  padding: 12px;
+  vertical-align: middle;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Styles pour les badges de statut */
+.badge {
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.bg-success {
+  background-color: #2ecc71 !important;
+}
+
+.bg-warning {
+  background-color: #f1c40f !important;
+  color: #000 !important;
+}
+
+.bg-danger {
+  background-color: #e74c3c !important;
+}
+
+/* Styles pour le spinner de chargement */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  color: #3498db;
+}
+
+/* Styles pour les messages d'erreur */
+.alert {
+  padding: 12px 20px;
+  border-radius: 4px;
+  margin: 15px 0;
+}
+
+.alert-danger {
+  background-color: #fee2e2;
+  border-color: #fecaca;
+  color: #dc2626;
+}
+
+/* Styles pour le header flexible */
+.d-flex {
+  display: flex;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+/* Media queries pour la responsivité */
+@media (max-width: 768px) {
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .btn-sm {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+
+  .badge {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+  }
+
+  .card-block {
+    padding: 1rem;
+  }
+
+  .search-box {
+    margin-bottom: 1rem;
+  }
+
+  .d-flex {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+
+/* Hover effects sur les lignes du tableau */
+.table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+  cursor: pointer;
+}
+
+/* Animation pour le loading spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner-border {
+  animation: spin 1s linear infinite;
+}
+
+/* Transitions douces */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+}
+
+/* Style pour les boutons d'action */
+.me-2 {
+  margin-right: 0.5rem;
+}
+
+/* Style pour le message "Aucune facture disponible" */
+.text-center {
+  text-align: center;
+}
+
+/* Style pour les montants */
+.montant {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+/* Style pour les dates */
+.date {
+  color: #7f8c8d;
+}
+
+/* Style pour la zone de recherche vide */
+.search-box input::placeholder {
+  color: #95a5a6;
+  opacity: 0.8;
+}
+
+/* Animation pour le focus de la recherche */
+.search-box input:focus ~ .search-icon {
+  color: #1976d2;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Transition pour l'icône de recherche */
+.search-icon {
+  transition: all 0.3s ease;
+}
+
+/* Styles pour les notifications */
+::ng-deep .bg-success {
+  background-color: #28a745 !important;
+  color: white !important;
+}
+
+::ng-deep .bg-danger {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+
+/* Style pour le bouton d'envoi d'email désactivé */
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+/* Animation pour l'icône d'envoi */
+.fa-envelope {
+  margin-right: 5px;
+}
+
+.btn:disabled .fa-envelope {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}

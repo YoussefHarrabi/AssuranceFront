@@ -1,0 +1,22 @@
+<div class="statistics-container">
+  <div class="summary-cards">
+    <div class="card">
+      <h3>Total des factures</h3>
+      <p>{{ stats?.nombreTotalFactures }} Factures</p>
+      <p>{{ stats?.montantTotal | currency:'TND':'symbol':'1.0-0' }}</p>
+    </div>
+    <div class="card success">
+      <h3>Gain potentiel</h3>
+      <p>{{ stats?.gainPotentiel | currency:'TND':'symbol':'1.0-0' }}</p>
+    </div>
+  </div>
+
+  <div class="charts-container">
+    <div class="chart-wrapper">
+      <canvas id="barChart"></canvas>
+    </div>
+    <div class="chart-wrapper">
+      <canvas id="pieChart"></canvas>
+    </div>
+  </div>
+</div>

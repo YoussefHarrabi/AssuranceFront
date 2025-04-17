@@ -1,0 +1,100 @@
+<div class="container">
+  <div *ngIf="loading" class="text-center my-4">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && !error">
+    <h1>Paiement pour la facture #{{ factureId }}</h1>
+
+    <!-- Facture Details Card -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Détails de la facture</h5>
+        <div class="row">
+          <div class="col-md-6">
+            <p class="mb-1"><strong>Montant à payer:</strong></p>
+            <h3 class="text-primary">{{ facture?.montant | currency:'TND' }}</h3>
+          </div>
+          <div class="col-md-6">
+            <p class="mb-1"><strong>Date d'émission:</strong></p>
+            <p>{{ facture?.dateEmission | date:'dd/MM/yyyy' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Method Selection -->
+    <div class="form-group mb-4">
+      <label for="methodePaiement" class="form-label">Méthode de paiement</label>
+      <select
+        id="methodePaiement"
+        [(ngModel)]="methodePaiement"
+        class="form-select"
+        [disabled]="processing">
+        <option value="" disabled selected>Choisir une méthode</option>
+        <option *ngFor="let method of listeMethodesPaiement" [value]="method.key">
+          {{ method.value }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Stripe Payment Component -->
+    <div *ngIf="methodePaiement === 'CREDIT_CARD' && facture">
+      <app-stripe-payment
+        [amount]="facture.montant"
+        [factureId]="factureId"
+        (paymentSuccess)="onPaymentSuccess()"
+      ></app-stripe-payment>
+    </div>
+
+    <!-- Standard Payment Button -->
+    <button
+      *ngIf="methodePaiement !== 'CREDIT_CARD' && methodePaiement"
+      (click)="payerFacture()"
+      class="btn btn-primary"
+      [disabled]="processing">
+      <span *ngIf="processing" class="spinner-border spinner-border-sm me-2"></span>
+      {{ processing ? 'Processing...' : 'Payer' }}
+    </button>
+
+    <!-- Payment History -->
+    <div class="mt-5">
+      <h2>Historique des paiements</h2>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Montant</th>
+              <th>Méthode</th>
+              <th>QR Code</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let paiement of paiements">
+              <td>{{ paiement.datePaiement | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+              <td>{{ paiement.montantPaiement | currency:'TND' }}</td>
+              <td>{{ paiement.methodePaiement }}</td>
+              <td>
+                <img *ngIf="paiement.id && qrCodeUrls[paiement.id]"
+                     [src]="qrCodeUrls[paiement.id]"
+                     alt="QR Code"
+                     width="100"
+                     class="img-fluid">
+              </td>
+            </tr>
+            <tr *ngIf="paiements.length === 0">
+              <td colspan="4" class="text-center">Aucun paiement trouvé</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
