@@ -1,0 +1,53 @@
+<div class="charts-container">
+  <!-- Pie Chart -->
+  <div class="chart-card">
+    <h3>Percentage by Type</h3>
+    <div class="chart-wrapper">
+      <canvas 
+        baseChart 
+        [data]="pieChartData" 
+        [labels]="pieChartLabels" 
+        [type]="pieChartType">
+      </canvas>
+    </div>
+  </div>
+
+  <!-- Bar Chart -->
+  <div class="chart-card">
+    <h3>Count by Type</h3>
+    <div class="chart-wrapper">
+      <canvas 
+        baseChart 
+        [data]="barChartData" 
+        [labels]="barChartLabels" 
+        [type]="barChartType">
+      </canvas>
+    </div>
+  </div>
+
+  <!-- Line Chart -->
+  <div class="chart-card">
+    <h3>Average Premium by Type</h3>
+    <div class="chart-wrapper">
+      <canvas 
+        baseChart 
+        [data]="lineChartData" 
+        [labels]="lineChartLabels" 
+        [type]="lineChartType">
+      </canvas>
+    </div>
+  </div>
+
+  <!-- Bubble Chart -->
+  <div class="chart-card">
+    <h3>Premium Range by Type</h3>
+    <div class="chart-wrapper">
+      <canvas 
+        baseChart 
+        [data]="bubbleChartData" 
+        [options]="bubbleChartOptions" 
+        [type]="bubbleChartType">
+      </canvas>
+    </div>
+  </div>
+</div>

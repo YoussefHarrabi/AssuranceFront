@@ -1,0 +1,196 @@
+/* document-details.component.css */
+.mat-dialog-container {
+    position: relative; /* Make sure it's relative for draggable positioning */
+  }
+  
+  .mat-dialog-title {
+    cursor: move; /* Indicates the draggable behavior */
+  }
+  
+  
+  .dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .dialog-header h1 {
+    color: #fff;
+    flex-grow: 1;
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .header-trash {
+    height: 20px; 
+    cursor: pointer;
+    position: absolute;
+    right: 50px;
+    top: 5px;
+  }
+  
+  .header-cross {
+    height: 20px; 
+    cursor: pointer;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+  }
+  
+  
+  :host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  h2[mat-dialog-title] {
+    color: white;
+    padding: 5px;
+    margin: 0;
+  }
+  
+  mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 0;
+  }
+  
+  .document-details {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .pdf-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    margin: 10px;
+    overflow: hidden;
+  }
+  
+  ngx-extended-pdf-viewer {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .status-dropdown {
+    width: 200px;
+  }
+  
+  mat-dialog-actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0px;
+    margin-bottom: 0px;
+  }
+  
+  mat-dialog-actions button {
+    margin-right: 10px;
+    color: white;
+  }
+  mat-dialog-title {
+    color: white;
+  }
+  
+  button[mat-button] {
+    background-color: #36942a;
+    border: none;
+    color: white;
+    padding: 7px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    border-radius: 5px;
+    
+  }
+  
+  .disabled-button {
+    background-color: rgb(166, 166, 166) !important;
+    color: rgba(0, 0, 0, 0.38); /* Adjust text color if needed */
+    cursor: not-allowed;
+  }
+  
+  button[mat-button]:hover {
+    background-color: #19da0b;
+  }
+  
+  button[mat-button][mat-dialog-close] {
+    background-color: #f44336;
+  }
+  
+  button[mat-button][mat-dialog-close]:hover {
+    background-color: #e53935;
+  }
+  
+  .bottom-buttons {
+    display: flex;
+    justify-content: space-around;
+    padding: 8px;
+    
+  }
+  
+  .bottom-buttons button {
+    background-color: #60c432;
+      color: #fff;
+      margin: 0;
+  }
+  
+  .bottom-buttons button:hover {
+    background-color: #09c137;
+  }
+  
+  .button-color-1 {
+    background-color: red;
+    color: white;
+  }
+  .button-color-2 {
+    background-color: red;
+    color: white;
+  }
+  
+  .button-default-color {
+    background-color: gray;
+    color: 
+    rgb(154, 154, 154);
+  }
+  
+  .positive {
+    background-color: #8bc34a;
+    color: #fff;}
+  
+  .negative {
+    background-color: rgb(156, 156, 156);
+  }
+  .button-matching-status {
+    background-color: red; /* Change to desired color */
+    color: white; /* Example: white text on red background */
+  }
+  .comment-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .comment-section textarea {
+    width: 100%;
+    resize: none; /* Disable manual resizing */
+    overflow: hidden; /* Hide scrollbars */
+  }
+  
+  .comment-section button {
+    flex-shrink: 0;
+  }
+  

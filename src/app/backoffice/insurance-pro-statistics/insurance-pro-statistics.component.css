@@ -1,0 +1,29 @@
+.charts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 40px;
+}
+
+.chart-card {
+  width: 100%;
+  max-width: 700px; /* Optional: limit width for better readability */
+  margin: 0 auto; /* Center the card */
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chart-wrapper {
+  position: relative;
+  aspect-ratio: 1 / 1; /* Keep it square to avoid distortion */
+  width: 100%;
+  max-height: 600px; /* Optional: control max size */
+}
+
+.chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+}

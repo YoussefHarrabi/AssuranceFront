@@ -1,0 +1,50 @@
+<div class="container">
+  <h2>Insurance Pro Types</h2>
+  
+  <!-- Search by Name -->
+  <div class="search-container">
+    <input
+      type="text"
+      [(ngModel)]="searchName"
+      placeholder="Search by field..."
+      (input)="onSearch()"
+    />
+  </div>
+
+  <!-- Add Insurance Pro Type Button -->
+  <button class="add-button" (click)="goToAddForm()">Add Insurance Pro Type</button>
+
+  <!-- Insurance Pro Types List -->
+  <ul class="type-list">
+    <li *ngFor="let type of paginatedInsuranceProTypes">
+      <div class="type-card">
+        <h3>{{ type.name }}</h3>
+        <p><strong>Field:</strong> {{ type.field }}</p>
+        <p><strong>Risk:</strong> {{ type.risk }}</p>
+        <div class="actions">
+          <button class="edit-button" (click)="edit(type.id)">Edit</button>
+          <button class="delete-button" (click)="delete(type.id!)">Delete</button>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <button
+      (click)="previousPage()"
+      [disabled]="currentPage === 1"
+      class="pagination-button"
+    >
+      Previous
+    </button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+      class="pagination-button"
+    >
+      Next
+    </button>
+  </div>
+</div>

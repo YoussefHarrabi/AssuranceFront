@@ -1,0 +1,34 @@
+.top-header {
+    font-size: 0.9rem;
+  }
+  
+  .navbar {
+    padding: 0.8rem 0;
+  }
+  
+  .navbar-brand img {
+    transition: all 0.3s ease;
+  }
+  
+  .navbar-brand img:hover {
+    opacity: 0.8;
+  }
+  
+  .nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.2s ease;
+  }
+  
+  .nav-link:hover {
+    color: var(--primary) !important;
+  }
+  
+  .dropdown-menu {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  
+  .btn-primary {
+    padding: 0.5rem 1.25rem;
+  }

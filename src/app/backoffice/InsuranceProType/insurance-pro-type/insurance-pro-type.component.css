@@ -1,0 +1,194 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f9f9f9, #e0e0e0);
+    color: #333;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container {
+    max-width: 800px;
+    width: 100%;
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  h2 {
+    color: #ff8c42; /* Different shade of light orange */
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  /* Search Container */
+  .search-container {
+    margin-bottom: 10px;
+  }
+  
+  .search-container input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 12px;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+  }
+  
+  .search-container input:focus {
+    border-color: #ff8c42; /* Different shade of light orange */
+    outline: none;
+    box-shadow: 0 0 6px rgba(255, 140, 66, 0.3);
+  }
+  
+  /* Add Button */
+  .add-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #4a90e2, #357abd); /* Different shade of blue */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+  }
+  
+  .add-button:hover {
+    background: linear-gradient(135deg, #357abd, #4a90e2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Insurance Pro Types List */
+  .type-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .type-card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .type-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .type-card h3 {
+    color: #ff8c42; /* Different shade of light orange */
+    margin-bottom: 6px;
+    font-size: 1.1rem;
+  }
+  
+  .type-card p {
+    margin: 3px 0;
+    font-size: 0.8rem;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  
+  .edit-button,
+  .delete-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .edit-button {
+    background: #4a90e2; /* Different shade of blue */
+    color: #fff;
+  }
+  
+  .edit-button:hover {
+    background: #357abd;
+    transform: translateY(-2px);
+  }
+  
+  .delete-button {
+    background: #ff8c42; /* Different shade of light orange */
+    color: #fff;
+  }
+  
+  .delete-button:hover {
+    background: #ff6f00;
+    transform: translateY(-2px);
+  }
+  
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  
+  .pagination-button {
+    padding: 5px 10px;
+    background: #4a90e2; /* Different shade of blue */
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .pagination-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination-button:hover:not(:disabled) {
+    background: #357abd;
+    transform: translateY(-2px);
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

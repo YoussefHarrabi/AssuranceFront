@@ -1,0 +1,279 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f9f9f9, #e0e0e0);
+    color: #333;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container {
+    max-width: 800px;
+    width: 100%;
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  h2 {
+    color: #ff7f50; /* Light Orange */
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  /* Search Container */
+  .search-container {
+    margin-bottom: 10px;
+  }
+  
+  .search-container input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 12px;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+  }
+  
+  .search-container input:focus {
+    border-color: #ff7f50; /* Light Orange */
+    outline: none;
+    box-shadow: 0 0 6px rgba(255, 127, 80, 0.3);
+  }
+  
+  /* Add Button */
+  .add-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #1e90ff, #0077cc); /* Blue */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+  }
+  
+  .add-button:hover {
+    background: linear-gradient(135deg, #0077cc, #1e90ff);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Insurance Pros Grid */
+  .pro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+  }
+  
+  .pro-card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .pro-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .pro-header {
+    background: #ff7f50; /* Light Orange */
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .pro-header h3 {
+    color: #fff;
+    margin: 0;
+    font-size: 1.1rem;
+  }
+  
+  .pro-body {
+    padding: 10px;
+  }
+  
+  .pro-body p {
+    margin: 3px 0;
+    font-size: 0.8rem;
+  }
+  
+  .pro-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    background: #f9f9f9;
+  }
+  
+  .edit-button,
+  .delete-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .edit-button {
+    background: #1e90ff; /* Blue */
+    color: #fff;
+  }
+  
+  .edit-button:hover {
+    background: #0077cc;
+    transform: translateY(-2px);
+  }
+
+  /* View Button */
+.view-button {
+  padding: 5px 10px;
+  background: linear-gradient(135deg, #4caf50, #388e3c); /* Green gradient */
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.view-button:hover {
+  background: linear-gradient(135deg, #388e3c, #2e7d32);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+  
+  .delete-button {
+    background: #ff7f50; /* Light Orange */
+    color: #fff;
+  }
+  
+  .delete-button:hover {
+    background: #ff6347;
+    transform: translateY(-2px);
+  }
+  
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  
+  .pagination-button {
+    padding: 5px 10px;
+    background: #1e90ff; /* Blue */
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .pagination-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination-button:hover:not(:disabled) {
+    background: #0077cc;
+    transform: translateY(-2px);
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* STATUS FILTER SECTION */
+.status-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.status-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #f4f4f4;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.status-option:hover {
+  background-color: #e2e2e2;
+}
+
+.status-option input[type="checkbox"] {
+  accent-color: #4caf50;
+}
+
+/* SEARCH INPUT */
+input[type="text"] {
+  width: 100%;
+  max-width: 350px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+}
+
+input[type="text"]:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+

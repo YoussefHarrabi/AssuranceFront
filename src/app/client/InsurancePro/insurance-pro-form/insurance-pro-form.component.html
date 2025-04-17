@@ -1,0 +1,68 @@
+<div class="form-wrapper">
+  <div class="form-container">
+    <h2>{{ isEditMode ? 'Update' : 'Add New' }} Insurance Pro</h2>
+
+    <!-- Pro Name -->
+    <div class="form-group">
+      <label>Pro Name:</label>
+      <input
+        [(ngModel)]="newInsurancePro.proName"
+        placeholder="Enter pro name"
+        class="form-input"
+      />
+    </div>
+
+    <!-- Description -->
+    <div class="form-group">
+      <label>Description:</label>
+      <input
+        [(ngModel)]="newInsurancePro.description"
+        placeholder="Enter description"
+        class="form-input"
+      />
+    </div>
+
+    <!-- Premium Amount (Disabled) -->
+    <div class="form-group">
+      <label>Premium Amount:</label>
+      <input
+        type="number"
+        [(ngModel)]="newInsurancePro.premiumAmount"
+        placeholder="Premium amount"
+        class="form-input"
+        disabled
+      />
+    </div>
+
+    <!-- Insurance Pro Type -->
+    <div class="form-group">
+      <label>Insurance Pro Type:</label>
+      <select
+        [(ngModel)]="newInsurancePro.insuranceProType.id"
+        (change)="onInsuranceProTypeChange($event)"
+        class="form-select"
+      >
+        <option *ngFor="let type of insuranceProTypes" [value]="type.id">
+          {{ type.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- File Upload -->
+    <div class="form-group">
+      <label for="fileUpload">Upload PDF File:</label>
+      <input
+        type="file"
+        id="fileUpload"
+        accept=".pdf"
+        (change)="onFileSelected($event)"
+        class="form-input"
+      />
+    </div>
+
+    <!-- Save/Update Button -->
+    <button class="save-button" (click)="save()">
+      {{ isEditMode ? 'Update' : 'Save' }}
+    </button>
+  </div>
+</div>

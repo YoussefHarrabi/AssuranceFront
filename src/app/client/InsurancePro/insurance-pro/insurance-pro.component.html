@@ -1,0 +1,69 @@
+<div class="container">
+
+  <h2>Insurance Pros</h2>
+  
+  <!-- STATUS FILTER -->
+<div class="status-filter">
+  <label *ngFor="let status of insuranceStatuses" class="status-option">
+    <input
+      type="checkbox"
+      [value]="status"
+      (change)="onStatusFilterChange($event)"
+      [checked]="selectedStatuses.includes(status)"
+    />
+    {{ status }}
+  </label>
+</div>
+  
+  <!-- Search by Type -->
+  <div class="search-container">
+    <input
+      type="text"
+      [(ngModel)]="searchType"
+      placeholder="Search by type..."
+      (input)="onSearch()"
+    />
+  </div>
+
+  <!-- Add Insurance Pro Button -->
+  <button class="add-button" (click)="goToAddForm()">Add Insurance Pro</button>
+
+  <!-- Insurance Pros List -->
+  <div class="pro-grid">
+    <div *ngFor="let pro of paginatedInsurancePros" class="pro-card">
+      <div class="pro-header">
+        <h3>{{ pro.proName }}</h3>
+      </div>
+      <div class="pro-body">
+        <p>{{ pro.description }}</p>
+        <p><strong>Premium:</strong> ${{ pro.premiumAmount }}</p>
+        <p><strong>Type:</strong> {{ pro.insuranceProType.name }}</p>
+        <p><strong>Status:</strong> {{ pro.status }}</p>
+      </div>
+      <div class="pro-footer">
+        <button class="view-button" (click)="viewDetails(pro)">View</button>
+        <button class="edit-button" (click)="edit(pro.id!)">Edit</button>
+        <button class="delete-button" (click)="delete(pro.id!)">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <button
+      (click)="previousPage()"
+      [disabled]="currentPage === 1"
+      class="pagination-button"
+    >
+      Previous
+    </button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+      class="pagination-button"
+    >
+      Next
+    </button>
+  </div>
+</div>

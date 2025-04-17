@@ -1,0 +1,49 @@
+<div>
+  <div class="dialog-header" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle=".dialog-header">
+    <h1 mat-dialog-title
+        [ngStyle]="{
+          'background-color': insurance.status === InsuranceStatus.EN_ATTENTE ? 'rgb(243, 200, 0)' :
+                               insurance.status === InsuranceStatus.EN_COURS_DE_TRAITEMENT ? 'rgb(0, 219, 22)' :
+                               insurance.status === InsuranceStatus.REFUSEE ? 'rgb(240, 28, 28)' :
+                               insurance.status === InsuranceStatus.REDEMANDEE ? 'rgb(0, 169, 22)' :
+                               'rgb(166, 166, 166)'
+        }">
+        {{ insurance.proName }} - {{ insurance.insuranceProType?.name }} ({{ insurance.status }})
+
+         </h1>
+  </div>
+
+  <mat-dialog-content>
+    <div class="details-section">
+      <p><strong>Description:</strong> {{ insurance.description }}</p>
+      <p><strong>Premium Amount:</strong> {{ insurance.premiumAmount | currency }}</p>
+    </div>
+
+    <div class="pdf-container" *ngIf="pdfSrc">
+      <iframe [src]="pdfSrc" width="100%" height="400px"></iframe>
+    </div>
+  </mat-dialog-content>
+
+  <div class="bottom-buttons">
+    <button mat-button 
+            [ngStyle]="{'background-color': insurance.status === InsuranceStatus.REDEMANDEE ? 'rgb(166, 166, 166)' : 'rgb(84, 194, 0)' }" 
+            (click)="changeStatus(InsuranceStatus.REDEMANDEE)">
+      Redemandée
+    </button>
+    <button mat-button 
+            [ngStyle]="{'background-color': insurance.status === InsuranceStatus.EN_ATTENTE ? 'rgb(166, 166, 166)' : 'rgb(84, 194, 0)' }" 
+            (click)="changeStatus(InsuranceStatus.EN_ATTENTE)">
+      En attente
+    </button>
+    <button mat-button 
+            [ngStyle]="{'background-color': insurance.status === InsuranceStatus.EN_COURS_DE_TRAITEMENT ? 'rgb(166, 166, 166)' : 'rgb(84, 194, 0)' }" 
+            (click)="changeStatus(InsuranceStatus.EN_COURS_DE_TRAITEMENT)">
+      En cours de traitement
+    </button>
+    <button mat-button 
+            [ngStyle]="{'background-color': insurance.status === InsuranceStatus.REFUSEE ? 'rgb(166, 166, 166)' : 'rgb(84, 194, 0)' }" 
+            (click)="changeStatus(InsuranceStatus.REFUSEE)">
+      Refusée
+    </button>
+  </div>
+</div>
