@@ -1,0 +1,22 @@
+<h2>{{ id ? 'Modifier' : 'Ajouter' }} un Type d'Assurance</h2>
+
+<form [formGroup]="typeForm" (ngSubmit)="save()">
+  <!-- Label du champ -->
+  <label for="nom">Nom :</label>
+  
+  <!-- Champ de saisie -->
+  <input id="nom" formControlName="nom" type="text">
+
+  <!-- Affichage des erreurs -->
+  <div *ngIf="typeForm.get('nom')?.invalid && typeForm.get('nom')?.touched">
+    <small *ngIf="typeForm.get('nom')?.errors?.['required']" class="error">
+      Ce champ est obligatoire.
+    </small>
+    <small *ngIf="typeForm.get('nom')?.errors?.['pattern']" class="error">
+      Seules les lettres et les espaces sont autorisés.
+    </small>
+  </div>
+
+  <!-- Bouton de soumission désactivé si le formulaire est invalide -->
+  <button type="submit" [disabled]="typeForm.invalid">Sauvegarder</button>
+</form>

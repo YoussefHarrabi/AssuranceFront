@@ -1,0 +1,66 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card border-0 shadow-lg rounded-4">
+        <div class="card-body p-5">
+          <h2 class="text-center text-primary mb-4 fw-bold">Demande d'Assurance</h2>
+          
+          <form [formGroup]="demandeForm" (ngSubmit)="onSubmit()">
+            <!-- Nom de l'Assurance -->
+            <div class="mb-4">
+              <label class="form-label text-secondary">Nom de l'assurance</label>
+              <input type="text" class="form-control form-control-lg shadow-sm" formControlName="nomAssurance" placeholder="Entrez le nom de l'assurance" required>
+              
+              <!-- Message d'erreur pour nomAssurance -->
+              <div *ngIf="demandeForm.get('nomAssurance')?.invalid && demandeForm.get('nomAssurance')?.touched" class="text-danger">
+                <small *ngIf="demandeForm.get('nomAssurance')?.hasError('required')">Le nom de l'assurance est obligatoire.</small>
+                <small *ngIf="demandeForm.get('nomAssurance')?.hasError('minlength')">Le nom de l'assurance doit comporter au moins 3 caractères.</small>
+                <small *ngIf="demandeForm.get('nomAssurance')?.hasError('pattern')">Le nom de l'assurance peut contenir des lettres, des chiffres, et les caractères spéciaux ! : ; , - _.</small>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-4">
+              <label class="form-label text-secondary">Description</label>
+              <textarea class="form-control form-control-lg shadow-sm" formControlName="description" rows="4" placeholder="Décrivez l'assurance" required></textarea>
+
+              <!-- Message d'erreur pour description -->
+              <div *ngIf="demandeForm.get('description')?.invalid && demandeForm.get('description')?.touched" class="text-danger">
+                <small *ngIf="demandeForm.get('description')?.hasError('required')">La description est obligatoire.</small>
+                <small *ngIf="demandeForm.get('description')?.hasError('minlength')">La description doit comporter au moins 5 caractères.</small>
+                <small *ngIf="demandeForm.get('description')?.hasError('pattern')">La description peut contenir des lettres, des chiffres, et les caractères spéciaux ! : ; , - _.</small>
+              </div>
+            </div>
+
+            <!-- Prix -->
+            <div class="mb-4">
+              <label class="form-label text-secondary">Prix</label>
+              <input type="number" class="form-control form-control-lg shadow-sm" formControlName="prix" placeholder="Prix de l'assurance" min="0" required>
+            </div>
+
+            <!-- Type d'Assurance -->
+            <div class="mb-4">
+              <label class="form-label text-secondary">Type d'Assurance</label>
+              <select class="form-select form-select-lg shadow-sm" formControlName="typeAssurance" required>
+                <option [ngValue]="null" disabled selected>Choisir un type</option>
+                <option *ngFor="let type of typesAssurance" [ngValue]="type">
+                  {{ type.nom }}
+                </option>
+              </select>
+
+              <!-- Message d'erreur pour typeAssurance -->
+              <div *ngIf="demandeForm.get('typeAssurance')?.invalid && demandeForm.get('typeAssurance')?.touched" class="text-danger">
+                <small>Le type d'assurance est obligatoire.</small>
+              </div>
+            </div>
+
+            <!-- Bouton de Soumission -->
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-custom btn-lg rounded-pill fw-bold shadow-md">Soumettre</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

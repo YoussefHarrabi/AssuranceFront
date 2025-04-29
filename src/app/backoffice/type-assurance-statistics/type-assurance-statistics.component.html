@@ -1,0 +1,10 @@
+<div class="container">
+  <h2>Statistiques des Types d'Assurance</h2>
+  <div class="chart-controls">
+    <label for="chartType">Type de graphique:</label>
+    <select id="chartType" [(ngModel)]="chartType" (change)="onChartTypeChange()">
+      <option *ngFor="let type of chartTypes" [value]="type">{{ type }}</option>
+    </select>
+  </div>
+  <canvas id="canvas"></canvas>
+</div>

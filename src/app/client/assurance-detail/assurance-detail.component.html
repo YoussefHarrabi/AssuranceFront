@@ -1,0 +1,19 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg border-0 rounded-4" style="max-width: 500px;">
+      <div class="card-body p-4">
+        <h3 class="card-title text-center text-primary fw-bold">
+          <i class="fas fa-shield-alt"></i> {{ assurance.nomAssurance }}
+        </h3>
+        <hr>
+        <p class="text-muted"><i class="fas fa-align-left"></i> <strong>Description :</strong> {{ assurance.description }}</p>
+        <p class="text-muted"><i class="fas fa-euro-sign"></i> <strong>Prix :</strong> <span class="fw-bold text-success">{{ assurance.prix }} €</span></p>
+        <p class="text-muted"><i class="fas fa-umbrella"></i> <strong>Type d'Assurance :</strong> {{ assurance.typeAssurance.nom }}</p> 
+        <div class="d-flex justify-content-center mt-4">
+          <button class="btn btn-outline-primary rounded-pill px-4" (click)="retour()">
+            <i class="fas fa-arrow-left"></i> Retour
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

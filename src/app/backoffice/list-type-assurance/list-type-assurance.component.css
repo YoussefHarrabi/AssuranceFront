@@ -1,0 +1,31 @@
+/* Centrer le texte des cellules */
+.table thead th {
+    text-align: center;
+    background-color: #cce5ff; /* Bleu clair */
+    font-weight: bold;
+  }
+  
+  .table tbody td {
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  /* Ajuster les badges pour qu'ils soient bien centrés */
+  .badge {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+  
+  /* Boutons pour qu'ils aient une même hauteur */
+  .btn-sm {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+  
+  /* Pagination bien alignée */
+  .d-flex.justify-content-center {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  

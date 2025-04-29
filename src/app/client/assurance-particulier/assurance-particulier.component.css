@@ -1,0 +1,96 @@
+/* Définir les couleurs et les polices */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --background-color: #f8f9fa;
+  --input-border-color: #ced4da;
+  --btn-hover-color: #0056b3;
+  --btn-shadow-color: rgba(0, 123, 255, 0.2);
+  --btn-success-color: #28a745; /* Green color for success */
+  --btn-success-hover: #218838; /* Darker green */
+}
+
+/* Mise en page générale */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+}
+
+/* Style de la carte */
+.card {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Style des champs de formulaire */
+.form-label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--secondary-color);
+}
+
+.form-control, .form-select {
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--input-border-color);
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+textarea {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Style du bouton */
+.btn-custom {
+  background-color: var(--btn-success-color); /* Green color */
+  border: none;
+  border-radius: 50px;
+  padding: 12px 30px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-custom:hover {
+  background-color: var(--btn-success-hover); /* Darker green on hover */
+}
+
+.btn-custom:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(40, 167, 69, 0.5); /* Green focus shadow */
+}
+
+.shadow-md {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Taille et centrage du titre */
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Espacement entre les éléments */
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.d-grid {
+  display: grid;
+  place-items: center;
+}
+
+.d-grid .btn {
+  width: 100%;
+}

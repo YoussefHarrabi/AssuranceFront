@@ -1,0 +1,76 @@
+<div class="container mt-5">
+  <h2 class="text-center text-primary fw-bold mb-4">📄 Liste des Demandes d'Assurance</h2>
+
+  <div class="row">
+    <div
+      class="col-md-4 mb-4"
+      *ngFor="let demande of demandes | paginate: { itemsPerPage: itemsPerPage, currentPage: page }"
+    >
+      <div class="card shadow-lg border-0 rounded-lg animate-hover">
+        <div class="card-body">
+          <h5 class="card-title text-dark fw-bold">
+            {{ demande.nomAssurance || 'Nom non disponible' }}
+          </h5>
+          <p class="card-text text-secondary">
+            {{ demande.description || 'Description non disponible' }}
+          </p>
+          <p class="fw-bold">💰 Prix: 
+            <span class="text-success">
+              {{ demande.prix | number: '1.3-3' }} TND
+            </span>
+          </p>
+          <p>📌 Type: 
+            <span class="badge bg-primary text-light">
+              {{ demande.typeAssurance.nom || 'Non spécifié' }}
+            </span>
+          </p>
+          <p>Status: 
+            <span
+              class="badge"
+              [ngClass]="{
+                'bg-warning': demande.status === 'EN_ATTENTE',
+                'bg-success': demande.status === 'ACCEPTEE',
+                'bg-danger': demande.status === 'REFUSEE'
+              }"
+            >
+              {{ demande.status || 'Non défini' }}
+            </span>
+          </p>
+        </div>
+
+        <div class="card-footer bg-light border-0 d-flex flex-wrap gap-2 justify-content-between">
+          <button
+            class="btn btn-outline-danger btn-sm shadow-sm"
+            (click)="deleteDemande(demande.id!)"
+            *ngIf="demande.id != null"
+          >
+            <i class="bi bi-trash3"></i> Supprimer
+          </button>
+
+          <button
+            class="btn btn-outline-info btn-sm"
+            (click)="updateStatus(demande.id!, 'ACCEPTEE')"
+            *ngIf="demande.id != null"
+          >
+            Approuver
+          </button>
+
+          <button
+            class="btn btn-outline-danger btn-sm"
+            (click)="updateStatus(demande.id!, 'REJETEE')"
+            *ngIf="demande.id != null"
+          >
+            Rejeter
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center mt-4">
+    <pagination-controls
+      class="pagination-custom"
+      (pageChange)="page = $event"
+    ></pagination-controls>
+  </div>
+</div>
