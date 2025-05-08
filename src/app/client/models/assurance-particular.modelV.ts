@@ -3,7 +3,8 @@ import { TypeAssuranceParticular } from '../../backoffice/models/type-assurance-
 export enum StatusDemande {
   EN_ATTENTE = 'EN_ATTENTE',
   ACCEPTEE = 'ACCEPTEE',
-  REFUSEE = 'REFUSEE'
+  REFUSEE = 'REFUSEE',
+  PENDING= 'PENDING'
 }
 
 export class AssuranceParticular {
@@ -12,5 +13,7 @@ export class AssuranceParticular {
   description!: string;
   prix!: number;
   typeAssurance!: TypeAssuranceParticular;
-  status?: StatusDemande; // ✅ Ajout du champ 'status'
+  status?: StatusDemande;
+  userEmail?: string; // ✅ Champ ajouté
 }
+

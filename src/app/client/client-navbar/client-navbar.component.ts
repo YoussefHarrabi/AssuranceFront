@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-client-navbar',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./client-navbar.component.css']
 })
 export class ClientNavbarComponent {
-
+  constructor(public router: Router) {}  
 }

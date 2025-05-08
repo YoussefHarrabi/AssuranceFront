@@ -4,18 +4,24 @@
       <div class="card border-0 shadow-lg rounded-4">
         <div class="card-body p-5">
           <h2 class="text-center text-primary mb-4 fw-bold">Demande d'Assurance</h2>
-          
+
+          <!-- Bouton de retour -->
+          <div *ngIf="returnPath" class="mb-4">
+            <button class="btn btn-outline-secondary" (click)="onCancel()">
+              ← Retour
+            </button>
+          </div>
+
           <form [formGroup]="demandeForm" (ngSubmit)="onSubmit()">
+
             <!-- Nom de l'Assurance -->
             <div class="mb-4">
               <label class="form-label text-secondary">Nom de l'assurance</label>
               <input type="text" class="form-control form-control-lg shadow-sm" formControlName="nomAssurance" placeholder="Entrez le nom de l'assurance" required>
-              
-              <!-- Message d'erreur pour nomAssurance -->
               <div *ngIf="demandeForm.get('nomAssurance')?.invalid && demandeForm.get('nomAssurance')?.touched" class="text-danger">
                 <small *ngIf="demandeForm.get('nomAssurance')?.hasError('required')">Le nom de l'assurance est obligatoire.</small>
-                <small *ngIf="demandeForm.get('nomAssurance')?.hasError('minlength')">Le nom de l'assurance doit comporter au moins 3 caractères.</small>
-                <small *ngIf="demandeForm.get('nomAssurance')?.hasError('pattern')">Le nom de l'assurance peut contenir des lettres, des chiffres, et les caractères spéciaux ! : ; , - _.</small>
+                <small *ngIf="demandeForm.get('nomAssurance')?.hasError('minlength')">Le nom doit comporter au moins 3 caractères.</small>
+                <small *ngIf="demandeForm.get('nomAssurance')?.hasError('pattern')">Le nom peut contenir des lettres, des chiffres et certains caractères spéciaux (! : ; , - _).</small>
               </div>
             </div>
 
@@ -23,12 +29,10 @@
             <div class="mb-4">
               <label class="form-label text-secondary">Description</label>
               <textarea class="form-control form-control-lg shadow-sm" formControlName="description" rows="4" placeholder="Décrivez l'assurance" required></textarea>
-
-              <!-- Message d'erreur pour description -->
               <div *ngIf="demandeForm.get('description')?.invalid && demandeForm.get('description')?.touched" class="text-danger">
                 <small *ngIf="demandeForm.get('description')?.hasError('required')">La description est obligatoire.</small>
                 <small *ngIf="demandeForm.get('description')?.hasError('minlength')">La description doit comporter au moins 5 caractères.</small>
-                <small *ngIf="demandeForm.get('description')?.hasError('pattern')">La description peut contenir des lettres, des chiffres, et les caractères spéciaux ! : ; , - _.</small>
+                <small *ngIf="demandeForm.get('description')?.hasError('pattern')">La description peut contenir des lettres, des chiffres et certains caractères spéciaux (! : ; , - _).</small>
               </div>
             </div>
 
@@ -47,10 +51,18 @@
                   {{ type.nom }}
                 </option>
               </select>
-
-              <!-- Message d'erreur pour typeAssurance -->
               <div *ngIf="demandeForm.get('typeAssurance')?.invalid && demandeForm.get('typeAssurance')?.touched" class="text-danger">
                 <small>Le type d'assurance est obligatoire.</small>
+              </div>
+            </div>
+
+            <!-- Email de l'utilisateur -->
+            <div class="mb-4">
+              <label class="form-label text-secondary">Email</label>
+              <input type="email" class="form-control form-control-lg shadow-sm" formControlName="userEmail" placeholder="Entrez votre email" required>
+              <div *ngIf="demandeForm.get('userEmail')?.invalid && demandeForm.get('userEmail')?.touched" class="text-danger">
+                <small *ngIf="demandeForm.get('userEmail')?.hasError('required')">L'email est obligatoire.</small>
+                <small *ngIf="demandeForm.get('userEmail')?.hasError('email')">Format d'email invalide.</small>
               </div>
             </div>
 
@@ -58,6 +70,7 @@
             <div class="d-grid gap-2">
               <button type="submit" class="btn btn-custom btn-lg rounded-pill fw-bold shadow-md">Soumettre</button>
             </div>
+
           </form>
         </div>
       </div>

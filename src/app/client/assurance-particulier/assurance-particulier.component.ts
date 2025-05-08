@@ -14,6 +14,7 @@ export class AssuranceParticulierComponent implements OnInit {
   id: number | null = null;
   typesAssurance: any[] = [];
   errorMessage: string = '';
+  returnPath: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -29,13 +30,17 @@ export class AssuranceParticulierComponent implements OnInit {
       description: ['', [Validators.required, Validators.minLength(5), Validators.pattern(/^[a-zA-Z0-9!:\-,;_ ]+$/)]],
       prix: ['', [Validators.required, Validators.min(0)]],
       typeAssurance: ['', Validators.required],
-      status: ['EN_ATTENTE'] // ✅ Champ "status" ajouté ici
+      status: ['EN_ATTENTE'],
+      userEmail: ['', [Validators.required, Validators.email]]
     });
 
     this.loadTypesAssurance();
 
     const paramId = this.route.snapshot.params['id'];
     this.id = paramId ? parseInt(paramId, 10) : null;
+
+    const navigation = this.router.getCurrentNavigation();
+    this.returnPath = navigation?.extras.state?.['from'] || null;
 
     if (this.id) {
       this.loadDemande();
@@ -92,12 +97,9 @@ export class AssuranceParticulierComponent implements OnInit {
 
     demandeData.typeAssurance = { id: demandeData.typeAssurance.id };
 
-    // ✅ Définit le statut à "EN_ATTENTE" si non défini
     if (!demandeData.status) {
       demandeData.status = 'EN_ATTENTE';
     }
-
-    console.log("🚀 Données envoyées :", demandeData);
 
     if (this.id) {
       this.updateDemande(demandeData);
@@ -105,15 +107,12 @@ export class AssuranceParticulierComponent implements OnInit {
       this.createDemande(demandeData);
     }
   }
-  goToListAssurance(): void {
-    this.router.navigate(['../client/List']);
-  }
+
   createDemande(demandeData: any): void {
     this.demandeService.addDemande(demandeData).subscribe(
       () => {
         alert("Demande d'assurance ajoutée avec succès !");
-        this.goToListAssurance();
-       
+        this.goBackOrDefault();
       },
       (error) => {
         this.errorMessage = "Erreur lors de l'ajout de la demande.";
@@ -126,7 +125,7 @@ export class AssuranceParticulierComponent implements OnInit {
     this.demandeService.updateDemande(this.id!, demandeData).subscribe(
       () => {
         alert("Demande d'assurance mise à jour avec succès !");
-        this.router.navigate(['/List']);
+        this.goBackOrDefault();
       },
       (error) => {
         this.errorMessage = "Erreur lors de la mise à jour de la demande.";
@@ -135,6 +134,15 @@ export class AssuranceParticulierComponent implements OnInit {
     );
   }
 
+  goBackOrDefault(): void {
+    if (this.returnPath) {
+      this.router.navigate([this.returnPath]);
+    } else {
+      this.router.navigate(['../client/List']);
+    }
+  }
 
-  
+  onCancel(): void {
+    this.goBackOrDefault();
+  }
 }

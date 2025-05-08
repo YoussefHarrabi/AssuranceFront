@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { path: 'client', loadChildren: () => import('./client/client.module').then(m => m.ClientModule) },
   { path: 'backoffice', loadChildren: () => import('./backoffice/backoffice.module').then(m => m.BackofficeModule) },
-  { path: '', redirectTo: '/client/Add-Insurance', pathMatch: 'full' }, // Redirect to client by default
+  { path: '', redirectTo: '/client/List', pathMatch: 'full' }, // Redirect to client by default
   
 ];
 

@@ -9,8 +9,11 @@ import { DemandeAssuranceService } from 'src/app/client/service/DemandeAssurance
 })
 export class ListAssuranceComponent implements OnInit {
   demandes: AssuranceParticular[] = [];
-  page: number = 1;  // Current page
-  itemsPerPage: number = 5;  // Items per page
+  selectedStatuses: string[] = [];
+  allStatuses = ['EN_ATTENTE', 'ACCEPTEE', 'REFUSEE'];
+
+  page: number = 1;
+  itemsPerPage: number = 5;
 
   constructor(private demandeService: DemandeAssuranceService) {}
 
@@ -29,16 +32,31 @@ export class ListAssuranceComponent implements OnInit {
     );
   }
 
-  deleteDemande(id: number | undefined): void {
-    if (!id) {
-      alert("ID invalide pour la suppression !");
-      return;
+  get filteredDemandes(): AssuranceParticular[] {
+    if (this.selectedStatuses.length === 0) return this.demandes;
+    return this.demandes.filter(d => this.selectedStatuses.includes(d.status!));
+  }
+
+  toggleStatusFilter(status: string, event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    if (isChecked) {
+      this.selectedStatuses.push(status);
+    } else {
+      this.selectedStatuses = this.selectedStatuses.filter(s => s !== status);
     }
+  }
+
+  resetFilters(): void {
+    this.selectedStatuses = [];
+  }
+
+  deleteDemande(id: number | undefined): void {
+    if (!id) return;
     if (confirm("Voulez-vous vraiment supprimer cette demande ?")) {
       this.demandeService.deleteDemande(id).subscribe(
         () => {
           alert("Demande supprimée avec succès !");
-          this.getDemandes();  // Refresh the list
+          this.getDemandes();
         },
         (error) => {
           console.error("Erreur lors de la suppression :", error);
@@ -47,17 +65,13 @@ export class ListAssuranceComponent implements OnInit {
       );
     }
   }
-  
+
   updateStatus(id: number, newStatus: string): void {
-    const emailClient = 'kaledgadh0@gmail.com';  // Replace this with the real client email
-  
-    // Log to confirm the status update
-    console.log(`Updating status for demande ${id} to ${newStatus} for email ${emailClient}`);
-    
+    const emailClient = 'kaledgadh0@gmail.com'; // Replace with real email
     this.demandeService.updateStatus(id, newStatus, emailClient).subscribe(
-      (data) => {
+      () => {
         alert("Statut mis à jour avec succès !");
-        this.getDemandes();  // Reload the demandes after status update
+        this.getDemandes();
       },
       (error) => {
         console.error("Erreur lors de la mise à jour du statut !", error);
@@ -65,6 +79,4 @@ export class ListAssuranceComponent implements OnInit {
       }
     );
   }
-  
-  
 }

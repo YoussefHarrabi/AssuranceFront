@@ -1,12 +1,34 @@
 <div class="container mt-5">
   <h2 class="text-center text-primary fw-bold mb-4">📄 Liste des Demandes d'Assurance</h2>
 
+  <!-- Section filtrage par statut -->
+  <div class="mb-4 p-3 bg-light rounded shadow-sm">
+    <label class="form-label fw-bold text-primary">🎯 Filtrer par statut :</label>
+    <div class="d-flex gap-4 flex-wrap">
+      <div class="form-check" *ngFor="let status of allStatuses">
+        <input 
+          class="form-check-input" 
+          type="checkbox" 
+          [value]="status" 
+          [checked]="selectedStatuses.includes(status)"
+          (change)="toggleStatusFilter(status, $event)"
+          id="check-{{ status }}"
+        />
+        <label class="form-check-label fw-medium" [for]="'check-' + status">
+          {{ status }}
+        </label>
+      </div>
+    </div>
+    <button class="btn btn-sm btn-outline-secondary mt-2" (click)="resetFilters()">♻ Réinitialiser</button>
+  </div>
+
+  <!-- Liste des demandes -->
   <div class="row">
     <div
       class="col-md-4 mb-4"
-      *ngFor="let demande of demandes | paginate: { itemsPerPage: itemsPerPage, currentPage: page }"
+      *ngFor="let demande of filteredDemandes | paginate: { itemsPerPage: itemsPerPage, currentPage: page }"
     >
-      <div class="card shadow-lg border-0 rounded-lg animate-hover">
+      <div class="card shadow-lg border-0 rounded-lg">
         <div class="card-body">
           <h5 class="card-title text-dark fw-bold">
             {{ demande.nomAssurance || 'Nom non disponible' }}
@@ -40,27 +62,24 @@
 
         <div class="card-footer bg-light border-0 d-flex flex-wrap gap-2 justify-content-between">
           <button
-            class="btn btn-outline-danger btn-sm shadow-sm"
+            class="btn btn-outline-danger btn-sm"
             (click)="deleteDemande(demande.id!)"
-            *ngIf="demande.id != null"
           >
             <i class="bi bi-trash3"></i> Supprimer
           </button>
 
           <button
-            class="btn btn-outline-info btn-sm"
+            class="btn btn-outline-success btn-sm"
             (click)="updateStatus(demande.id!, 'ACCEPTEE')"
-            *ngIf="demande.id != null"
           >
-            Approuver
+            ✅ Approuver
           </button>
 
           <button
             class="btn btn-outline-danger btn-sm"
-            (click)="updateStatus(demande.id!, 'REJETEE')"
-            *ngIf="demande.id != null"
+            (click)="updateStatus(demande.id!, 'REFUSEE')"
           >
-            Rejeter
+            ❌ Rejeter
           </button>
         </div>
       </div>
@@ -74,3 +93,4 @@
     ></pagination-controls>
   </div>
 </div>
+
