@@ -15,6 +15,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { MfaSetupComponent } from './mfa-setup/mfa-setup.component';
 import { ProfileComponent } from './account/profile/profile.component';
 import { OauthCallbackComponent } from './oauth-callback/oauth-callback.component';
+import { LoyaltyDashboardComponent } from './loyalty/loyalty-dashboard/loyalty-dashboard.component';
+import { ChallengesComponent } from './loyalty/challenges/challenges.component';
+import { BonusesComponent } from './loyalty/bonuses/bonuses.component';
 
 
 @NgModule({
@@ -29,7 +32,10 @@ import { OauthCallbackComponent } from './oauth-callback/oauth-callback.componen
     ResetPasswordComponent,
     MfaSetupComponent,
     ProfileComponent,
-    OauthCallbackComponent
+    OauthCallbackComponent,
+    LoyaltyDashboardComponent,
+    ChallengesComponent,
+    BonusesComponent
   ],
   imports: [
     CommonModule,

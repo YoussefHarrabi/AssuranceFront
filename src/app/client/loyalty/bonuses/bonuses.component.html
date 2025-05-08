@@ -1,0 +1,92 @@
+<div class="bonuses-page">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-12">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a routerLink="/client">Home</a></li>
+              <li class="breadcrumb-item"><a routerLink="/client/loyalty">Loyalty</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Rewards</li>
+            </ol>
+          </nav>
+          
+          <h1 class="mb-4">Available Rewards</h1>
+          <p class="lead">Redeem your loyalty points for these exclusive rewards!</p>
+          
+          <div *ngIf="userLoyalty" class="alert alert-info">
+            <strong>Your current points balance: {{ userLoyalty.loyaltyPoints }}</strong>
+          </div>
+        </div>
+      </div>
+  
+      <div *ngIf="loading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+  
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+  
+      <div *ngIf="!loading && !error" class="row mt-4">
+        <div *ngIf="availableBonuses.length === 0" class="col-12 text-center py-5">
+          <div class="alert alert-info">
+            <h4>No Available Rewards</h4>
+            <p>There are no available rewards at the moment. Please check back later!</p>
+          </div>
+        </div>
+        
+        <div *ngFor="let bonus of availableBonuses" class="col-md-6 col-lg-4 mb-4">
+          <div class="card shadow h-100" [class.border-success]="isBonusRedeemed(bonus.id!)">
+            <!-- Fixed height image container -->
+            <div class="bonus-img-container" style="height: 180px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa;">
+              <img *ngIf="bonus.imageUrl" [src]="bonus.imageUrl" class="img-fluid" style="object-fit: cover; max-height: 100%; width: 100%;" alt="{{ bonus.name }}">
+              <!-- Fallback if no image -->
+              <div *ngIf="!bonus.imageUrl" class="text-center p-4">
+                <i class="fas fa-gift fa-3x text-muted"></i>
+              </div>
+            </div>
+            
+            <div class="card-header" [ngClass]="canRedeem(bonus) ? 'bg-success text-white' : 'bg-secondary text-white'">
+              <h5 class="mb-0">{{ bonus.name }}</h5>
+            </div>
+            
+            <div class="card-body d-flex flex-column" style="height: 180px;">
+              <!-- Description with fixed height -->
+              <div class="flex-grow-1" style="overflow: auto;">
+                <p>{{ bonus.description }}</p>
+              </div>
+              
+              <!-- Fixed section at bottom -->
+              <div class="mt-auto">
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                  <span class="badge bg-warning text-dark">{{ bonus.pointsRequired }} points</span>
+                  
+                  <div *ngIf="isBonusRedeemed(bonus.id!); else redeemBtn">
+                    <span class="badge bg-success">Redeemed</span>
+                  </div>
+                  
+                  <ng-template #redeemBtn>
+                    <button class="btn btn-sm btn-outline-success" 
+                            [disabled]="!canRedeem(bonus)"
+                            (click)="redeemBonus(bonus.id!)">
+                      Redeem
+                    </button>
+                  </ng-template>
+                </div>
+                
+                <div *ngIf="!canRedeem(bonus) && userLoyalty" class="mt-2 text-danger small">
+                  You need {{ bonus.pointsRequired - userLoyalty.loyaltyPoints }} more points to redeem this reward.
+                </div>
+                
+                <div *ngIf="bonus.stock < 10" class="mt-2 small text-danger">
+                  <strong>Stock: {{ bonus.stock }} left</strong> - Limited availability!
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

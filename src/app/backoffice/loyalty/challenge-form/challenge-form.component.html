@@ -1,0 +1,51 @@
+<form [formGroup]="challengeForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Challenge Name*</label>
+      <input type="text" class="form-control" id="name" formControlName="name">
+      <div *ngIf="challengeForm.get('name')?.invalid && challengeForm.get('name')?.touched" class="text-danger">
+        Challenge name is required
+      </div>
+    </div>
+  
+    <div class="mb-3">
+      <label for="description" class="form-label">Description*</label>
+      <textarea class="form-control" id="description" formControlName="description" rows="3"></textarea>
+      <div *ngIf="challengeForm.get('description')?.invalid && challengeForm.get('description')?.touched" class="text-danger">
+        Description is required
+      </div>
+    </div>
+  
+    <div class="mb-3">
+      <label for="pointsAwarded" class="form-label">Points Awarded*</label>
+      <input type="number" class="form-control" id="pointsAwarded" formControlName="pointsAwarded" min="1">
+      <div *ngIf="challengeForm.get('pointsAwarded')?.invalid && challengeForm.get('pointsAwarded')?.touched" class="text-danger">
+        Valid points value is required (minimum 1)
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="startDate" class="form-label">Start Date*</label>
+        <input type="date" class="form-control" id="startDate" formControlName="startDate">
+        <div *ngIf="challengeForm.get('startDate')?.invalid && challengeForm.get('startDate')?.touched" class="text-danger">
+          Start date is required
+        </div>
+      </div>
+  
+      <div class="col-md-6 mb-3">
+        <label for="endDate" class="form-label">End Date (Optional)</label>
+        <input type="date" class="form-control" id="endDate" formControlName="endDate">
+        <small class="form-text text-muted">Leave blank for challenges with no end date</small>
+      </div>
+    </div>
+  
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="isActive" formControlName="isActive">
+      <label class="form-check-label" for="isActive">Active</label>
+    </div>
+  
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="challengeForm.invalid">Save</button>
+    </div>
+  </form>

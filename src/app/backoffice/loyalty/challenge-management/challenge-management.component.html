@@ -1,0 +1,104 @@
+<div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col-md-6 col-8 align-self-center">
+        <h3 class="text-themecolor mb-0 mt-0">Challenge Management</h3>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/backoffice">Backoffice</a></li>
+          <li class="breadcrumb-item active">Challenge Management</li>
+        </ol>
+      </div>
+      <div class="col-md-6 col-4 align-self-center">
+        <button class="btn btn-info float-end" (click)="openCreateForm()">
+          <i class="mdi mdi-plus"></i> Create New Challenge
+        </button>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Loyalty Challenges</h4>
+            <h6 class="card-subtitle">Manage the challenges that users can complete to earn loyalty points</h6>
+            
+            <div *ngIf="loading" class="text-center p-5">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+  
+            <div *ngIf="error" class="alert alert-danger">
+              {{ error }}
+            </div>
+  
+            <div class="table-responsive" *ngIf="!loading && !error">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Points</th>
+                    <th>Date Range</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let challenge of challenges">
+                    <td>{{ challenge.id }}</td>
+                    <td>{{ challenge.name }}</td>
+                    <td>{{ challenge.description }}</td>
+                    <td>{{ challenge.pointsAwarded }}</td>
+                    <td>
+                      {{ challenge.startDate | date:'mediumDate' }} - 
+                      {{ challenge.endDate ? (challenge.endDate | date:'mediumDate') : 'No End Date' }}
+                    </td>
+                    <td>
+                      <span class="badge" [ngClass]="challenge.isActive ? 'bg-success' : 'bg-secondary'">
+                        {{ challenge.isActive ? 'Active' : 'Inactive' }}
+                      </span>
+                    </td>
+                    <td>
+                      <button class="btn btn-sm" 
+                              [ngClass]="challenge.isActive ? 'btn-warning' : 'btn-success'"
+                              (click)="toggleChallengeStatus(challenge)" 
+                              title="{{ challenge.isActive ? 'Deactivate' : 'Activate' }}">
+                        <i class="mdi" [ngClass]="challenge.isActive ? 'mdi-pause' : 'mdi-play'"></i>
+                      </button>
+                      <button class="btn btn-sm btn-info mx-2" (click)="openEditForm(challenge)" title="Edit">
+                        <i class="mdi mdi-pencil"></i>
+                      </button>
+                      <button class="btn btn-sm btn-danger" (click)="deleteChallenge(challenge.id!)" title="Delete">
+                        <i class="mdi mdi-delete"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Challenge Form Modal -->
+    <div *ngIf="showForm" class="modal fade show" style="display: block;" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ selectedChallenge ? 'Edit' : 'Create' }} Challenge</h5>
+            <button type="button" class="btn-close" (click)="closeForm()"></button>
+          </div>
+          <div class="modal-body">
+            <app-challenge-form 
+              [challenge]="selectedChallenge" 
+              (formSubmit)="saveChallenge($event)" 
+              (formCancel)="closeForm()">
+            </app-challenge-form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showForm" class="modal-backdrop fade show"></div>
+  </div>

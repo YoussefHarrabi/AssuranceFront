@@ -33,35 +33,16 @@
                                 </ul>
                             </li>
 
-                            <!-- Features -->
+                            <!-- Loyalty Program (Replaces Features) -->
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="sub-nav2" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
-                                    Features
+                                    Loyalty Program
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="sub-nav2">
-                                    <!-- Headers -->
-                                    <li><a class="dropdown-item dropdown-toggle" href="#">Headers</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item dropdown-toggle" href="#">Header 1</a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="header1-transparent.html">Header 1 Transparent</a></li>
-                                                    <li><a class="dropdown-item" href="header1-light.html">Header 1 Light</a></li>
-                                                    <li><a class="dropdown-item" href="header1-dark.html">Header 1 Dark</a></li>
-                                                    <li><a class="dropdown-item" href="header-megamenu.html">Header Mega menu</a></li>
-                                                </ul>
-                                            </li>
-                                            <!-- Other feature dropdowns remain the same -->
-                                        </ul>
-                                    </li>
-                                    
-                                    <!-- Other Features -->
-                                    <li><a class="dropdown-item" href="team.html">Team Members</a></li>
-                                    <li><a class="dropdown-item" href="pricing-table.html">Pricing Table</a></li>
-                                    <li><a class="dropdown-item" href="testimonials.html">Testimonials</a></li>
-                                    <li><a class="dropdown-item" href="blog.html">Blog</a></li>
-                                    <li><a class="dropdown-item" href="counters.html">Counters</a></li>
-                                    <li><a class="dropdown-item" href="image-hover-effects.html">Image Hover Effects</a></li>
+                                    <li><a class="dropdown-item" routerLink="/client/loyalty">Dashboard</a></li>
+                                    <li><a class="dropdown-item" routerLink="/client/loyalty/challenges">Challenges</a></li>
+                                    <li><a class="dropdown-item" routerLink="/client/loyalty/bonuses">Rewards</a></li>
                                 </ul>
                             </li>
                             
@@ -145,9 +126,6 @@
             <!-- Header Icons -->
             <div class="col-12 col-md-2 col-lg-3 pr-md-0 icons-header-mobile">
                 <div class="fables-header-icons d-flex align-items-center justify-content-end h-100">
-                    <!-- Shopping Cart -->
-              
-                    
                     <!-- Search Icon -->
                     <a href="#" class="open-search fables-third-text-color px-3 px-md-2 px-lg-4 fables-second-hover-color border-0">
                         <span class="fables-iconsearch-icon"></span>
@@ -172,6 +150,9 @@
                                     </a>
                                     <a class="dropdown-item" href="/client/account/security">
                                         <i class="fas fa-shield-alt mr-2"></i> Security Settings
+                                    </a>
+                                    <a class="dropdown-item" routerLink="/client/loyalty">
+                                        <i class="fas fa-award mr-2"></i> Loyalty Program
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <p class="text-muted small px-3 mb-2">

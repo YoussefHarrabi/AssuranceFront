@@ -1,5 +1,5 @@
+import { LoyaltyStatus } from "../Loyalty/loyalty-status.model";
 import { IdentityType, Role } from "./enum";
-
 
 export class User {
   id?: number;
@@ -15,8 +15,12 @@ export class User {
   roles: Set<Role>;
   createdAt?: Date;
   updatedAt?: Date;
-  [key: string]: any; // Add this line
+  
+  // Loyalty program fields
+  loyaltyPoints?: number;
+  loyaltyStatus?: LoyaltyStatus;
 
+  [key: string]: any; // For dynamic properties
 
   constructor(data: Partial<User> = {}) {
     this.id = data.id;
@@ -32,5 +36,7 @@ export class User {
     this.roles = data.roles || new Set<Role>();
     this.createdAt = data.createdAt;
     this.updatedAt = data.updatedAt;
+    this.loyaltyPoints = data.loyaltyPoints || 0;
+    this.loyaltyStatus = data.loyaltyStatus;
   }
 }

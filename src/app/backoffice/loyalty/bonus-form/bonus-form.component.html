@@ -1,0 +1,67 @@
+<form [formGroup]="bonusForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="mb-3">
+          <label for="name" class="form-label">Reward Name*</label>
+          <input type="text" class="form-control" id="name" formControlName="name">
+          <div *ngIf="bonusForm.get('name')?.invalid && bonusForm.get('name')?.touched" class="text-danger">
+            Reward name is required
+          </div>
+        </div>
+  
+        <div class="mb-3">
+          <label for="description" class="form-label">Description*</label>
+          <textarea class="form-control" id="description" formControlName="description" rows="3"></textarea>
+          <div *ngIf="bonusForm.get('description')?.invalid && bonusForm.get('description')?.touched" class="text-danger">
+            Description is required
+          </div>
+        </div>
+  
+        <div class="mb-3">
+          <label for="pointsRequired" class="form-label">Points Required*</label>
+          <input type="number" class="form-control" id="pointsRequired" formControlName="pointsRequired" min="1">
+          <div *ngIf="bonusForm.get('pointsRequired')?.invalid && bonusForm.get('pointsRequired')?.touched" class="text-danger">
+            Valid points value is required (minimum 1)
+          </div>
+        </div>
+  
+        <div class="mb-3">
+          <label for="stock" class="form-label">Stock*</label>
+          <input type="number" class="form-control" id="stock" formControlName="stock" min="0">
+          <div *ngIf="bonusForm.get('stock')?.invalid && bonusForm.get('stock')?.touched" class="text-danger">
+            Valid stock value is required (minimum 0)
+          </div>
+        </div>
+  
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="available" formControlName="available">
+          <label class="form-check-label" for="available">Available for Redemption</label>
+        </div>
+      </div>
+  
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label for="imageUrl" class="form-label">Image URL</label>
+          <input type="text" class="form-control" id="imageUrl" formControlName="imageUrl">
+          <small class="form-text text-muted">Enter a URL for the reward image</small>
+        </div>
+  
+        <div class="mb-3">
+          <label class="form-label">Image Preview</label>
+          <div class="image-preview-container border p-2 text-center" style="min-height: 150px;">
+            <img *ngIf="imagePreview" [src]="imagePreview" alt="Bonus preview" 
+                 class="img-fluid" style="max-height: 150px;">
+            <div *ngIf="!imagePreview" class="text-muted py-5">
+              <i class="mdi mdi-image-outline fa-3x"></i>
+              <p>No image URL provided</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="d-flex justify-content-end mt-3">
+      <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="bonusForm.invalid">Save</button>
+    </div>
+  </form>

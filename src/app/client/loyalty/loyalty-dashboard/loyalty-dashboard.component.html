@@ -1,0 +1,392 @@
+
+<div class="loyalty-dashboard">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-12 text-center mb-5">
+          <h1 class="display-4 fw-bold text-primary">Your Loyalty Journey</h1>
+          <p class="lead">Complete challenges and earn rewards as you progress</p>
+        </div>
+      </div>
+  
+      <div *ngIf="loading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+  
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+  
+      <!-- Tier Progression Bar -->
+      <div *ngIf="!loading && !error && userLoyalty" class="tier-progression mb-5">
+        <div class="tier-bar-container">
+          <div class="tier-levels">
+            <div class="tier-level" [class.active]="userLoyalty.loyaltyStatus?.tier === 'SILVER' || userLoyalty.loyaltyStatus?.tier === 'GOLD' || userLoyalty.loyaltyStatus?.tier === 'PLATINUM'">
+              <div class="tier-icon">
+                <i class="fas fa-star" ></i>
+              </div>
+              <span>Silver</span>
+              <div class="points-threshold">0 pts</div>
+            </div>
+            <div class="tier-level" [class.active]="userLoyalty.loyaltyStatus?.tier === 'GOLD' || userLoyalty.loyaltyStatus?.tier === 'PLATINUM'">
+              <div class="tier-icon">
+                <i class="fas fa-trophy"></i>
+              </div>
+              <span>Gold</span>
+              <div class="points-threshold" *ngIf="getTierThreshold('GOLD')">{{ getTierThreshold('GOLD') }} pts</div>
+            </div>
+            <div class="tier-level" [class.active]="userLoyalty.loyaltyStatus?.tier === 'PLATINUM'">
+                <div class="tier-icon">
+                  <i class="fas fa-gem" ></i>
+                </div>
+                <span>Platinum</span>
+                <div class="points-threshold">{{ getTierThreshold('PLATINUM') }} pts</div>
+              </div>
+          </div>
+          <div class="tier-progress">
+            <div class="tier-progress-bar" [style.width]="getProgramProgress() + '%'"></div>
+          </div>
+          <div class="progress-markers">
+            <div class="progress-marker" *ngFor="let status of getSortedStatuses()" 
+                 [style.left]="getMarkerPosition(status.pointsThreshold) + '%'">
+              <div class="marker-value">{{ status.pointsThreshold }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="points-total text-center mt-4">
+          <div class="current-points">
+            <span class="display-4 fw-bold">{{ userLoyalty.loyaltyPoints || 0 }}</span>
+            <span class="points-label">POINTS</span>
+          </div>
+          <div class="current-status mt-2">
+            <span class="status-label">Current Status: </span>
+            <span class="status-value">{{ userLoyalty.loyaltyStatus?.tier || 'SILVER' }}</span>
+          </div>
+          <div *ngIf="getNextTier()" class="next-level mt-2">
+            <div class="progress-details">
+              <span>{{ getNextTier().pointsNeeded }} more points to reach {{ getNextTier().tier }}</span>
+              <div class="progress rounded-pill mt-2 progress-small">
+                <div class="progress-bar bg-success" role="progressbar"
+                     [style.width]="((userLoyalty.loyaltyPoints || 0) / getNextTier().pointsThreshold) * 100 + '%'"></div>
+              </div>
+              <div class="progress-text">
+                <span>{{ userLoyalty.loyaltyPoints || 0 }} / {{ getNextTier().pointsThreshold }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div *ngIf="!loading && !error && userLoyalty" class="row">
+        <!-- User Loyalty Status -->
+        <div class="col-lg-4 mb-4">
+          <div class="card status-card shadow h-100">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0"><i class="fas fa-star me-2"></i>Your Loyalty Status</h5>
+            </div>
+            <div class="card-body text-center">
+              <div class="tier-badge">
+                <span class="badge rounded-pill bg-primary">{{ userLoyalty.loyaltyStatus?.tier }}</span>
+              </div>
+              
+              <div *ngIf="getNextTier()" class="next-tier mt-4">
+                <p class="mb-1">Next tier: <strong>{{ getNextTier().tier }}</strong></p>
+                <p class="mb-2">You need <strong>{{ getNextTier().pointsNeeded }}</strong> more points</p>
+                <div class="progress rounded-pill">
+                  <div class="progress-bar bg-success" role="progressbar" 
+                      [style.width]="(userLoyalty.loyaltyPoints / getNextTier().pointsThreshold) * 100 + '%'">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="benefits mt-4">
+                <h5 class="benefit-title">Your Benefits</h5>
+                <div class="benefit-list">
+                  <div class="benefit-item" *ngFor="let benefit of getBenefitsList()">
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    <span>{{ benefit }}</span>
+                  </div>
+                  <p *ngIf="getBenefitsList().length === 0">No specific benefits for this tier yet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Available Challenges -->
+        <div class="col-lg-4 mb-4">
+          <div class="card challenge-card shadow h-100">
+            <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+              <h5 class="mb-0"><i class="fas fa-tasks me-2"></i>Available Challenges</h5>
+              <div class="page-indicator small text-white-50" *ngIf="availableChallenges.length > challengesPerPage">
+                Page {{ currentChallengePage }} of {{ getTotalChallengePages() }}
+              </div>
+            </div>
+            <div class="card-body">
+              <div *ngIf="availableChallenges.length === 0" class="text-center py-3">
+                <p>No challenges available right now.</p>
+              </div>
+              
+              <div *ngFor="let challenge of getPaginatedChallenges()" class="challenge-item mb-3 p-3 border rounded">
+                <div class="challenge-header">
+                  <h5>{{ challenge.name }}</h5>
+                  <span class="badge bg-success points-badge">{{ challenge.pointsAwarded }} points</span>
+                </div>
+                <p class="challenge-description">{{ challenge.description }}</p>
+                <div class="challenge-footer d-flex justify-content-between align-items-center">
+                  <div class="challenge-time">
+                    <small *ngIf="challenge.endDate"><i class="far fa-clock me-1"></i> Ends: {{ challenge.endDate | date }}</small>
+                  </div>
+                  
+                  <!-- Show Complete/Completed based on status -->
+                  <div *ngIf="isChallengeCompleted(challenge.id!)">
+                    <span class="badge bg-primary completed-badge"><i class="fas fa-check me-1"></i> Completed</span>
+                  </div>
+                  <button *ngIf="!isChallengeCompleted(challenge.id!)" 
+                          class="btn btn-outline-primary btn-sm" 
+                          (click)="completeChallenge(challenge.id!)">
+                    <i class="fas fa-check-circle me-1"></i> Complete
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Pagination for Challenges -->
+              <div *ngIf="availableChallenges.length > challengesPerPage" class="pagination-controls d-flex justify-content-center mt-3 mb-3">
+                <button class="btn btn-sm btn-outline-primary me-2" 
+                       [disabled]="currentChallengePage === 1"
+                       (click)="prevChallengePage()">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="page-numbers">
+                  <button *ngFor="let page of getChallengePageNumbers()" 
+                         class="btn btn-sm" 
+                         [class.btn-primary]="page === currentChallengePage" 
+                         [class.btn-outline-primary]="page !== currentChallengePage"
+                         (click)="goToChallengePage(page)">
+                    {{ page }}
+                  </button>
+                </div>
+                
+                <button class="btn btn-sm btn-outline-primary ms-2" 
+                       [disabled]="currentChallengePage === getTotalChallengePages()"
+                       (click)="nextChallengePage()">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
+              
+              <div class="text-center mt-3">
+                <a routerLink="/client/loyalty/challenges" class="btn btn-outline-info btn-view-all">
+                  <i class="fas fa-list-ul me-1"></i> View All Challenges
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Available Bonuses -->
+        <div class="col-lg-4 mb-4">
+          <div class="card rewards-card shadow h-100">
+            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+              <h5 class="mb-0"><i class="fas fa-gift me-2"></i>Available Rewards</h5>
+              <div class="page-indicator small text-white-50" *ngIf="availableBonuses.length > bonusesPerPage">
+                Page {{ currentBonusPage }} of {{ getTotalBonusPages() }}
+              </div>
+            </div>
+            <div class="card-body">
+              <div *ngIf="availableBonuses.length === 0" class="text-center py-3">
+                <p>No rewards available right now.</p>
+              </div>
+              
+              <div *ngFor="let bonus of getPaginatedBonuses()" class="bonus-item mb-3 p-3 border rounded">
+                <div class="bonus-header">
+                  <h5>{{ bonus.name }}</h5>
+                  <span class="badge bg-warning text-dark points-badge">{{ bonus.pointsRequired }} points</span>
+                </div>
+                <p class="bonus-description">{{ bonus.description }}</p>
+                <div class="bonus-footer d-flex justify-content-between align-items-center">
+                  <div class="stock-info" *ngIf="bonus.stock">
+                    <small><i class="fas fa-cubes me-1"></i> {{ bonus.stock }} left</small>
+                  </div>
+                  
+                  <!-- Show Redeem/Redeemed based on status -->
+                  <div *ngIf="isBonusRedeemed(bonus.id!)">
+                    <span class="badge bg-success redeemed-badge"><i class="fas fa-check me-1"></i> Redeemed</span>
+                  </div>
+                  <button *ngIf="!isBonusRedeemed(bonus.id!)" 
+                          class="btn btn-outline-success btn-sm" 
+                          [disabled]="userLoyalty.loyaltyPoints < bonus.pointsRequired"
+                          (click)="redeemBonus(bonus.id!)">
+                    <i class="fas fa-gift me-1"></i> Redeem
+                  </button>
+                </div>
+                <div *ngIf="!isBonusRedeemed(bonus.id!) && userLoyalty.loyaltyPoints < bonus.pointsRequired" class="mt-2 points-needed">
+                  <div class="progress rounded-pill">
+                    <div class="progress-bar bg-warning" role="progressbar" 
+                        [style.width]="(userLoyalty.loyaltyPoints / bonus.pointsRequired) * 100 + '%'">
+                    </div>
+                  </div>
+                  <small class="text-muted mt-1 d-block">You need {{ bonus.pointsRequired - userLoyalty.loyaltyPoints }} more points</small>
+                </div>
+              </div>
+              
+              <!-- Pagination for Bonuses -->
+              <div *ngIf="availableBonuses.length > bonusesPerPage" class="pagination-controls d-flex justify-content-center mt-3 mb-3">
+                <button class="btn btn-sm btn-outline-success me-2" 
+                       [disabled]="currentBonusPage === 1"
+                       (click)="prevBonusPage()">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="page-numbers">
+                  <button *ngFor="let page of getBonusPageNumbers()" 
+                         class="btn btn-sm" 
+                         [class.btn-success]="page === currentBonusPage" 
+                         [class.btn-outline-success]="page !== currentBonusPage"
+                         (click)="goToBonusPage(page)">
+                    {{ page }}
+                  </button>
+                </div>
+                
+                <button class="btn btn-sm btn-outline-success ms-2" 
+                       [disabled]="currentBonusPage === getTotalBonusPages()"
+                       (click)="nextBonusPage()">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
+              
+              <div class="text-center mt-3">
+                <a routerLink="/client/loyalty/bonuses" class="btn btn-outline-success btn-view-all">
+                  <i class="fas fa-list-ul me-1"></i> View All Rewards
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Activity History Section -->
+      <div *ngIf="!loading && !error && userLoyalty" class="row mt-4">
+        <div class="col-12">
+          <div class="card shadow activity-card">
+            <div class="card-header bg-light">
+              <ul class="nav nav-tabs card-header-tabs" id="activityTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="challenges-tab" data-bs-toggle="tab" data-bs-target="#challenges" type="button" role="tab" aria-controls="challenges" aria-selected="true">
+                    <i class="fas fa-trophy me-1"></i> Completed Challenges
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="rewards-tab" data-bs-toggle="tab" data-bs-target="#rewards" type="button" role="tab" aria-controls="rewards" aria-selected="false">
+                    <i class="fas fa-gift me-1"></i> Redeemed Rewards
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <div class="tab-content" id="activityTabsContent">
+                <!-- Completed Challenges Tab -->
+                <div class="tab-pane fade show active" id="challenges" role="tabpanel" aria-labelledby="challenges-tab">
+                  <div *ngIf="completedChallengeIds && completedChallengeIds.length > 0" class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Challenge</th>
+                          <th>Description</th>
+                          <th class="text-end">Points Awarded</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let challengeId of getPaginatedCompletedChallenges()">
+                          <td><span class="fw-bold">{{ getChallengeById(challengeId)?.name }}</span></td>
+                          <td>{{ getChallengeById(challengeId)?.description }}</td>
+                          <td class="text-end"><span class="badge bg-success">+{{ getChallengeById(challengeId)?.pointsAwarded }}</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    
+                    <!-- Pagination for Completed Challenges Table -->
+                    <div *ngIf="completedChallengeIds.length > historyItemsPerPage" class="d-flex justify-content-between align-items-center mt-3">
+                      <div class="page-info small text-muted">
+                        Showing {{ getCompletedChallengesStartIndex() + 1 }}-{{ getCompletedChallengesEndIndex() }} of {{ completedChallengeIds.length }}
+                      </div>
+                      <div class="pagination-controls">
+                        <button class="btn btn-sm btn-outline-secondary me-2" 
+                               [disabled]="completedChallengePage === 1"
+                               (click)="prevCompletedChallengePage()">
+                          <i class="fas fa-chevron-left"></i>
+                        </button>
+                        
+                        <button class="btn btn-sm btn-outline-secondary ms-2" 
+                               [disabled]="completedChallengePage === getTotalCompletedChallengePages()"
+                               (click)="nextCompletedChallengePage()">
+                          <i class="fas fa-chevron-right"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="!completedChallengeIds || completedChallengeIds.length === 0" class="text-center py-4">
+                    <div class="empty-state">
+                      <i class="fas fa-trophy fs-1 text-muted mb-3"></i>
+                      <h5>No Completed Challenges Yet</h5>
+                      <p>Complete challenges to earn points and see them listed here.</p>
+                    </div>
+                  </div>
+                </div>
+  
+                <!-- Redeemed Rewards Tab -->
+                <div class="tab-pane fade" id="rewards" role="tabpanel" aria-labelledby="rewards-tab">
+                  <div *ngIf="redeemedBonusIds && redeemedBonusIds.length > 0" class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Reward</th>
+                          <th>Description</th>
+                          <th class="text-end">Points Used</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let bonusId of getPaginatedRedeemedBonuses()">
+                          <td><span class="fw-bold">{{ getBonusById(bonusId)?.name }}</span></td>
+                          <td>{{ getBonusById(bonusId)?.description }}</td>
+                          <td class="text-end"><span class="badge bg-warning text-dark">{{ getBonusById(bonusId)?.pointsRequired }}</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    
+                    <!-- Pagination for Redeemed Bonuses Table -->
+                    <div *ngIf="redeemedBonusIds.length > historyItemsPerPage" class="d-flex justify-content-between align-items-center mt-3">
+                      <div class="page-info small text-muted">
+                        Showing {{ getRedeemedBonusesStartIndex() + 1 }}-{{ getRedeemedBonusesEndIndex() }} of {{ redeemedBonusIds.length }}
+                      </div>
+                      <div class="pagination-controls">
+                        <button class="btn btn-sm btn-outline-secondary me-2" 
+                               [disabled]="redeemedBonusPage === 1"
+                               (click)="prevRedeemedBonusPage()">
+                          <i class="fas fa-chevron-left"></i>
+                        </button>
+                        
+                        <button class="btn btn-sm btn-outline-secondary ms-2" 
+                               [disabled]="redeemedBonusPage === getTotalRedeemedBonusPages()"
+                               (click)="nextRedeemedBonusPage()">
+                          <i class="fas fa-chevron-right"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="!redeemedBonusIds || redeemedBonusIds.length === 0" class="text-center py-4">
+                    <div class="empty-state">
+                      <i class="fas fa-gift fs-1 text-muted mb-3"></i>
+                      <h5>No Redeemed Rewards Yet</h5>
+                      <p>Redeem rewards with your points to see them listed here.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

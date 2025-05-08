@@ -1,0 +1,111 @@
+<div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col-md-6 col-8 align-self-center">
+        <h3 class="text-themecolor mb-0 mt-0">Reward Management</h3>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/backoffice">Backoffice</a></li>
+          <li class="breadcrumb-item active">Reward Management</li>
+        </ol>
+      </div>
+      <div class="col-md-6 col-4 align-self-center">
+        <button class="btn btn-info float-end" (click)="openCreateForm()">
+          <i class="mdi mdi-plus"></i> Create New Reward
+        </button>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Loyalty Rewards</h4>
+            <h6 class="card-subtitle">Manage the rewards that users can redeem with their loyalty points</h6>
+            
+            <div *ngIf="loading" class="text-center p-5">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+  
+            <div *ngIf="error" class="alert alert-danger">
+              {{ error }}
+            </div>
+  
+            <div class="table-responsive" *ngIf="!loading && !error">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Points</th>
+                    <th>Stock</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let bonus of bonuses">
+                    <td>{{ bonus.id }}</td>
+                    <td>
+                      <img *ngIf="bonus.imageUrl" [src]="bonus.imageUrl" alt="{{ bonus.name }}" 
+                           class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
+                      <span *ngIf="!bonus.imageUrl" class="badge bg-secondary">No Image</span>
+                    </td>
+                    <td>{{ bonus.name }}</td>
+                    <td>{{ bonus.description }}</td>
+                    <td>{{ bonus.pointsRequired }}</td>
+                    <td>
+                      <span [ngClass]="{'text-danger': bonus.stock < 10}">
+                        {{ bonus.stock }}
+                      </span>
+                    </td>
+                    <td>
+                      <span class="badge" [ngClass]="bonus.isAvailable ? 'bg-success' : 'bg-secondary'">
+                        {{ bonus.isAvailable ? 'Available' : 'Unavailable' }}
+                      </span>
+                    </td>
+                    <td>
+                      <button class="btn btn-sm" 
+                              [ngClass]="bonus.isAvailable ? 'btn-warning' : 'btn-success'"
+                              (click)="toggleBonusAvailability(bonus)" 
+                              title="{{ bonus.isAvailable ? 'Make Unavailable' : 'Make Available' }}">
+                        <i class="mdi" [ngClass]="bonus.isAvailable ? 'mdi-eye-off' : 'mdi-eye'"></i>
+                      </button>
+                      <button class="btn btn-sm btn-info mx-2" (click)="openEditForm(bonus)" title="Edit">
+                        <i class="mdi mdi-pencil"></i>
+                      </button>
+                      <button class="btn btn-sm btn-danger" (click)="deleteBonus(bonus.id!)" title="Delete">
+                        <i class="mdi mdi-delete"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Bonus Form Modal -->
+    <div *ngIf="showForm" class="modal fade show" style="display: block;" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ selectedBonus ? 'Edit' : 'Create' }} Reward</h5>
+            <button type="button" class="btn-close" (click)="closeForm()"></button>
+          </div>
+          <div class="modal-body">
+            <app-bonus-form 
+              [bonus]="selectedBonus" 
+              (formSubmit)="saveBonus($event)" 
+              (formCancel)="closeForm()">
+            </app-bonus-form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showForm" class="modal-backdrop fade show"></div>
+  </div>

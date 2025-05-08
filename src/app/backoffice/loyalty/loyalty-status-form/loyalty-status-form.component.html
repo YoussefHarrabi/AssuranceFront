@@ -1,0 +1,40 @@
+<form [formGroup]="statusForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="tier" class="form-label">Tier Name*</label>
+      <input type="text" class="form-control" id="tier" formControlName="tier" placeholder="e.g., Silver, Gold, Platinum">
+      <div *ngIf="statusForm.get('tier')?.invalid && statusForm.get('tier')?.touched" class="text-danger">
+        Tier name is required
+      </div>
+    </div>
+  
+    <div class="mb-3">
+      <label for="description" class="form-label">Description*</label>
+      <textarea class="form-control" id="description" formControlName="description" rows="3"></textarea>
+      <div *ngIf="statusForm.get('description')?.invalid && statusForm.get('description')?.touched" class="text-danger">
+        Description is required
+      </div>
+    </div>
+  
+    <div class="mb-3">
+      <label for="pointsThreshold" class="form-label">Points Threshold*</label>
+      <input type="number" class="form-control" id="pointsThreshold" formControlName="pointsThreshold" min="0">
+      <div *ngIf="statusForm.get('pointsThreshold')?.invalid && statusForm.get('pointsThreshold')?.touched" class="text-danger">
+        Valid points threshold is required (minimum 0)
+      </div>
+    </div>
+  
+    <div class="mb-3">
+      <label for="benefits" class="form-label">Benefits*</label>
+      <textarea class="form-control" id="benefits" formControlName="benefits" rows="4" 
+                placeholder="Enter benefits separated by commas"></textarea>
+      <small class="form-text text-muted">Separate different benefits with commas (e.g., "10% discount,Free shipping,Priority support")</small>
+      <div *ngIf="statusForm.get('benefits')?.invalid && statusForm.get('benefits')?.touched" class="text-danger">
+        Benefits are required
+      </div>
+    </div>
+  
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="statusForm.invalid">Save</button>
+    </div>
+  </form>

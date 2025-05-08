@@ -11,6 +11,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { UpdateUsersComponent } from './GestionUsers/update-users/update-users.component';
 import { BackofficeAuthGuard } from './guards/backoffice-auth.guard';
 import { BackofficeUnauthorizedComponent } from './backoffice-unauthorized/backoffice-unauthorized.component';
+import { BonusManagementComponent } from './loyalty/bonus-management/bonus-management.component';
+import { ChallengeManagementComponent } from './loyalty/challenge-management/challenge-management.component';
+import { LoyaltyStatusManagementComponent } from './loyalty/loyalty-status-management/loyalty-status-management.component';
 
 const routes: Routes = [
   {
@@ -22,6 +25,18 @@ const routes: Routes = [
       {path:'adduser',component:AddUsersComponent,canActivate: [BackofficeAuthGuard],},
       {path:'updateuser/:id',component:UpdateUsersComponent,canActivate: [BackofficeAuthGuard],},
      
+      { 
+        path: 'statuses', 
+        component: LoyaltyStatusManagementComponent 
+      },
+      { 
+        path: 'challenges', 
+        component: ChallengeManagementComponent 
+      },
+      { 
+        path: 'bonuses', 
+        component: BonusManagementComponent 
+      },
       
       
      

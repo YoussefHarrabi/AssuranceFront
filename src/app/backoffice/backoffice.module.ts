@@ -17,6 +17,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { BackofficeUnauthorizedComponent } from './backoffice-unauthorized/backoffice-unauthorized.component';
 import { BackofficeAuthGuard } from './guards/backoffice-auth.guard';
+import { LoyaltyStatusManagementComponent } from './loyalty/loyalty-status-management/loyalty-status-management.component';
+import { ChallengeManagementComponent } from './loyalty/challenge-management/challenge-management.component';
+import { BonusManagementComponent } from './loyalty/bonus-management/bonus-management.component';
+import { LoyaltyStatusFormComponent } from './loyalty/loyalty-status-form/loyalty-status-form.component';
+import { ChallengeFormComponent } from './loyalty/challenge-form/challenge-form.component';
+import { BonusFormComponent } from './loyalty/bonus-form/bonus-form.component';
 
 
 @NgModule({
@@ -33,7 +39,13 @@ import { BackofficeAuthGuard } from './guards/backoffice-auth.guard';
     AddUsersComponent,
     UpdateUsersComponent,
     NotFoundComponent,
-    BackofficeUnauthorizedComponent
+    BackofficeUnauthorizedComponent,
+    LoyaltyStatusManagementComponent,
+    ChallengeManagementComponent,
+    BonusManagementComponent,
+    LoyaltyStatusFormComponent,
+    ChallengeFormComponent,
+    BonusFormComponent
   ],
   imports: [
     CommonModule,

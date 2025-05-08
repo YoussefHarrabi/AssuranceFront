@@ -1,0 +1,93 @@
+<div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col-md-6 col-8 align-self-center">
+        <h3 class="text-themecolor mb-0 mt-0">Loyalty Status Management</h3>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/backoffice">Backoffice</a></li>
+          <li class="breadcrumb-item active">Loyalty Status Management</li>
+        </ol>
+      </div>
+      <div class="col-md-6 col-4 align-self-center">
+        <button class="btn btn-info float-end" (click)="openCreateForm()">
+          <i class="mdi mdi-plus"></i> Create New Status
+        </button>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Loyalty Status Tiers</h4>
+            <h6 class="card-subtitle">Manage the loyalty status tiers available to users</h6>
+            
+            <div *ngIf="loading" class="text-center p-5">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+  
+            <div *ngIf="error" class="alert alert-danger">
+              {{ error }}
+            </div>
+  
+            <div class="table-responsive" *ngIf="!loading && !error">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Tier</th>
+                    <th>Description</th>
+                    <th>Points Threshold</th>
+                    <th>Benefits</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let status of statuses">
+                    <td>{{ status.id }}</td>
+                    <td>{{ status.tier }}</td>
+                    <td>{{ status.description }}</td>
+                    <td>{{ status.pointsThreshold }}</td>
+                    <td>
+                      <ul class="mb-0 ps-3">
+                        <li *ngFor="let benefit of status.benefits?.split(',')">{{ benefit }}</li>
+                      </ul>
+                    </td>
+                    <td>
+                      <button class="btn btn-sm btn-info me-2" (click)="openEditForm(status)">
+                        <i class="mdi mdi-pencil"></i>
+                      </button>
+                      <button class="btn btn-sm btn-danger" (click)="deleteStatus(status.id!)">
+                        <i class="mdi mdi-delete"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Status Form Modal -->
+    <div *ngIf="showForm" class="modal fade show" style="display: block;" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ selectedStatus ? 'Edit' : 'Create' }} Loyalty Status</h5>
+            <button type="button" class="btn-close" (click)="closeForm()"></button>
+          </div>
+          <div class="modal-body">
+            <app-loyalty-status-form 
+              [status]="selectedStatus" 
+              (formSubmit)="saveStatus($event)" 
+              (formCancel)="closeForm()">
+            </app-loyalty-status-form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showForm" class="modal-backdrop fade show"></div>
+  </div>

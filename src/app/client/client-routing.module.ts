@@ -9,6 +9,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { MfaSetupComponent } from './mfa-setup/mfa-setup.component';
 import { ProfileComponent } from './account/profile/profile.component';
 import { OauthCallbackComponent } from './oauth-callback/oauth-callback.component';
+import { BonusesComponent } from './loyalty/bonuses/bonuses.component';
+import { ChallengesComponent } from './loyalty/challenges/challenges.component';
+import { LoyaltyDashboardComponent } from './loyalty/loyalty-dashboard/loyalty-dashboard.component';
 
 
 const routes: Routes = [
@@ -32,7 +35,19 @@ const routes: Routes = [
         component: MfaSetupComponent,
        
       },
-      
+       // Loyalty program routes
+       {
+        path: 'loyalty',
+        component: LoyaltyDashboardComponent,
+      },
+      {
+        path: 'loyalty/challenges',
+        component: ChallengesComponent,
+      },
+      {
+        path: 'loyalty/bonuses',
+        component: BonusesComponent,
+      }
     ]
   }
 ];
