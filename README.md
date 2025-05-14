@@ -29,3 +29,7 @@ This frontend application was developed using **Angular**, with a focus on:
 | Containerization| Docker                       |
 | UI/UX           | Angular Material, SCSS       |
 
+
+ #Esprit_school_of_engineering 🎓
+
+
